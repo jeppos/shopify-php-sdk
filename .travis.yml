@@ -1,0 +1,15 @@
+language: php
+sudo: false
+
+php:
+  - '7.1'
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+script:
+  - ant build-ci
+
+after_script:
+  - php vendor/bin/codacycoverage clover build/clover.xml

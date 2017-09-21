@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jeppos/shopify-php-api-client" default="build">
+    <property name="toolsdir" value="./vendor/bin/"/>
+    <property name="basedir" value=""/>
+
+    <target name="build" depends="composer,lint,phpcs,phpmd" description=""/>
+    <target name="build-ci" depends="prepare-ci,composer,lint" description=""/>
+
+    <target name="clean-ci" unless="clean.done">
+        <delete dir="${basedir}/build"/>
+        <property name="clean.done" value="true"/>
+    </target>
+
+    <target name="prepare-ci" unless="prepare.done" depends="clean-ci">
+        <mkdir dir="${basedir}/build"/>
+        <property name="prepare.done" value="true"/>
+    </target>
+
+    <target name="lint">
+        <apply executable="php" failonerror="true">
+            <arg value="-l"/>
+
+            <fileset dir="${basedir}/src">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+
+            <fileset dir="${basedir}/tests">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
+        </apply>
+    </target>
+
+    <target name="composer">
+        <exec executable="composer" failonerror="true">
+            <arg value="install"/>
+            <arg value="--prefer-dist"/>
+            <arg value="--no-progress"/>
+        </exec>
+    </target>
+
+    <target name="phpmd">
+        <exec executable="${toolsdir}phpmd">
+            <arg path="${basedir}/src"/>
+            <arg value="text"/>
+            <arg path="${basedir}/codesize.xml"/>
+        </exec>
+    </target>
+
+    <target name="phpcs">
+        <exec executable="${toolsdir}phpcs">
+            <arg value="--standard="/>
+            <arg path="${basedir}/phpcs.xml"/>
+        </exec>
+    </target>
+
+    <!--<target name="phpunit-ci" depends="prepare-ci">-->
+        <!--<exec executable="${toolsdir}phpunit" failonerror="true">-->
+            <!--<arg value="&#45;&#45;configuration"/>-->
+            <!--<arg path="${basedir}/phpunit.xml"/>-->
+            <!--<arg value="&#45;&#45;coverage-clover"/>-->
+            <!--<arg path="${basedir}/build/clover.xml"/>-->
+        <!--</exec>-->
+    <!--</target>-->
+
+    <!--<target name="phpunit">-->
+        <!--<exec executable="${toolsdir}phpunit" failonerror="true">-->
+            <!--<arg value="&#45;&#45;configuration"/>-->
+            <!--<arg path="${basedir}/phpunit.xml"/>-->
+        <!--</exec>-->
+    <!--</target>-->
+</project>
