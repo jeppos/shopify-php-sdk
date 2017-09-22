@@ -49,12 +49,15 @@ abstract class AbstractService
     /**
      * @return string
      */
-    abstract protected function getSingular(): string;
+    abstract protected function getResourceKey(): string;
 
     /**
      * @return string
      */
-    abstract protected function getPlural(): string;
+    protected function getResourceKeyPluralized(): string
+    {
+        return $this->getResourceKey() . 's';
+    }
 
     /**
      * @param string $type
@@ -64,18 +67,19 @@ abstract class AbstractService
     private function deserialize(string $type, ResponseInterface $response)
     {
         $object = \GuzzleHttp\json_decode($response->getBody()->getContents());
+        $json = \GuzzleHttp\json_encode($object->{$this->getResourceKey()});
 
-        return $this->serializer->deserialize(\GuzzleHttp\json_encode($object->{$this->getSingular()}), $type, 'json');
+        return $this->serializer->deserialize($json, $type, 'json');
     }
 
     /**
-     * @param int[null $id
+     * @param int|null $id
      * @param array $options
      * @return string
      */
     private function buildUri(?int $id, array $options): string
     {
-        $uri = implode('/', array_filter(['admin', $this->getPlural(), $id]));
+        $uri = implode('/', array_filter(['admin', $this->getResourceKeyPluralized(), $id]));
 
         return $uri . '.json?' . http_build_query($options);
     }

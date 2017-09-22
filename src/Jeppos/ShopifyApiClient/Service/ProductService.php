@@ -22,16 +22,8 @@ class ProductService extends AbstractService
     /**
      * @return string
      */
-    protected function getSingular(): string
+    protected function getResourceKey(): string
     {
         return 'product';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getPlural(): string
-    {
-        return 'products';
     }
 }
