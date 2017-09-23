@@ -20,8 +20,12 @@ Following example shows how to get a single product.
 ```php
 <?php
 
+include __DIR__ . '/vendor/autoload.php';
+\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+
 use Jeppos\ShopifyApiClient\SerializerFactory;
 use Jeppos\ShopifyApiClient\Service\ProductService;
+use Jeppos\ShopifyApiClient\Client\ShopifyClient;
 
 $guzzleClient = new \GuzzleHttp\Client([
     'base_uri' => 'https://your-store-name.myshopify.com/',
@@ -31,7 +35,9 @@ $guzzleClient = new \GuzzleHttp\Client([
     ]
 ]);
 
-$productService = new ProductService($guzzleClient, SerializerFactory::create());
+$shopifyClient = new ShopifyClient($guzzleClient);
+
+$productService = new ProductService($shopifyClient, SerializerFactory::create());
 
 $product = $productService->getOneById(123456789);
 

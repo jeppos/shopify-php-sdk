@@ -33,18 +33,24 @@ class Product
     protected $title;
 
     /**
+     * TODO Can this be null?
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $bodyHtml;
 
     /**
+     * TODO Can this be null?
+     *
      * @var string
      * @Serializer\Type("string")
      */
     protected $vendor;
 
     /**
+     * TODO Can this be null?
+     *
      * @var string
      * @Serializer\Type("string")
      */
@@ -87,6 +93,8 @@ class Product
     protected $publishedScope;
 
     /**
+     * TODO Can this be null?
+     *
      * @var string
      * @Serializer\Type("string")
      */

@@ -25,10 +25,10 @@
                 <modified/>
             </fileset>
 
-            <!--<fileset dir="${basedir}/tests">-->
-                <!--<include name="**/*.php"/>-->
-                <!--<modified/>-->
-            <!--</fileset>-->
+            <fileset dir="${basedir}/tests">
+                <include name="**/*.php"/>
+                <modified/>
+            </fileset>
         </apply>
     </target>
 
@@ -55,19 +55,19 @@
         </exec>
     </target>
 
-    <!--<target name="phpunit-ci" depends="prepare-ci">-->
-        <!--<exec executable="${toolsdir}phpunit" failonerror="true">-->
-            <!--<arg value="&#45;&#45;configuration"/>-->
-            <!--<arg path="${basedir}/phpunit.xml"/>-->
-            <!--<arg value="&#45;&#45;coverage-clover"/>-->
-            <!--<arg path="${basedir}/build/clover.xml"/>-->
-        <!--</exec>-->
-    <!--</target>-->
+    <target name="phpunit-ci" depends="prepare-ci">
+        <exec executable="${toolsdir}phpunit" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/phpunit.xml"/>
+            <arg value="--coverage-clover"/>
+            <arg path="${basedir}/build/clover.xml"/>
+        </exec>
+    </target>
 
-    <!--<target name="phpunit">-->
-        <!--<exec executable="${toolsdir}phpunit" failonerror="true">-->
-            <!--<arg value="&#45;&#45;configuration"/>-->
-            <!--<arg path="${basedir}/phpunit.xml"/>-->
-        <!--</exec>-->
-    <!--</target>-->
+    <target name="phpunit">
+        <exec executable="${toolsdir}phpunit" failonerror="true">
+            <arg value="--configuration"/>
+            <arg path="${basedir}/phpunit.xml"/>
+        </exec>
+    </target>
 </project>
