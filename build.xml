@@ -3,8 +3,8 @@
     <property name="toolsdir" value="./vendor/bin/"/>
     <property name="basedir" value=""/>
 
-    <target name="build" depends="composer,lint,phpcs,phpmd" description=""/>
-    <target name="build-ci" depends="prepare-ci,composer,lint" description=""/>
+    <target name="build" depends="composer,lint,phpcs,phpmd,phpunit" description=""/>
+    <target name="build-ci" depends="prepare-ci,composer,lint,phpunit-ci" description=""/>
 
     <target name="clean-ci" unless="clean.done">
         <delete dir="${basedir}/build"/>

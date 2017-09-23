@@ -32,11 +32,9 @@ class ShopifyClient
      */
     public function get(string $key, $resource = null, array $options = []): string
     {
-        $response = $this->client->request('GET', $this->buildUri($key, $resource, $options));
+        $response = $this->getField($key, $key, $resource, $options);
 
-        // TODO Error handling
-        $object = \GuzzleHttp\json_decode($response->getBody()->getContents());
-        return \GuzzleHttp\json_encode($object->{$key});
+        return \GuzzleHttp\json_encode($response);
     }
 
     /**
@@ -47,17 +45,30 @@ class ShopifyClient
      */
     public function getList(string $key, $resource = null, array $options = []): array
     {
+        $response = $this->getField($key, $this->pluralizeKey($key), $resource, $options);
+
+        return array_map(
+            function ($resource) {
+                return \GuzzleHttp\json_encode($resource);
+            },
+            $response
+        );
+    }
+
+    /**
+     * @param string $key
+     * @param string $field
+     * @param mixed $resource
+     * @param array $options
+     * @return mixed
+     */
+    public function getField(string $key, string $field, $resource = null, array $options = [])
+    {
         $response = $this->client->request('GET', $this->buildUri($key, $resource, $options));
 
         // TODO Error handling
         $object = \GuzzleHttp\json_decode($response->getBody()->getContents());
-
-        return array_map(
-            function ($resource) use ($key) {
-                return \GuzzleHttp\json_encode($resource);
-            },
-            $object->{$this->pluralizeKey($key)}
-        );
+        return $object->{$field};
     }
 
     /**

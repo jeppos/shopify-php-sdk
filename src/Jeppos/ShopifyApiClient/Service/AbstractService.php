@@ -32,38 +32,12 @@ abstract class AbstractService
     }
 
     /**
-     * @param string $type
-     * @param int|string|null $resource
-     * @param array $options
-     * @return mixed
+     * @return string
      */
-    protected function get(string $type, $resource = null, array $options = [])
-    {
-        $json = $this->client->get($this->getResourceKey(), $resource, $options);
-
-        return $this->serializer->deserialize($json, $type, 'json');
-    }
-
-    /**
-     * @param string $type
-     * @param int|string|null $resource
-     * @param array $options
-     * @return array
-     */
-    protected function getList(string $type, $resource = null, array $options = []): array
-    {
-        $response = $this->client->getList($this->getResourceKey(), $resource, $options);
-
-        return array_map(
-            function ($json) use ($type) {
-                return $this->serializer->deserialize($json, $type, 'json');
-            },
-            $response
-        );
-    }
+    abstract protected function getResourceKey(): string;
 
     /**
      * @return string
      */
-    abstract protected function getResourceKey(): string;
+    abstract protected function getResourceModel(): string;
 }

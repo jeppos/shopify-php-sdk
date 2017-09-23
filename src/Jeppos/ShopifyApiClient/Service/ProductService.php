@@ -16,15 +16,34 @@ class ProductService extends AbstractService
      */
     public function getOneById(int $id): Product
     {
-        return $this->get(Product::class, $id);
+        $json = $this->client->get($this->getResourceKey(), $id);
+
+        return $this->serializer->deserialize($json, $this->getResourceModel(), 'json');
     }
 
     /**
-     * @return Product[]
+     * @param array $options
+     * @return array
      */
-    public function getAll(): array
+    public function getList(array $options = []): array
     {
-        return $this->getList(Product::class);
+        $response = $this->client->getList($this->getResourceKey(), null, $options);
+
+        return array_map(
+            function ($json) {
+                return $this->serializer->deserialize($json, $this->getResourceModel(), 'json');
+            },
+            $response
+        );
+    }
+
+    /**
+     * @param array $options
+     * @return int
+     */
+    public function getCount(array $options = []): int
+    {
+        return $this->client->getField($this->getResourceKey(), 'count', 'count', $options);
     }
 
     /**
@@ -33,5 +52,13 @@ class ProductService extends AbstractService
     protected function getResourceKey(): string
     {
         return 'product';
+    }
+
+    /**
+     * @return string
+     */
+    protected function getResourceModel(): string
+    {
+        return Product::class;
     }
 }
