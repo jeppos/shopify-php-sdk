@@ -20,6 +20,14 @@ class ProductService extends AbstractService
     }
 
     /**
+     * @return Product[]
+     */
+    public function getAll(): array
+    {
+        return $this->getList(Product::class);
+    }
+
+    /**
      * @return string
      */
     protected function getResourceKey(): string
