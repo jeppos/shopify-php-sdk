@@ -9,16 +9,16 @@
 namespace Tests\Jeppos\ShopifyApiClient\Service;
 
 use Jeppos\ShopifyApiClient\Client\ShopifyClient;
-use Jeppos\ShopifyApiClient\Model\Product;
-use Jeppos\ShopifyApiClient\Service\ProductService;
+use Jeppos\ShopifyApiClient\Model\ProductImage;
+use Jeppos\ShopifyApiClient\Service\ProductImageService;
 use JMS\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Class ProductServiceTest
+ * Class ProductImageServiceTest
  * @package Tests\Jeppos\ShopifyApiClient\Service
  */
-class ProductServiceTest extends TestCase
+class ProductImageServiceTest extends TestCase
 {
     /**
      * @var \PHPUnit_Framework_MockObject_MockObject|ShopifyClient
@@ -29,7 +29,7 @@ class ProductServiceTest extends TestCase
      */
     private $serializerMock;
     /**
-     * @var ProductService
+     * @var ProductImageService
      */
     private $sut;
 
@@ -37,71 +37,71 @@ class ProductServiceTest extends TestCase
     {
         $this->clientMock = $this->createMock(ShopifyClient::class);
         $this->serializerMock = $this->createMock(Serializer::class);
-        $this->sut = new ProductService($this->clientMock, $this->serializerMock);
+        $this->sut = new ProductImageService($this->clientMock, $this->serializerMock);
     }
 
-    public function testGetOneProductById()
+    public function testGetOneProductImageById()
     {
-        $product = ['id' => 123];
+        $variant = ['id' => 123];
 
         $this->clientMock
             ->expects($this->once())
             ->method('get')
-            ->with('products/123.json')
-            ->willReturn($product);
+            ->with('products/123/images/987.json')
+            ->willReturn($variant);
 
         $this->serializerMock
             ->expects($this->once())
             ->method('fromArray')
-            ->with($product, Product::class)
-            ->willReturn(new Product());
+            ->with($variant, ProductImage::class)
+            ->willReturn(new ProductImage());
 
-        $actual = $this->sut->getOne(123);
+        $actual = $this->sut->getOne(123, 987);
 
-        $this->assertInstanceOf(Product::class, $actual);
+        $this->assertInstanceOf(ProductImage::class, $actual);
     }
 
-    public function testGetListOfProducts()
+    public function testGetListOfProductImages()
     {
-        $product1 = [
+        $image1 = [
             'id' => 123
         ];
-        $product2 = [
+        $image2 = [
             'id' => 456
         ];
 
         $this->clientMock
             ->expects($this->once())
             ->method('get')
-            ->with('products.json', [])
-            ->willReturn([$product1, $product2]);
+            ->with('products/123/images.json', [])
+            ->willReturn([$image1, $image2]);
 
         $this->serializerMock
             ->expects($this->at(0))
             ->method('fromArray')
-            ->with($product1, Product::class)
-            ->willReturn(new Product());
+            ->with($image1, ProductImage::class)
+            ->willReturn(new ProductImage());
 
         $this->serializerMock
             ->expects($this->at(1))
             ->method('fromArray')
-            ->with($product2, Product::class)
-            ->willReturn(new Product());
+            ->with($image2, ProductImage::class)
+            ->willReturn(new ProductImage());
 
-        $actual = $this->sut->getList();
+        $actual = $this->sut->getList(123);
 
-        $this->assertContainsOnlyInstancesOf(Product::class, $actual);
+        $this->assertContainsOnlyInstancesOf(ProductImage::class, $actual);
     }
 
-    public function testGetProductCount()
+    public function testGetProductImageCount()
     {
         $this->clientMock
             ->expects($this->once())
             ->method('get')
-            ->with('products/count.json', [])
+            ->with('products/123/images/count.json', [])
             ->willReturn(56);
 
-        $actual = $this->sut->getCount();
+        $actual = $this->sut->getCount(123);
 
         $this->assertSame(56, $actual);
     }

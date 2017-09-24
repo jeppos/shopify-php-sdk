@@ -30,28 +30,4 @@ abstract class AbstractService
         $this->client = $client;
         $this->serializer = $serializer;
     }
-
-    /**
-     * @return string
-     */
-    abstract protected function getResourceKey(): string;
-
-    /**
-     * @return string
-     */
-    protected function getPluralizedResourceKey(): string
-    {
-        return $this->getResourceKey() . 's';
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $resource
-     * @param string $prefix
-     * @return string
-     */
-    protected function buildUri($resource = null, string $prefix = null, string $key = null): string
-    {
-        return implode('/', array_filter([$key ?: $this->getPluralizedResourceKey(), $prefix, $resource])) . '.json';
-    }
 }

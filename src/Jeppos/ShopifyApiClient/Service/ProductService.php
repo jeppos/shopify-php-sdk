@@ -11,23 +11,23 @@ use Jeppos\ShopifyApiClient\Model\Product;
 class ProductService extends AbstractService
 {
     /**
-     * @param int $id
+     * @param int $productId
      * @return Product
      */
-    public function getOneById(int $id): Product
+    public function getOne(int $productId): Product
     {
-        $response = $this->client->get($this->buildUri($id));
+        $response = $this->client->get(sprintf('products/%d.json', $productId));
 
         return $this->serializer->fromArray($response, Product::class);
     }
 
     /**
      * @param array $options
-     * @return array
+     * @return Product[]
      */
     public function getList(array $options = []): array
     {
-        $response = $this->client->get($this->buildUri(), $options);
+        $response = $this->client->get('products.json', $options);
 
         return array_map(
             function ($response) {
@@ -43,7 +43,7 @@ class ProductService extends AbstractService
      */
     public function getCount(array $options = []): int
     {
-        return $this->client->get($this->buildUri('count'), $options);
+        return $this->client->get('products/count.json', $options);
     }
 
     /**
