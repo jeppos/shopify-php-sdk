@@ -6,7 +6,7 @@ use Jeppos\ShopifyApiClient\Client\ShopifyClient;
 use JMS\Serializer\Serializer;
 
 /**
- * Class AbstractCallService
+ * Class AbstractService
  * @package Jeppos\ShopifyApiClient\Service
  */
 abstract class AbstractService
@@ -21,7 +21,7 @@ abstract class AbstractService
     protected $serializer;
 
     /**
-     * AbstractCallService constructor.
+     * AbstractService constructor.
      * @param ShopifyClient $client
      * @param Serializer $serializer
      */
@@ -29,5 +29,30 @@ abstract class AbstractService
     {
         $this->client = $client;
         $this->serializer = $serializer;
+    }
+
+    /**
+     * @param array $array
+     * @param string $className
+     * @return mixed
+     */
+    protected function deserialize(array $array, string $className)
+    {
+        return $this->serializer->fromArray($array, $className);
+    }
+
+    /**
+     * @param array $array
+     * @param string $className
+     * @return array
+     */
+    protected function deserializeList(array $array, string $className): array
+    {
+        return array_map(
+            function ($response) use ($className) {
+                return $this->serializer->fromArray($response, $className);
+            },
+            $array
+        );
     }
 }

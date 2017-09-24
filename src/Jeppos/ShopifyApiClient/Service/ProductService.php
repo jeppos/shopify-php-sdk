@@ -18,7 +18,7 @@ class ProductService extends AbstractService
     {
         $response = $this->client->get(sprintf('products/%d.json', $productId));
 
-        return $this->serializer->fromArray($response, Product::class);
+        return $this->deserialize($response, Product::class);
     }
 
     /**
@@ -29,12 +29,7 @@ class ProductService extends AbstractService
     {
         $response = $this->client->get('products.json', $options);
 
-        return array_map(
-            function ($response) {
-                return $this->serializer->fromArray($response, Product::class);
-            },
-            $response
-        );
+        return $this->deserializeList($response, Product::class);
     }
 
     /**
@@ -44,13 +39,5 @@ class ProductService extends AbstractService
     public function getCount(array $options = []): int
     {
         return $this->client->get('products/count.json', $options);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getResourceKey(): string
-    {
-        return 'product';
     }
 }
