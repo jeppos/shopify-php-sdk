@@ -25,71 +25,17 @@ class ShopifyClient
     }
 
     /**
-     * @param string $key
-     * @param mixed $resource
-     * @param array $options
-     * @return string
-     */
-    public function get(string $key, $resource = null, array $options = []): string
-    {
-        $response = $this->getField($key, $key, $resource, $options);
-
-        return \GuzzleHttp\json_encode($response);
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $resource
-     * @param array $options
-     * @return array
-     */
-    public function getList(string $key, $resource = null, array $options = []): array
-    {
-        $response = $this->getField($key, $this->pluralizeKey($key), $resource, $options);
-
-        return array_map(
-            function ($resource) {
-                return \GuzzleHttp\json_encode($resource);
-            },
-            $response
-        );
-    }
-
-    /**
-     * @param string $key
-     * @param string $field
-     * @param mixed $resource
-     * @param array $options
+     * @param string $uri
+     * @param array $query
      * @return mixed
      */
-    public function getField(string $key, string $field, $resource = null, array $options = [])
+    public function get(string $uri, array $query = [])
     {
-        $response = $this->client->request('GET', $this->buildUri($key, $resource, $options));
+        $response = $this->client->request('GET', '/admin/' . $uri . '?' . http_build_query($query));
 
         // TODO Error handling
-        $object = \GuzzleHttp\json_decode($response->getBody()->getContents());
-        return $object->{$field};
-    }
+        $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
 
-    /**
-     * @param string $key
-     * @return string
-     */
-    private function pluralizeKey(string $key): string
-    {
-        return $key . 's';
-    }
-
-    /**
-     * @param string $key
-     * @param mixed $resource
-     * @param array $options
-     * @return string
-     */
-    private function buildUri(string $key, $resource, array $options): string
-    {
-        $uri = implode('/', array_filter(['admin', $this->pluralizeKey($key), $resource]));
-
-        return $uri . '.json?' . http_build_query($options);
+        return array_pop($object);
     }
 }

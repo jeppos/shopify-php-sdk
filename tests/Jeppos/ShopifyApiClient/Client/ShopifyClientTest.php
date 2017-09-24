@@ -16,10 +16,8 @@ class ShopifyClientTest extends TestCase
 {
     public function testGetResource()
     {
-        $expectedJson = '{"field":"value"}';
-
         $mock = new MockHandler([
-            new Response(200, [], '{"mock":' . $expectedJson . '}'),
+            new Response(200, [], '{"mock":{"field":"value"}}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -27,17 +25,15 @@ class ShopifyClientTest extends TestCase
         $guzzleClient = new Client(['handler' => $handler]);
         $sut = new ShopifyClient($guzzleClient);
 
-        $actual = $sut->get('mock', 'any-resource');
+        $actual = $sut->get('mock/resource');
 
-        $this->assertEquals($expectedJson, $actual);
+        $this->assertEquals(['field' => 'value'], $actual);
     }
 
     public function testGetListOfResources()
     {
-        $expectedJson = ['{"field":"value"}', '{"field":"value"}'];
-
         $mock = new MockHandler([
-            new Response(200, [], '{"mocks":[' . implode(',', $expectedJson) . ']}'),
+            new Response(200, [], '{"mocks":[{"field":"value"},{"field":"value"}]}'),
         ]);
 
         $handler = HandlerStack::create($mock);
@@ -45,8 +41,15 @@ class ShopifyClientTest extends TestCase
         $guzzleClient = new Client(['handler' => $handler]);
         $sut = new ShopifyClient($guzzleClient);
 
-        $actual = $sut->getList('mock', 'any-resource');
+        $actual = $sut->get('mock/resource');
 
-        $this->assertEquals($expectedJson, $actual);
+        $this->assertEquals([
+            [
+                'field' => 'value'
+            ],
+            [
+                'field' => 'value'
+            ]
+        ], $actual);
     }
 }

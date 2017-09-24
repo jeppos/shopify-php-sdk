@@ -16,9 +16,9 @@ class ProductService extends AbstractService
      */
     public function getOneById(int $id): Product
     {
-        $json = $this->client->get($this->getResourceKey(), $id);
+        $response = $this->client->get($this->buildUri($id));
 
-        return $this->serializer->deserialize($json, $this->getResourceModel(), 'json');
+        return $this->serializer->fromArray($response, Product::class);
     }
 
     /**
@@ -27,11 +27,11 @@ class ProductService extends AbstractService
      */
     public function getList(array $options = []): array
     {
-        $response = $this->client->getList($this->getResourceKey(), null, $options);
+        $response = $this->client->get($this->buildUri(), $options);
 
         return array_map(
-            function ($json) {
-                return $this->serializer->deserialize($json, $this->getResourceModel(), 'json');
+            function ($response) {
+                return $this->serializer->fromArray($response, Product::class);
             },
             $response
         );
@@ -43,7 +43,7 @@ class ProductService extends AbstractService
      */
     public function getCount(array $options = []): int
     {
-        return $this->client->getField($this->getResourceKey(), 'count', 'count', $options);
+        return $this->client->get($this->buildUri('count'), $options);
     }
 
     /**
@@ -52,13 +52,5 @@ class ProductService extends AbstractService
     protected function getResourceKey(): string
     {
         return 'product';
-    }
-
-    /**
-     * @return string
-     */
-    protected function getResourceModel(): string
-    {
-        return Product::class;
     }
 }

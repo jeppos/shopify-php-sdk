@@ -3,7 +3,7 @@
 namespace Jeppos\ShopifyApiClient\Service;
 
 use Jeppos\ShopifyApiClient\Client\ShopifyClient;
-use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\Serializer;
 
 /**
  * Class AbstractCallService
@@ -16,16 +16,16 @@ abstract class AbstractService
      */
     protected $client;
     /**
-     * @var SerializerInterface
+     * @var Serializer
      */
     protected $serializer;
 
     /**
      * AbstractCallService constructor.
      * @param ShopifyClient $client
-     * @param SerializerInterface $serializer
+     * @param Serializer $serializer
      */
-    public function __construct(ShopifyClient $client, SerializerInterface $serializer)
+    public function __construct(ShopifyClient $client, Serializer $serializer)
     {
         $this->client = $client;
         $this->serializer = $serializer;
@@ -39,5 +39,19 @@ abstract class AbstractService
     /**
      * @return string
      */
-    abstract protected function getResourceModel(): string;
+    protected function getPluralizedResourceKey(): string
+    {
+        return $this->getResourceKey() . 's';
+    }
+
+    /**
+     * @param string $key
+     * @param mixed $resource
+     * @param string $prefix
+     * @return string
+     */
+    protected function buildUri($resource = null, string $prefix = null, string $key = null): string
+    {
+        return implode('/', array_filter([$key ?: $this->getPluralizedResourceKey(), $prefix, $resource])) . '.json';
+    }
 }

@@ -11,7 +11,7 @@ namespace Tests\Jeppos\ShopifyApiClient\Service;
 use Jeppos\ShopifyApiClient\Client\ShopifyClient;
 use Jeppos\ShopifyApiClient\Model\Product;
 use Jeppos\ShopifyApiClient\Service\ProductService;
-use JMS\Serializer\SerializerInterface;
+use JMS\Serializer\Serializer;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -25,7 +25,7 @@ class ProductServiceTest extends TestCase
      */
     private $clientMock;
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|SerializerInterface
+     * @var \PHPUnit_Framework_MockObject_MockObject|Serializer
      */
     private $serializerMock;
     /**
@@ -36,24 +36,24 @@ class ProductServiceTest extends TestCase
     protected function setUp()
     {
         $this->clientMock = $this->createMock(ShopifyClient::class);
-        $this->serializerMock = $this->createMock(SerializerInterface::class);
+        $this->serializerMock = $this->createMock(Serializer::class);
         $this->sut = new ProductService($this->clientMock, $this->serializerMock);
     }
 
     public function testGetOneProductById()
     {
-        $json = '{"id":123}';
+        $product = ['id' => 123];
 
         $this->clientMock
             ->expects($this->once())
             ->method('get')
-            ->with('product', 123)
-            ->willReturn($json);
+            ->with('products/123.json')
+            ->willReturn($product);
 
         $this->serializerMock
             ->expects($this->once())
-            ->method('deserialize')
-            ->with($json, Product::class, 'json')
+            ->method('fromArray')
+            ->with($product, Product::class)
             ->willReturn(new Product());
 
         $actual = $this->sut->getOneById(123);
@@ -63,18 +63,29 @@ class ProductServiceTest extends TestCase
 
     public function testGetListOfProducts()
     {
-        $json = '{"id":123}';
+        $product1 = [
+            'id' => 123
+        ];
+        $product2 = [
+            'id' => 456
+        ];
 
         $this->clientMock
             ->expects($this->once())
-            ->method('getList')
-            ->with('product', null, [])
-            ->willReturn([$json, $json]);
+            ->method('get')
+            ->with('products.json', [])
+            ->willReturn([$product1, $product2]);
 
         $this->serializerMock
-            ->expects($this->exactly(2))
-            ->method('deserialize')
-            ->with($json, Product::class, 'json')
+            ->expects($this->at(0))
+            ->method('fromArray')
+            ->with($product1, Product::class)
+            ->willReturn(new Product());
+
+        $this->serializerMock
+            ->expects($this->at(1))
+            ->method('fromArray')
+            ->with($product2, Product::class)
             ->willReturn(new Product());
 
         $actual = $this->sut->getList();
@@ -86,8 +97,8 @@ class ProductServiceTest extends TestCase
     {
         $this->clientMock
             ->expects($this->once())
-            ->method('getField')
-            ->with('product', 'count', 'count', [])
+            ->method('get')
+            ->with('products/count.json', [])
             ->willReturn(56);
 
         $actual = $this->sut->getCount();
