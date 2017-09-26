@@ -5,10 +5,7 @@ namespace Jeppos\ShopifyApiClient\Model;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * Products are easier to sell if customers can see pictures of them, which is why there are product images.
- *
- * Any product may have up to 250 images, and images can be in .png, .gif or .jpg format.
- *
+ * Class ProductImage
  * @package Jeppos\ShopifyApiClient\Model
  */
 class ProductImage
@@ -16,56 +13,72 @@ class ProductImage
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "put"})
      */
     protected $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $productId;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $position;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $updatedAt;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get"})
      */
     protected $width;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get"})
      */
     protected $height;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $src;
 
     /**
      * @var int[]
      * @Serializer\Type("array<integer>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $variantIds;
+
+    /**
+     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"post", "put"})
+     */
+    protected $attachment;
 
     /**
      * A unique numeric identifier for the product image.
@@ -142,17 +155,6 @@ class ProductImage
     }
 
     /**
-     * @param \DateTime $createdAt
-     * @return ProductImage
-     */
-    public function setCreatedAt(\DateTime $createdAt): ProductImage
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * The date and time when the product image was last modified.
      *
      * @return \DateTime
@@ -160,17 +162,6 @@ class ProductImage
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     * @return ProductImage
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): ProductImage
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -184,17 +175,6 @@ class ProductImage
     }
 
     /**
-     * @param int $width
-     * @return ProductImage
-     */
-    public function setWidth(int $width): ProductImage
-    {
-        $this->width = $width;
-
-        return $this;
-    }
-
-    /**
      * Height dimension of the image which is determined on upload.
      *
      * @return int
@@ -202,17 +182,6 @@ class ProductImage
     public function getHeight(): int
     {
         return $this->height;
-    }
-
-    /**
-     * @param int $height
-     * @return ProductImage
-     */
-    public function setHeight(int $height): ProductImage
-    {
-        $this->height = $height;
-
-        return $this;
     }
 
     /**
@@ -253,6 +222,17 @@ class ProductImage
     public function setVariantIds(array $variantIds): ProductImage
     {
         $this->variantIds = $variantIds;
+
+        return $this;
+    }
+
+    /**
+     * @param string $attachment
+     * @return ProductImage
+     */
+    public function setAttachment(string $attachment): ProductImage
+    {
+        $this->attachment = $attachment;
 
         return $this;
     }

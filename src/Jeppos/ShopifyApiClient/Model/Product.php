@@ -6,14 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * A Product is an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
- * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product,
- * as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
- * Simply put: if it's something for sale in a store, then it's a product.
- *
- * A product may have up to 100 product variants and from 0 to 250 product images.
- * A product may also be a part of a custom collection and/or a smart collection.
- *
+ * Class Product
  * @package Jeppos\ShopifyApiClient\Model
  *
  * TODO Add metafields_global_title_tag and metafields_global_description_tag?
@@ -23,12 +16,14 @@ class Product
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "put"})
      */
     protected $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $title;
 
@@ -37,6 +32,7 @@ class Product
      *
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $bodyHtml;
 
@@ -45,6 +41,7 @@ class Product
      *
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $vendor;
 
@@ -53,76 +50,93 @@ class Product
      *
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $productType;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $createdAt;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $handle;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $updatedAt;
 
     /**
      * @var null|\DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $publishedAt;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $templateSuffix;
 
     /**
      * @var PublishedScope
      * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\PublishedScope, string>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $publishedScope;
 
     /**
-     * TODO Can this be null?
-     *
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $tags;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductVariant>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $variants;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductOption>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $options;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductImage>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $images;
 
     /**
      * @var ProductImage
      * @Serializer\Type("Jeppos\ShopifyApiClient\Model\ProductImage")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $image;
+
+    /**
+     * @var bool
+     * @Serializer\Type("boolean")
+     * @Serializer\Groups({"post", "put"})
+     */
+    protected $published;
 
     /**
      * Product constructor.
@@ -254,17 +268,6 @@ class Product
     }
 
     /**
-     * @param \DateTime $createdAt
-     * @return Product
-     */
-    public function setCreatedAt(\DateTime $createdAt): Product
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * A human-friendly unique string for the Product automatically generated from its title.
      * They are used by the Liquid templating language to refer to objects.
      *
@@ -297,17 +300,6 @@ class Product
     }
 
     /**
-     * @param \DateTime $updatedAt
-     * @return Product
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): Product
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
      * The date and time when the product was published to the Online Store channel.
      * A value of null indicates that the product is not published to Online Store.
      *
@@ -316,17 +308,6 @@ class Product
     public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
-    }
-
-    /**
-     * @param null|\DateTime $publishedAt
-     * @return Product
-     */
-    public function setPublishedAt(?\DateTime $publishedAt): Product
-    {
-        $this->publishedAt = $publishedAt;
-
-        return $this;
     }
 
     /**
@@ -402,7 +383,7 @@ class Product
      * To reorder variants, update the product with the variants in the desired order.
      * The position attribute on the variant will be ignored.
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|ProductVariant[]
      */
     public function getVariants(): ArrayCollection
     {
@@ -421,11 +402,33 @@ class Product
     }
 
     /**
+     * @param ProductVariant $variant
+     * @return Product
+     */
+    public function addVariant(ProductVariant $variant): Product
+    {
+        $this->variants->add($variant);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductVariant $variant
+     * @return Product
+     */
+    public function removeVariant(ProductVariant $variant): Product
+    {
+        $this->variants->removeElement($variant);
+
+        return $this;
+    }
+
+    /**
      * Custom product property names like "Size", "Color", and "Material".
      * Products are based on permutations of these options.
      * A product may have a maximum of 3 options. 255 characters limit each.
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|ProductOption[]
      */
     public function getOptions(): ArrayCollection
     {
@@ -444,9 +447,31 @@ class Product
     }
 
     /**
+     * @param ProductOption $option
+     * @return Product
+     */
+    public function addOption(ProductOption $option): Product
+    {
+        $this->options->add($option);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductOption $option
+     * @return Product
+     */
+    public function removeOption(ProductOption $option): Product
+    {
+        $this->options->removeElement($option);
+
+        return $this;
+    }
+
+    /**
      * A list of image objects, each one representing an image associated with the product.
      *
-     * @return ArrayCollection
+     * @return ArrayCollection|ProductImage[]
      */
     public function getImages(): ArrayCollection
     {
@@ -460,6 +485,28 @@ class Product
     public function setImages(ArrayCollection $images): Product
     {
         $this->images = $images;
+
+        return $this;
+    }
+
+    /**
+     * @param ProductImage $image
+     * @return Product
+     */
+    public function addImage(ProductImage $image): Product
+    {
+        $this->images->add($image);
+
+        return $this;
+    }
+
+    /**
+     * @param ProductImage $image
+     * @return Product
+     */
+    public function removeImage(ProductImage $image): Product
+    {
+        $this->images->removeElement($image);
 
         return $this;
     }
@@ -479,6 +526,25 @@ class Product
     public function setImage(ProductImage $image): Product
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPublished(): bool
+    {
+        return $this->getPublishedAt() !== null;
+    }
+
+    /**
+     * @param bool $published
+     * @return Product
+     */
+    public function setPublished(bool $published): Product
+    {
+        $this->published = $published;
 
         return $this;
     }

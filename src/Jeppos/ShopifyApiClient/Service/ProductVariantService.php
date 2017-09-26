@@ -5,12 +5,22 @@ namespace Jeppos\ShopifyApiClient\Service;
 use Jeppos\ShopifyApiClient\Model\ProductVariant;
 
 /**
- * Class ProductVariantService
- * @package Jeppos\ShopifyApiClient\Service
+ * A ProductVariant is a different version of a product, such as differing sizes or differing colors.
+ *
+ * Without product variants, you would have to treat the small, medium and large versions of a t-shirt as
+ * three separate products; product variants let you treat the small, medium and large versions of a
+ * t-shirt as variations of the same product.
+ *
+ * Each product can have a maximum of 100 variants.
+ *
+ * @see https://help.shopify.com/api/reference/product_variant
  */
 class ProductVariantService extends AbstractService
 {
     /**
+     * Receive a single Product Variant
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#show
      * @param int $variantId
      * @return ProductVariant
      */
@@ -22,6 +32,9 @@ class ProductVariantService extends AbstractService
     }
 
     /**
+     * Receive a list of all Product Variants
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#index
      * @param int $productId
      * @param array $options
      * @return array
@@ -34,6 +47,9 @@ class ProductVariantService extends AbstractService
     }
 
     /**
+     * Receive a count of all Product Variants
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#count
      * @param int $productId
      * @param array $options
      * @return int

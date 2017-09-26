@@ -3,6 +3,7 @@
 namespace Jeppos\ShopifyApiClient\Service;
 
 use Jeppos\ShopifyApiClient\Client\ShopifyClient;
+use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\Serializer;
 
 /**
@@ -38,7 +39,10 @@ abstract class AbstractService
      */
     protected function deserialize(array $array, string $className)
     {
-        return $this->serializer->fromArray($array, $className);
+        $context = DeserializationContext::create();
+        $context->setGroups(['get']);
+
+        return $this->serializer->fromArray($array, $className, $context);
     }
 
     /**
@@ -50,7 +54,10 @@ abstract class AbstractService
     {
         return array_map(
             function ($response) use ($className) {
-                return $this->serializer->fromArray($response, $className);
+                $context = DeserializationContext::create();
+                $context->setGroups(['get']);
+
+                return $this->serializer->fromArray($response, $className, $context);
             },
             $array
         );

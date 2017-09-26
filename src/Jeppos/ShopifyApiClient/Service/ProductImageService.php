@@ -5,12 +5,18 @@ namespace Jeppos\ShopifyApiClient\Service;
 use Jeppos\ShopifyApiClient\Model\ProductImage;
 
 /**
- * Class ProductImageService
- * @package Jeppos\ShopifyApiClient\Service
+ * Products are easier to sell if customers can see pictures of them, which is why there are product images.
+ *
+ * Any product may have up to 250 images, and images can be in .png, .gif or .jpg format.
+ *
+ * @see https://help.shopify.com/api/reference/product_image
  */
 class ProductImageService extends AbstractService
 {
     /**
+     * Receive a single Product Image
+     *
+     * @see https://help.shopify.com/api/reference/product_image#show
      * @param int $productId
      * @param int $imageId
      * @return ProductImage
@@ -23,6 +29,9 @@ class ProductImageService extends AbstractService
     }
 
     /**
+     * Receive a list of all Product Images
+     *
+     * @see https://help.shopify.com/api/reference/product_image#index
      * @param int $productId
      * @param array $options
      * @return ProductImage[]
@@ -35,6 +44,9 @@ class ProductImageService extends AbstractService
     }
 
     /**
+     * Receive a count of all Product Images
+     *
+     * @see https://help.shopify.com/api/reference/product_image#count
      * @param int $productId
      * @param array $options
      * @return int

@@ -5,14 +5,7 @@ namespace Jeppos\ShopifyApiClient\Model;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * A ProductVariant is a different version of a product, such as differing sizes or differing colors.
- *
- * Without product variants, you would have to treat the small, medium and large versions of a t-shirt as
- * three separate products; product variants let you treat the small, medium and large versions of a
- * t-shirt as variations of the same product.
- *
- * Each product can have a maximum of 100 variants.
- *
+ * Class ProductVariant
  * @package Jeppos\ShopifyApiClient\Model
  *
  * TODO Add metafield and inventory_quantity_adjustment, only on update?
@@ -22,146 +15,181 @@ class ProductVariant
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "put"})
      */
     protected $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $productId;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $title;
 
     /**
      * @var float
      * @Serializer\Type("float")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $price;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $sku;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $position;
 
     /**
      * @var int
      * @Serializer\Type("int")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $grams;
 
     /**
      * @var InventoryPolicy
      * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\InventoryPolicy, string>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryPolicy;
 
     /**
      * @var null|float
      * @Serializer\Type("float")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $compareAtPrice;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $fulfillmentService;
 
     /**
      * @var InventoryManagement
      * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\InventoryManagement, string>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryManagement;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $option1;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $option2;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $option3;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $createdAt;
 
     /**
+     * TODO Nullable?
+     *
      * @var \DateTime
      * @Serializer\Type("DateTime")
+     * @Serializer\Groups({"get"})
      */
     protected $updatedAt;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $taxable;
 
     /**
      * @var string
      * @Serializer\Type("string")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $barcode;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $imageId;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryQuantity;
 
     /**
      * @var float
      * @Serializer\Type("float")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $weight;
 
     /**
      * @var WeightUnit
      * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\WeightUnit, string>")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $weightUnit;
 
     /**
      * @var int
      * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $oldInventoryQuantity;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
+     * @Serializer\Groups({"get", "post", "put"})
      */
     protected $requiresShipping;
+
+    /**
+     * TODO Only on update
+     *
+     * @var int
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"put"})
+     */
+    protected $inventoryQuantityAdjustment;
 
     /**
      * The unique numeric identifier for the product variant.
@@ -431,7 +459,7 @@ class ProductVariant
      * @param null|string $option2
      * @return ProductVariant
      */
-    public function setOption2(?string $option2)
+    public function setOption2(?string $option2): ProductVariant
     {
         $this->option2 = $option2;
 
@@ -452,7 +480,7 @@ class ProductVariant
      * @param null|string $option3
      * @return ProductVariant
      */
-    public function setOption3(?string $option3)
+    public function setOption3(?string $option3): ProductVariant
     {
         $this->option3 = $option3;
 
@@ -470,17 +498,6 @@ class ProductVariant
     }
 
     /**
-     * @param \DateTime $createdAt
-     * @return ProductVariant
-     */
-    public function setCreatedAt(\DateTime $createdAt): ProductVariant
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * The date and time when the product variant was last modified.
      *
      * @return \DateTime
@@ -488,17 +505,6 @@ class ProductVariant
     public function getUpdatedAt(): \DateTime
     {
         return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     * @return ProductVariant
-     */
-    public function setUpdatedAt(\DateTime $updatedAt): ProductVariant
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
     }
 
     /**
@@ -668,6 +674,17 @@ class ProductVariant
     public function setRequiresShipping(bool $requiresShipping): ProductVariant
     {
         $this->requiresShipping = $requiresShipping;
+
+        return $this;
+    }
+
+    /**
+     * @param int $inventoryQuantityAdjustment
+     * @return ProductVariant
+     */
+    public function setInventoryQuantityAdjustment(int $inventoryQuantityAdjustment): ProductVariant
+    {
+        $this->inventoryQuantityAdjustment = $inventoryQuantityAdjustment;
 
         return $this;
     }
