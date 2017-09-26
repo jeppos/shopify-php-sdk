@@ -56,4 +56,45 @@ class ProductService extends AbstractService
     {
         return $this->client->get('products/count.json', $options);
     }
+
+    /**
+     * Create a new Product
+     *
+     * @param Product $product
+     * @return Product
+     */
+    public function createOne(Product $product): Product
+    {
+        $response = $this->client->post('product', 'products.json', $this->serializePost($product));
+
+        return $this->deserialize($response, Product::class);
+    }
+
+    /**
+     * Modify an existing Product
+     *
+     * @param Product $product
+     * @return Product
+     */
+    public function updateOne(Product $product): Product
+    {
+        $response = $this->client->put(
+            'product',
+            sprintf('products/%d.json', $product->getId()),
+            $this->serializePut($product)
+        );
+
+        return $this->deserialize($response, Product::class);
+    }
+
+    /**
+     * Remove a Product from the database
+     *
+     * @param int $productId
+     * @return bool
+     */
+    public function deleteOne(int $productId): bool
+    {
+        return $this->client->delete(sprintf('products/%d.json', $productId));
+    }
 }

@@ -4,6 +4,7 @@ namespace Jeppos\ShopifyApiClient\Service;
 
 use Jeppos\ShopifyApiClient\Client\ShopifyClient;
 use JMS\Serializer\DeserializationContext;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
 
 /**
@@ -61,5 +62,31 @@ abstract class AbstractService
             },
             $array
         );
+    }
+
+    /**
+     * @param $object
+     * @return string
+     */
+    protected function serializePost($object): string
+    {
+        $serializationContent = SerializationContext::create();
+        $serializationContent->setGroups(['post']);
+        $serializationContent->setSerializeNull(false);
+
+        return $this->serializer->serialize($object, 'json', $serializationContent);
+    }
+
+    /**
+     * @param $object
+     * @return string
+     */
+    protected function serializePut($object): string
+    {
+        $serializationContent = SerializationContext::create();
+        $serializationContent->setGroups(['put']);
+        $serializationContent->setSerializeNull(false);
+
+        return $this->serializer->serialize($object, 'json', $serializationContent);
     }
 }

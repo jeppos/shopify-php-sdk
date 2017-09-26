@@ -28,17 +28,13 @@ class Product
     protected $title;
 
     /**
-     * TODO Can this be null?
-     *
-     * @var string
+     * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $bodyHtml;
 
     /**
-     * TODO Can this be null?
-     *
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
@@ -46,8 +42,6 @@ class Product
     protected $vendor;
 
     /**
-     * TODO Can this be null?
-     *
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
@@ -143,9 +137,9 @@ class Product
      */
     public function __construct()
     {
-        $this->variants = new ArrayCollection();
-        $this->options = new ArrayCollection();
-        $this->images = new ArrayCollection();
+//        $this->variants = new ArrayCollection();
+//        $this->options = new ArrayCollection();
+//        $this->images = new ArrayCollection();
     }
 
     /**
@@ -197,9 +191,9 @@ class Product
     /**
      * The description of the product, complete with HTML formatting.
      *
-     * @return string
+     * @return null|string
      */
-    public function getBodyHtml(): string
+    public function getBodyHtml(): ?string
     {
         return $this->bodyHtml;
     }
@@ -517,17 +511,6 @@ class Product
     public function getImage(): ProductImage
     {
         return $this->image;
-    }
-
-    /**
-     * @param ProductImage $image
-     * @return Product
-     */
-    public function setImage(ProductImage $image): Product
-    {
-        $this->image = $image;
-
-        return $this;
     }
 
     /**
