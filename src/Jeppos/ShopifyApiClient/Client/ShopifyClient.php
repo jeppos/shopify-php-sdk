@@ -60,16 +60,7 @@ class ShopifyClient
      */
     public function post(string $key, string $uri, string $body)
     {
-        $body = '{"' . $key . '":' . $body . '}';
-
-        $response = $this->client->request('POST', '/admin/' . $uri, [
-            'body' => $body
-        ]);
-
-        // TODO Error handling
-        $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-
-        return array_pop($object);
+        return $this->putOrPost('POST', $uri, $body, $key);
     }
 
     /**
@@ -80,9 +71,21 @@ class ShopifyClient
      */
     public function put(string $key, string $uri, string $body)
     {
+        return $this->putOrPost('PUT', $uri, $body, $key);
+    }
+
+    /**
+     * @param string $method
+     * @param string $uri
+     * @param string $body
+     * @param string $key
+     * @return mixed
+     */
+    public function putOrPost(string $method, string $uri, string $body, string $key)
+    {
         $body = '{"' . $key . '":' . $body . '}';
 
-        $response = $this->client->request('PUT', '/admin/' . $uri, [
+        $response = $this->client->request($method, '/admin/' . $uri, [
             'body' => $body
         ]);
 

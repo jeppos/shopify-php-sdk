@@ -9,10 +9,12 @@ use JMS\Serializer\Annotation as Serializer;
  * Class Product
  * @package Jeppos\ShopifyApiClient\Model
  *
- * TODO Add metafields_global_title_tag and metafields_global_description_tag?
+ * @see https://help.shopify.com/api/reference/product
  */
 class Product
 {
+    use ArrayCollectionValidatorTrait;
+
     /**
      * @var int
      * @Serializer\Type("integer")
@@ -133,14 +135,18 @@ class Product
     protected $published;
 
     /**
-     * Product constructor.
+     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"post", "put"})
      */
-    public function __construct()
-    {
-//        $this->variants = new ArrayCollection();
-//        $this->options = new ArrayCollection();
-//        $this->images = new ArrayCollection();
-    }
+    protected $metafieldsGlobalTitleTag;
+
+    /**
+     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"post", "put"})
+     */
+    protected $metafieldsGlobalDescriptionTag;
 
     /**
      * The unique numeric identifier for the product.
@@ -401,6 +407,8 @@ class Product
      */
     public function addVariant(ProductVariant $variant): Product
     {
+        $this->validateThatFieldIsArrayCollection('variants');
+
         $this->variants->add($variant);
 
         return $this;
@@ -412,6 +420,8 @@ class Product
      */
     public function removeVariant(ProductVariant $variant): Product
     {
+        $this->validateThatFieldIsArrayCollection('variants');
+
         $this->variants->removeElement($variant);
 
         return $this;
@@ -446,6 +456,8 @@ class Product
      */
     public function addOption(ProductOption $option): Product
     {
+        $this->validateThatFieldIsArrayCollection('option');
+
         $this->options->add($option);
 
         return $this;
@@ -457,6 +469,8 @@ class Product
      */
     public function removeOption(ProductOption $option): Product
     {
+        $this->validateThatFieldIsArrayCollection('option');
+
         $this->options->removeElement($option);
 
         return $this;
@@ -486,9 +500,12 @@ class Product
     /**
      * @param ProductImage $image
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function addImage(ProductImage $image): Product
     {
+        $this->validateThatFieldIsArrayCollection('images');
+
         $this->images->add($image);
 
         return $this;
@@ -497,9 +514,12 @@ class Product
     /**
      * @param ProductImage $image
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function removeImage(ProductImage $image): Product
     {
+        $this->validateThatFieldIsArrayCollection('images');
+
         $this->images->removeElement($image);
 
         return $this;
@@ -528,6 +548,32 @@ class Product
     public function setPublished(bool $published): Product
     {
         $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Name of the product used for SEO purposes. Generally added to the <meta name='title'> tag.
+     *
+     * @param string $metafieldsGlobalTitleTag
+     * @return Product
+     */
+    public function setMetafieldsGlobalTitleTag(string $metafieldsGlobalTitleTag): Product
+    {
+        $this->metafieldsGlobalTitleTag = $metafieldsGlobalTitleTag;
+
+        return $this;
+    }
+
+    /**
+     * Description of the product used for SEO purposes. Generally added to the <meta name='description'> tag.
+     *
+     * @param string $metafieldsGlobalDescriptionTag
+     * @return Product
+     */
+    public function setMetafieldsGlobalDescriptionTag(string $metafieldsGlobalDescriptionTag): Product
+    {
+        $this->metafieldsGlobalDescriptionTag = $metafieldsGlobalDescriptionTag;
 
         return $this;
     }
