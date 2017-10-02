@@ -60,6 +60,7 @@ class ProductService extends AbstractService
     /**
      * Create a new Product
      *
+     * @see https://help.shopify.com/api/reference/product#create
      * @param Product $product
      * @return Product
      */
@@ -73,6 +74,7 @@ class ProductService extends AbstractService
     /**
      * Modify an existing Product
      *
+     * @see https://help.shopify.com/api/reference/product#update
      * @param Product $product
      * @return Product
      */
@@ -90,6 +92,7 @@ class ProductService extends AbstractService
     /**
      * Remove a Product from the database
      *
+     * @see https://help.shopify.com/api/reference/product#destroy
      * @param int $productId
      * @return bool
      */

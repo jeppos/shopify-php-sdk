@@ -8,7 +8,7 @@ use JMS\Serializer\Annotation as Serializer;
  * Class ProductVariant
  * @package Jeppos\ShopifyApiClient\Model
  *
- * TODO Add metafield and inventory_quantity_adjustment, only on update?
+ * @see https://help.shopify.com/api/reference/product_variant
  */
 class ProductVariant
 {
@@ -83,7 +83,7 @@ class ProductVariant
     protected $fulfillmentService;
 
     /**
-     * @var InventoryManagement
+     * @var null|InventoryManagement
      * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\InventoryManagement, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
@@ -118,8 +118,6 @@ class ProductVariant
     protected $createdAt;
 
     /**
-     * TODO Nullable?
-     *
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
@@ -183,8 +181,6 @@ class ProductVariant
     protected $requiresShipping;
 
     /**
-     * TODO Only on update
-     *
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"put"})
@@ -372,6 +368,8 @@ class ProductVariant
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|float $compareAtPrice
      * @return ProductVariant
      */
@@ -406,18 +404,20 @@ class ProductVariant
     /**
      * Specifies whether or not Shopify tracks the number of items in stock for this product variant.
      *
-     * @return InventoryManagement
+     * @return null|InventoryManagement
      */
-    public function getInventoryManagement(): InventoryManagement
+    public function getInventoryManagement(): ?InventoryManagement
     {
         return $this->inventoryManagement;
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param InventoryManagement $inventoryManagement
      * @return ProductVariant
      */
-    public function setInventoryManagement(InventoryManagement $inventoryManagement): ProductVariant
+    public function setInventoryManagement(?InventoryManagement $inventoryManagement): ProductVariant
     {
         $this->inventoryManagement = $inventoryManagement;
 
@@ -435,6 +435,8 @@ class ProductVariant
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|string $option1
      * @return ProductVariant
      */
@@ -456,6 +458,8 @@ class ProductVariant
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|string $option2
      * @return ProductVariant
      */
@@ -477,6 +481,8 @@ class ProductVariant
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|string $option3
      * @return ProductVariant
      */
@@ -679,6 +685,9 @@ class ProductVariant
     }
 
     /**
+     * Instead of sending a new and old value for inventory an adjustment value can be sent.
+     * If an adjustment value is sent it will take priority.
+     *
      * @param int $inventoryQuantityAdjustment
      * @return ProductVariant
      */

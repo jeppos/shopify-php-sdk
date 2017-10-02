@@ -58,4 +58,53 @@ class ProductVariantService extends AbstractService
     {
         return $this->client->get(sprintf('products/%d/variants/count.json', $productId), $options);
     }
+
+    /**
+     * Create a new Product Variant
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#create
+     * @param ProductVariant $productVariant
+     * @return ProductVariant
+     */
+    public function createOne(ProductVariant $productVariant): ProductVariant
+    {
+        $response = $this->client->post(
+            'variant',
+            sprintf('products/%d/variants.json', $productVariant->getProductId()),
+            $this->serializePost($productVariant)
+        );
+
+        return $this->deserialize($response, ProductVariant::class);
+    }
+
+    /**
+     * Modify an existing Product Variant
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#update
+     * @param ProductVariant $productVariant
+     * @return ProductVariant
+     */
+    public function updateOne(ProductVariant $productVariant): ProductVariant
+    {
+        $response = $this->client->put(
+            'variant',
+            sprintf('variants/%d.json', $productVariant->getId()),
+            $this->serializePut($productVariant)
+        );
+
+        return $this->deserialize($response, ProductVariant::class);
+    }
+
+    /**
+     * Remove a Product Variant from the database
+     *
+     * @see https://help.shopify.com/api/reference/product_variant#destroy
+     * @param int $productId
+     * @param int $variantId
+     * @return bool
+     */
+    public function deleteOne(int $productId, int $variantId): bool
+    {
+        return $this->client->delete(sprintf('products/%d/variants/%s.json', $productId, $variantId));
+    }
 }
