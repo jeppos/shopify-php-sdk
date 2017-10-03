@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patrik
- * Date: 2017-09-24
- * Time: 00:14
- */
 
 namespace Tests\Jeppos\ShopifyApiClient\Service;
 
@@ -104,5 +98,36 @@ class ProductServiceTest extends TestCase
         $actual = $this->sut->getCount();
 
         $this->assertSame(56, $actual);
+    }
+
+    public function testCreateOne()
+    {
+        $newProduct = (new Product())
+            ->setTitle('test product');
+
+        $createdProduct = ['id' => 123, 'title' => 'test product'];
+        $serializedProduct = '{"title":"test product"}';
+
+        $this->serializerMock
+            ->expects($this->once())
+            ->method('serialize')
+            ->with($newProduct)
+            ->willReturn($serializedProduct);
+
+        $this->clientMock
+            ->expects($this->once())
+            ->method('post')
+            ->with('products.json', '{"product":' . $serializedProduct . '}')
+            ->willReturn($createdProduct);
+
+        $this->serializerMock
+            ->expects($this->once())
+            ->method('fromArray')
+            ->with($createdProduct, Product::class)
+            ->willReturn(new Product());
+
+        $actual = $this->sut->createOne($newProduct);
+
+        $this->assertInstanceOf(Product::class, $actual);
     }
 }

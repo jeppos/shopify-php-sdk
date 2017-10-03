@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: patrik
- * Date: 2017-09-24
- * Time: 00:14
- */
 
 namespace Tests\Jeppos\ShopifyApiClient\Service;
 
