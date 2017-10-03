@@ -55,4 +55,53 @@ class ProductImageService extends AbstractService
     {
         return $this->client->get(sprintf('products/%d/images/count.json', $productId), $options);
     }
+
+    /**
+     * Create a new Product Image
+     *
+     * @see https://help.shopify.com/api/reference/product_image#create
+     * @param ProductImage $productImage
+     * @return ProductImage
+     */
+    public function createOne(ProductImage $productImage): ProductImage
+    {
+        $response = $this->client->post(
+            'image',
+            sprintf('products/%d/images.json', $productImage->getProductId()),
+            $this->serializePost($productImage)
+        );
+
+        return $this->deserialize($response, ProductImage::class);
+    }
+
+    /**
+     * Modify an existing Product Image
+     *
+     * @see https://help.shopify.com/api/reference/product_image#update
+     * @param ProductImage $productImage
+     * @return ProductImage
+     */
+    public function updateOne(ProductImage $productImage): ProductImage
+    {
+        $response = $this->client->put(
+            'image',
+            sprintf('products/%d/images/%s.json', $productImage->getId(), $productImage->getProductId()),
+            $this->serializePut($productImage)
+        );
+
+        return $this->deserialize($response, ProductImage::class);
+    }
+
+    /**
+     * Remove a Product Image from the database
+     *
+     * @see https://help.shopify.com/api/reference/product_image#destroy
+     * @param int $productId
+     * @param int $imageId
+     * @return bool
+     */
+    public function deleteOne(int $productId, int $imageId): bool
+    {
+        return $this->client->delete(sprintf('products/%d/images/%s.json', $productId, $imageId));
+    }
 }
