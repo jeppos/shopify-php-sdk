@@ -66,9 +66,8 @@ class ProductImageService extends AbstractService
     public function createOne(ProductImage $productImage): ProductImage
     {
         $response = $this->client->post(
-            'image',
             sprintf('products/%d/images.json', $productImage->getProductId()),
-            $this->serializePost($productImage)
+            $this->serializePost('image', $productImage)
         );
 
         return $this->deserialize($response, ProductImage::class);
@@ -84,9 +83,8 @@ class ProductImageService extends AbstractService
     public function updateOne(ProductImage $productImage): ProductImage
     {
         $response = $this->client->put(
-            'image',
             sprintf('products/%d/images/%s.json', $productImage->getId(), $productImage->getProductId()),
-            $this->serializePut($productImage)
+            $this->serializePut('image', $productImage)
         );
 
         return $this->deserialize($response, ProductImage::class);

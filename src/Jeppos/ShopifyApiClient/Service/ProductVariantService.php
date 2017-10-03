@@ -69,9 +69,8 @@ class ProductVariantService extends AbstractService
     public function createOne(ProductVariant $productVariant): ProductVariant
     {
         $response = $this->client->post(
-            'variant',
             sprintf('products/%d/variants.json', $productVariant->getProductId()),
-            $this->serializePost($productVariant)
+            $this->serializePost('variant', $productVariant)
         );
 
         return $this->deserialize($response, ProductVariant::class);
@@ -87,9 +86,8 @@ class ProductVariantService extends AbstractService
     public function updateOne(ProductVariant $productVariant): ProductVariant
     {
         $response = $this->client->put(
-            'variant',
             sprintf('variants/%d.json', $productVariant->getId()),
-            $this->serializePut($productVariant)
+            $this->serializePut('variant', $productVariant)
         );
 
         return $this->deserialize($response, ProductVariant::class);

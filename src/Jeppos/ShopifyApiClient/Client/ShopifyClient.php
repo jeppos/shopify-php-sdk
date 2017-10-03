@@ -53,38 +53,33 @@ class ShopifyClient
     }
 
     /**
-     * @param string $key
      * @param string $uri
      * @param string $body
      * @return mixed
      */
-    public function post(string $key, string $uri, string $body)
+    public function post(string $uri, string $body)
     {
-        return $this->putOrPost('POST', $uri, $body, $key);
+        return $this->putOrPost('POST', $uri, $body);
     }
 
     /**
-     * @param string $key
      * @param string $uri
      * @param string $body
      * @return mixed
      */
-    public function put(string $key, string $uri, string $body)
+    public function put(string $uri, string $body)
     {
-        return $this->putOrPost('PUT', $uri, $body, $key);
+        return $this->putOrPost('PUT', $uri, $body);
     }
 
     /**
      * @param string $method
      * @param string $uri
      * @param string $body
-     * @param string $key
      * @return mixed
      */
-    public function putOrPost(string $method, string $uri, string $body, string $key)
+    public function putOrPost(string $method, string $uri, string $body)
     {
-        $body = '{"' . $key . '":' . $body . '}';
-
         $response = $this->client->request($method, '/admin/' . $uri, [
             'body' => $body
         ]);

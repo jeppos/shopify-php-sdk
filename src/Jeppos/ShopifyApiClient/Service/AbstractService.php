@@ -65,28 +65,34 @@ abstract class AbstractService
     }
 
     /**
+     * @param string $key
      * @param $object
      * @return string
      */
-    protected function serializePost($object): string
+    protected function serializePost(string $key, $object): string
     {
         $serializationContent = SerializationContext::create();
         $serializationContent->setGroups(['post']);
         $serializationContent->setSerializeNull(false);
 
-        return $this->serializer->serialize($object, 'json', $serializationContent);
+        $serializedObject = $this->serializer->serialize($object, 'json', $serializationContent);
+
+        return '{"' . $key . '":' . $serializedObject . '}';
     }
 
     /**
+     * @param string $key
      * @param $object
      * @return string
      */
-    protected function serializePut($object): string
+    protected function serializePut(string $key, $object): string
     {
         $serializationContent = SerializationContext::create();
         $serializationContent->setGroups(['put']);
         $serializationContent->setSerializeNull(false);
 
-        return $this->serializer->serialize($object, 'json', $serializationContent);
+        $serializedObject = $this->serializer->serialize($object, 'json', $serializationContent);
+
+        return '{"' . $key . '":' . $serializedObject . '}';
     }
 }
