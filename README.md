@@ -1,6 +1,6 @@
-shopify-php-api-client
+shopify-php-sdk
 ==
-A simple Shopify PHP API client.
+An easy to use Shopify PHP SDK.
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/413a799a1ec944ab84e1050216591b5b)](https://www.codacy.com/app/jeppos/shopify-php-api-client?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jeppos/shopify-php-api-client&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/jeppos/shopify-php-api-client.svg?branch=master)](https://travis-ci.org/jeppos/shopify-php-api-client)
@@ -10,7 +10,7 @@ A simple Shopify PHP API client.
 ## Composer
 
 ```
-composer require jeppos/shopify-php-api-client
+composer require jeppos/shopify-php-sdk
 ```
 
 # Usage
@@ -23,9 +23,9 @@ Following example shows how to get a single product.
 include __DIR__ . '/vendor/autoload.php';
 \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 
-use Jeppos\ShopifyApiClient\SerializerFactory;
-use Jeppos\ShopifyApiClient\Service\ProductService;
-use Jeppos\ShopifyApiClient\Client\ShopifyClient;
+use Jeppos\ShopifySDK\SerializerFactory;
+use Jeppos\ShopifySDK\Service\ProductService;
+use Jeppos\ShopifySDK\Client\ShopifyClient;
 
 $guzzleClient = new \GuzzleHttp\Client([
     'base_uri' => 'https://your-store-name.myshopify.com/',

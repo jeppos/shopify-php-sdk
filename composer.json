@@ -1,6 +1,6 @@
 {
-    "name": "jeppos/shopify-php-api-client",
-    "description": "A simple Shopify PHP API client.",
+    "name": "jeppos/shopify-php-sdk",
+    "description": "An easy to use Shopify PHP SDK.",
     "license": "MIT",
     "type": "library",
     "require": {
@@ -18,12 +18,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Jeppos\\ShopifyApiClient\\": "src/Jeppos/ShopifyApiClient"
+            "Jeppos\\ShopifySDK\\": "src/Jeppos/ShopifySDK"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\Jeppos\\ShopifyApiClient\\": "tests/Jeppos/ShopifyApiClient"
+            "Tests\\Jeppos\\ShopifySDK\\": "tests/Jeppos/ShopifySDK"
         }
     }
 }
