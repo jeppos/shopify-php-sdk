@@ -60,7 +60,7 @@ class ProductVariant
 
     /**
      * @var InventoryPolicy
-     * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\InventoryPolicy, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\InventoryPolicy, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryPolicy;
@@ -81,7 +81,7 @@ class ProductVariant
 
     /**
      * @var null|InventoryManagement
-     * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\InventoryManagement, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\InventoryManagement, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryManagement;
@@ -158,7 +158,7 @@ class ProductVariant
 
     /**
      * @var WeightUnit
-     * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\WeightUnit, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\WeightUnit, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $weightUnit;

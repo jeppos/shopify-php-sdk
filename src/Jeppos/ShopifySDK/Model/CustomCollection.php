@@ -58,7 +58,7 @@ class CustomCollection
 
     /**
      * @var SortOrder
-     * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\SortOrder, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\SortOrder, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $sortOrder;
@@ -88,14 +88,14 @@ class CustomCollection
 
     /**
      * @var null|CustomCollectionImage
-     * @Serializer\Type("Jeppos\ShopifyApiClient\Model\CustomCollectionImage")
+     * @Serializer\Type("Jeppos\ShopifySDK\Model\CustomCollectionImage")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $image;
 
     /**
      * @var ArrayCollection
-     * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\Collect>")
+     * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\Collect>")
      * @Serializer\Groups({"post", "put"})
      */
     protected $collects;

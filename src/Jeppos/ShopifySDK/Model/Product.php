@@ -84,7 +84,7 @@ class Product
 
     /**
      * @var PublishedScope
-     * @Serializer\Type("enum<Jeppos\ShopifyApiClient\Model\PublishedScope, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\PublishedScope, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $publishedScope;
@@ -98,28 +98,28 @@ class Product
 
     /**
      * @var ArrayCollection
-     * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductVariant>")
+     * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductVariant>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $variants;
 
     /**
      * @var ArrayCollection
-     * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductOption>")
+     * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductOption>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $options;
 
     /**
      * @var ArrayCollection
-     * @Serializer\Type("ArrayCollection<Jeppos\ShopifyApiClient\Model\ProductImage>")
+     * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductImage>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $images;
 
     /**
      * @var ProductImage
-     * @Serializer\Type("Jeppos\ShopifyApiClient\Model\ProductImage")
+     * @Serializer\Type("Jeppos\ShopifySDK\Model\ProductImage")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $image;
