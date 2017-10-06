@@ -28,7 +28,7 @@ class ProductVariantService extends AbstractService
     {
         $response = $this->client->get(sprintf('variants/%d.json', $variantId));
 
-        return $this->deserialize($response, ProductVariant::class);
+        return $this->serializer->deserialize($response, ProductVariant::class);
     }
 
     /**
@@ -43,7 +43,7 @@ class ProductVariantService extends AbstractService
     {
         $response = $this->client->get(sprintf('products/%d/variants.json', $productId), $options);
 
-        return $this->deserializeList($response, ProductVariant::class);
+        return $this->serializer->deserializeList($response, ProductVariant::class);
     }
 
     /**
@@ -70,10 +70,10 @@ class ProductVariantService extends AbstractService
     {
         $response = $this->client->post(
             sprintf('products/%d/variants.json', $productVariant->getProductId()),
-            $this->serializePost('variant', $productVariant)
+            $this->serializer->serialize($productVariant, 'variant', ['post'])
         );
 
-        return $this->deserialize($response, ProductVariant::class);
+        return $this->serializer->deserialize($response, ProductVariant::class);
     }
 
     /**
@@ -87,10 +87,10 @@ class ProductVariantService extends AbstractService
     {
         $response = $this->client->put(
             sprintf('variants/%d.json', $productVariant->getId()),
-            $this->serializePut('variant', $productVariant)
+            $this->serializer->serialize($productVariant, 'variant', ['put'])
         );
 
-        return $this->deserialize($response, ProductVariant::class);
+        return $this->serializer->deserialize($response, ProductVariant::class);
     }
 
     /**

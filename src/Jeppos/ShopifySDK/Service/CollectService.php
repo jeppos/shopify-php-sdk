@@ -27,7 +27,7 @@ class CollectService extends AbstractService
     {
         $response = $this->client->get(sprintf('collects/%d.json', $collectId));
 
-        return $this->deserialize($response, Collect::class);
+        return $this->serializer->deserialize($response, Collect::class);
     }
 
     /**
@@ -41,7 +41,7 @@ class CollectService extends AbstractService
     {
         $response = $this->client->get('collects.json', $options);
 
-        return $this->deserializeList($response, Collect::class);
+        return $this->serializer->deserializeList($response, Collect::class);
     }
 
     /**

@@ -2,22 +2,11 @@
 
 namespace Tests\Jeppos\ShopifySDK\Service;
 
-use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Model\ProductVariant;
 use Jeppos\ShopifySDK\Service\ProductVariantService;
-use JMS\Serializer\Serializer;
-use PHPUnit\Framework\TestCase;
 
-class ProductVariantServiceTest extends TestCase
+class ProductVariantServiceTest extends AbstractServiceTest
 {
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|ShopifyClient
-     */
-    private $clientMock;
-    /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Serializer
-     */
-    private $serializerMock;
     /**
      * @var ProductVariantService
      */
@@ -25,26 +14,17 @@ class ProductVariantServiceTest extends TestCase
 
     protected function setUp()
     {
-        $this->clientMock = $this->createMock(ShopifyClient::class);
-        $this->serializerMock = $this->createMock(Serializer::class);
+        parent::setUp();
+
         $this->sut = new ProductVariantService($this->clientMock, $this->serializerMock);
     }
 
     public function testGetOneVariantById()
     {
-        $variant = ['id' => 123];
+        $response = ['id' => 123];
 
-        $this->clientMock
-            ->expects($this->once())
-            ->method('get')
-            ->with('variants/123.json')
-            ->willReturn($variant);
-
-        $this->serializerMock
-            ->expects($this->once())
-            ->method('fromArray')
-            ->with($variant, ProductVariant::class)
-            ->willReturn(new ProductVariant());
+        $this->expectGetReturnsResponse('variants/123.json', $response);
+        $this->expectResponseBeingDeserialized($response, ProductVariant::class);
 
         $actual = $this->sut->getOne(123);
 
@@ -53,30 +33,13 @@ class ProductVariantServiceTest extends TestCase
 
     public function testGetListOfProductVariants()
     {
-        $variant1 = [
-            'id' => 123
-        ];
-        $variant2 = [
-            'id' => 456
+        $response = [
+            ['id' => 123],
+            ['id' => 456]
         ];
 
-        $this->clientMock
-            ->expects($this->once())
-            ->method('get')
-            ->with('products/123/variants.json', [])
-            ->willReturn([$variant1, $variant2]);
-
-        $this->serializerMock
-            ->expects($this->at(0))
-            ->method('fromArray')
-            ->with($variant1, ProductVariant::class)
-            ->willReturn(new ProductVariant());
-
-        $this->serializerMock
-            ->expects($this->at(1))
-            ->method('fromArray')
-            ->with($variant2, ProductVariant::class)
-            ->willReturn(new ProductVariant());
+        $this->expectGetReturnsResponse('products/123/variants.json', $response);
+        $this->expectResponseBeingDeserializedAsList($response, ProductVariant::class);
 
         $actual = $this->sut->getList(123);
 
@@ -85,14 +48,57 @@ class ProductVariantServiceTest extends TestCase
 
     public function testGetProductVariantCount()
     {
-        $this->clientMock
-            ->expects($this->once())
-            ->method('get')
-            ->with('products/123/variants/count.json', [])
-            ->willReturn(56);
+        $this->expectGetReturnsResponse('products/123/variants/count.json', 56);
 
         $actual = $this->sut->getCount(123);
 
         $this->assertSame(56, $actual);
+    }
+
+    public function testCreateOneProductVariant()
+    {
+        $productVariant = (new ProductVariant())
+            ->setProductId(456)
+            ->setTitle('test variant');
+
+        $serializedProductVariant = '{"variant":{"src":"http://via.placeholder.com/350x150"}}';
+
+        $response = ['id' => 123, 'src' => 'http://via.placeholder.com/350x150'];
+
+        $this->expectModelBeingSerializedForPost('variant', $productVariant, $serializedProductVariant);
+        $this->expectPostReturnsResponse('products/456/variants.json', $serializedProductVariant, $response);
+        $this->expectResponseBeingDeserialized($response, ProductVariant::class);
+
+        $actual = $this->sut->createOne($productVariant);
+
+        $this->assertInstanceOf(ProductVariant::class, $actual);
+    }
+
+    public function testUpdateOneProductVariant()
+    {
+        $productVariant = (new ProductVariant())
+            ->setId(123)
+            ->setTitle('modified variant');
+
+        $serializedProductVariant = '{"variant":{"id":123,"title":"modified variant"}}';
+
+        $response = ['id' => 123, 'title' => 'modified variant'];
+
+        $this->expectModelBeingSerializedForPut('variant', $productVariant, $serializedProductVariant);
+        $this->expectPutReturnsResponse('variants/123.json', $serializedProductVariant, $response);
+        $this->expectResponseBeingDeserialized($response, ProductVariant::class);
+
+        $actual = $this->sut->updateOne($productVariant);
+
+        $this->assertInstanceOf(ProductVariant::class, $actual);
+    }
+
+    public function testDeleteOneProductVariant()
+    {
+        $this->expectSuccessfulDeletion('products/456/variants/123.json');
+
+        $actual = $this->sut->deleteOne(456, 123);
+
+        $this->assertTrue($actual);
     }
 }

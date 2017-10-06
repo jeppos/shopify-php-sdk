@@ -28,7 +28,7 @@ class CustomCollectionService extends AbstractService
     {
         $response = $this->client->get(sprintf('custom_collections/%d.json', $collectionId));
 
-        return $this->deserialize($response, CustomCollection::class);
+        return $this->serializer->deserialize($response, CustomCollection::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class CustomCollectionService extends AbstractService
     {
         $response = $this->client->get('custom_collections.json', $options);
 
-        return $this->deserializeList($response, CustomCollection::class);
+        return $this->serializer->deserializeList($response, CustomCollection::class);
     }
 
     /**

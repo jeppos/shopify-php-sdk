@@ -28,7 +28,7 @@ class ProductService extends AbstractService
     {
         $response = $this->client->get(sprintf('products/%d.json', $productId));
 
-        return $this->deserialize($response, Product::class);
+        return $this->serializer->deserialize($response, Product::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class ProductService extends AbstractService
     {
         $response = $this->client->get('products.json', $options);
 
-        return $this->deserializeList($response, Product::class);
+        return $this->serializer->deserializeList($response, Product::class);
     }
 
     /**
@@ -66,9 +66,9 @@ class ProductService extends AbstractService
      */
     public function createOne(Product $product): Product
     {
-        $response = $this->client->post('products.json', $this->serializePost('product', $product));
+        $response = $this->client->post('products.json', $this->serializer->serialize($product, 'product', ['post']));
 
-        return $this->deserialize($response, Product::class);
+        return $this->serializer->deserialize($response, Product::class);
     }
 
     /**
@@ -82,10 +82,10 @@ class ProductService extends AbstractService
     {
         $response = $this->client->put(
             sprintf('products/%d.json', $product->getId()),
-            $this->serializePut('product', $product)
+            $this->serializer->serialize($product, 'product', ['put'])
         );
 
-        return $this->deserialize($response, Product::class);
+        return $this->serializer->deserialize($response, Product::class);
     }
 
     /**

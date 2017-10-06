@@ -25,7 +25,7 @@ class ProductImageService extends AbstractService
     {
         $response = $this->client->get(sprintf('products/%d/images/%d.json', $productId, $imageId));
 
-        return $this->deserialize($response, ProductImage::class);
+        return $this->serializer->deserialize($response, ProductImage::class);
     }
 
     /**
@@ -40,7 +40,7 @@ class ProductImageService extends AbstractService
     {
         $response = $this->client->get(sprintf('products/%d/images.json', $productId), $options);
 
-        return $this->deserializeList($response, ProductImage::class);
+        return $this->serializer->deserializeList($response, ProductImage::class);
     }
 
     /**
@@ -67,10 +67,10 @@ class ProductImageService extends AbstractService
     {
         $response = $this->client->post(
             sprintf('products/%d/images.json', $productImage->getProductId()),
-            $this->serializePost('image', $productImage)
+            $this->serializer->serialize($productImage, 'image', ['post'])
         );
 
-        return $this->deserialize($response, ProductImage::class);
+        return $this->serializer->deserialize($response, ProductImage::class);
     }
 
     /**
@@ -84,10 +84,10 @@ class ProductImageService extends AbstractService
     {
         $response = $this->client->put(
             sprintf('products/%d/images/%s.json', $productImage->getId(), $productImage->getProductId()),
-            $this->serializePut('image', $productImage)
+            $this->serializer->serialize($productImage, 'image', ['put'])
         );
 
-        return $this->deserialize($response, ProductImage::class);
+        return $this->serializer->deserialize($response, ProductImage::class);
     }
 
     /**
