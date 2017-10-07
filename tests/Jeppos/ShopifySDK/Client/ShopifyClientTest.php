@@ -3,49 +3,77 @@
 namespace Tests\Jeppos\ShopifySDK\Client;
 
 use GuzzleHttp\{
-    Client, Handler\MockHandler, HandlerStack, Psr7\Response
+    Client, Exception\RequestException, Handler\MockHandler, HandlerStack, Psr7\Request, Psr7\Response
 };
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use PHPUnit\Framework\TestCase;
 
 class ShopifyClientTest extends TestCase
 {
-    public function testGetResource()
+    /**
+     * @param MockHandler $mock
+     * @return ShopifyClient
+     */
+    protected function createClient(MockHandler $mock): ShopifyClient
+    {
+        $handler = HandlerStack::create($mock);
+        $guzzleClient = new Client(['handler' => $handler]);
+
+        return new ShopifyClient($guzzleClient);
+    }
+
+    public function testSuccessfulGetResponse()
     {
         $mock = new MockHandler([
             new Response(200, [], '{"mock":{"field":"value"}}'),
         ]);
 
-        $handler = HandlerStack::create($mock);
-
-        $guzzleClient = new Client(['handler' => $handler]);
-        $sut = new ShopifyClient($guzzleClient);
+        $sut = $this->createClient($mock);
 
         $actual = $sut->get('mock/resource');
 
         $this->assertEquals(['field' => 'value'], $actual);
     }
 
-    public function testGetListOfResources()
+    /**
+     * @expectedException Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException
+     */
+    public function testGetResponseWithInvalidJson()
     {
         $mock = new MockHandler([
-            new Response(200, [], '{"mocks":[{"field":"value"},{"field":"value"}]}'),
+            new Response(200, [], ''),
         ]);
 
-        $handler = HandlerStack::create($mock);
+        $sut = $this->createClient($mock);
 
-        $guzzleClient = new Client(['handler' => $handler]);
-        $sut = new ShopifyClient($guzzleClient);
+        $sut->get('mock/resource');
+    }
 
-        $actual = $sut->get('mock/resource');
+    /**
+     * @expectedException Jeppos\ShopifySDK\Client\ShopifyBadResponseException
+     */
+    public function testUnsuccessfulGetResponse()
+    {
+        $mock = new MockHandler([
+            new Response(401, [], 'Unauthorized'),
+        ]);
 
-        $this->assertEquals([
-            [
-                'field' => 'value'
-            ],
-            [
-                'field' => 'value'
-            ]
-        ], $actual);
+        $sut = $this->createClient($mock);
+
+        $sut->get('mock/resource');
+    }
+
+    /**
+     * @expectedException Jeppos\ShopifySDK\Client\ShopifyException
+     */
+    public function testNonGetResponse()
+    {
+        $mock = new MockHandler([
+            new RequestException("Error Communicating with Server", new Request('GET', 'mock/resource'))
+        ]);
+
+        $sut = $this->createClient($mock);
+
+        $sut->get('mock/resource');
     }
 }

@@ -3,6 +3,9 @@
 namespace Jeppos\ShopifySDK\Client;
 
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\TransferException;
+use GuzzleHttp\Psr7;
 
 class ShopifyClient
 {
@@ -24,13 +27,23 @@ class ShopifyClient
      * @param string $uri
      * @param array $query
      * @return mixed
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
      */
     public function get(string $uri, array $query = [])
     {
-        $response = $this->client->request('GET', '/admin/' . $uri . '?' . http_build_query($query));
+        try {
+            $response = $this->client->request('GET', '/admin/' . $uri . '?' . http_build_query($query));
 
-        // TODO Error handling
-        $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+            $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        } catch (BadResponseException $e) {
+            throw new ShopifyBadResponseException(Psr7\str($e->getResponse()));
+        } catch (TransferException $e) {
+            throw new ShopifyException();
+        } catch (\InvalidArgumentException $e) {
+            throw new ShopifyInvalidResponseException();
+        }
 
         return array_pop($object);
     }
