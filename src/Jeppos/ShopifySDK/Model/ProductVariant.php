@@ -2,6 +2,9 @@
 
 namespace Jeppos\ShopifySDK\Model;
 
+use Jeppos\ShopifySDK\Enum\InventoryManagement;
+use Jeppos\ShopifySDK\Enum\InventoryPolicy;
+use Jeppos\ShopifySDK\Enum\WeightUnit;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -60,7 +63,7 @@ class ProductVariant
 
     /**
      * @var InventoryPolicy
-     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\InventoryPolicy, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\InventoryPolicy, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryPolicy;
@@ -81,7 +84,7 @@ class ProductVariant
 
     /**
      * @var null|InventoryManagement
-     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\InventoryManagement, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\InventoryManagement, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $inventoryManagement;
@@ -158,7 +161,7 @@ class ProductVariant
 
     /**
      * @var WeightUnit
-     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\WeightUnit, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\WeightUnit, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $weightUnit;

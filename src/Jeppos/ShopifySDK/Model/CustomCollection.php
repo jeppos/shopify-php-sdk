@@ -3,10 +3,16 @@
 namespace Jeppos\ShopifySDK\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Jeppos\ShopifySDK\Enum\SortOrder;
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/api/reference/customcollection
+ */
 class CustomCollection
 {
+    use ArrayCollectionValidatorTrait;
+
     /**
      * @var int
      * @Serializer\Type("integer")
@@ -58,7 +64,7 @@ class CustomCollection
 
     /**
      * @var SortOrder
-     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\SortOrder, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\SortOrder, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $sortOrder;
@@ -71,7 +77,7 @@ class CustomCollection
     protected $templateSuffix;
 
     /**
-     * TODO Only when receiving single product
+     * TODO Only when retrieving single collection
      *
      * @var int
      * @Serializer\Type("integer")
@@ -256,6 +262,8 @@ class CustomCollection
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|string $templateSuffix
      * @return CustomCollection
      */
@@ -306,10 +314,12 @@ class CustomCollection
     }
 
     /**
-     * @param CustomCollectionImage $image
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
+     * @param null|CustomCollectionImage $image
      * @return CustomCollection
      */
-    public function setImage(CustomCollectionImage $image): CustomCollection
+    public function setImage(?CustomCollectionImage $image): CustomCollection
     {
         $this->image = $image;
 
@@ -333,6 +343,8 @@ class CustomCollection
      */
     public function addCollect(Collect $collect): CustomCollection
     {
+        $this->validateThatFieldIsArrayCollection('collect');
+
         $this->collects->add($collect);
 
         return $this;
@@ -344,6 +356,8 @@ class CustomCollection
      */
     public function removeCollect(Collect $collect): CustomCollection
     {
+        $this->validateThatFieldIsArrayCollection('collect');
+
         $this->collects->removeElement($collect);
 
         return $this;

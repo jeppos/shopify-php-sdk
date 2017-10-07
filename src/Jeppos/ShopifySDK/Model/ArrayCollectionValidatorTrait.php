@@ -6,7 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 trait ArrayCollectionValidatorTrait
 {
-
     /**
      * @param string $field
      * @throws ArrayCollectionException

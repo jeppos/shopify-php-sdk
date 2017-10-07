@@ -3,6 +3,7 @@
 namespace Jeppos\ShopifySDK\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Jeppos\ShopifySDK\Enum\PublishedScope;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
@@ -84,7 +85,7 @@ class Product
 
     /**
      * @var PublishedScope
-     * @Serializer\Type("enum<Jeppos\ShopifySDK\Model\PublishedScope, string>")
+     * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\PublishedScope, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     protected $publishedScope;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Jeppos\ShopifySDK\Model;
+namespace Jeppos\ShopifySDK\Enum;
 
 use Consistence\Enum\Enum;
 

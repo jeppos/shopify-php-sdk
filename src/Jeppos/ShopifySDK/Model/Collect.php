@@ -4,6 +4,9 @@ namespace Jeppos\ShopifySDK\Model;
 
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/api/reference/collect
+ */
 class Collect
 {
     /**
