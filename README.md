@@ -25,7 +25,6 @@ include __DIR__ . '/vendor/autoload.php';
 
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
-use Jeppos\ShopifySDK\SerializerFactory;
 use Jeppos\ShopifySDK\Service\ProductService;
 
 $guzzleClient = new \GuzzleHttp\Client([
@@ -37,7 +36,7 @@ $guzzleClient = new \GuzzleHttp\Client([
 ]);
 
 $shopifyClient = new ShopifyClient($guzzleClient);
-$serializer = new ConfiguredSerializer(SerializerFactory::create());
+$serializer = new ConfiguredSerializer();
 $productService = new ProductService($shopifyClient, $serializer);
 
 $product = $productService->getOneById(123456789);

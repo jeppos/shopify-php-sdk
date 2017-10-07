@@ -15,6 +15,7 @@
             <directory>./src/</directory>
             <exclude>
                 <directory>./src/Jeppos/ShopifySDK/Model</directory>
+                <directory>./src/Jeppos/ShopifySDK/Enum</directory>
             </exclude>
         </whitelist>
     </filter>

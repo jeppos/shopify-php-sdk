@@ -2,9 +2,12 @@
 
 namespace Jeppos\ShopifySDK\Serializer;
 
+use Consistence\JmsSerializer\Enum\EnumSerializerHandler;
 use JMS\Serializer\DeserializationContext;
+use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerBuilder;
 
 class ConfiguredSerializer
 {
@@ -17,8 +20,17 @@ class ConfiguredSerializer
      * Serializer constructor.
      * @param Serializer $serializer
      */
-    public function __construct(Serializer $serializer)
+    public function __construct(Serializer $serializer = null)
     {
+        if ($serializer === null) {
+            $serializer = SerializerBuilder::create()
+                ->addDefaultHandlers()
+                ->configureHandlers(function (HandlerRegistry $registry) {
+                    $registry->registerSubscribingHandler(new EnumSerializerHandler());
+                })
+                ->build();
+        }
+
         $this->serializer = $serializer;
     }
 
