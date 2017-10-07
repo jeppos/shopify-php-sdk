@@ -19,7 +19,7 @@ class ProductVariantServiceTest extends AbstractServiceTest
         $this->sut = new ProductVariantService($this->clientMock, $this->serializerMock);
     }
 
-    public function testGetOneVariantById()
+    public function testGetOneProductVariantById()
     {
         $response = ['id' => 123];
 

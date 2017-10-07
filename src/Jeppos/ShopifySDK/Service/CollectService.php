@@ -55,4 +55,33 @@ class CollectService extends AbstractService
     {
         return $this->client->get('collects/count.json', $options);
     }
+
+    /**
+     * Create a new Collect
+     *
+     * @see https://help.shopify.com/api/reference/collect#create
+     * @param Collect $collect
+     * @return Collect
+     */
+    public function createOne(Collect $collect): Collect
+    {
+        $response = $this->client->post(
+            'collects.json',
+            $this->serializer->serialize($collect, 'collect', ['post'])
+        );
+
+        return $this->serializer->deserialize($response, Collect::class);
+    }
+
+    /**
+     * Remove a Collect from the database
+     *
+     * @see https://help.shopify.com/api/reference/collect#destroy
+     * @param int $collectId
+     * @return bool
+     */
+    public function deleteOne(int $collectId): bool
+    {
+        return $this->client->delete(sprintf('collects/%d.json', $collectId));
+    }
 }
