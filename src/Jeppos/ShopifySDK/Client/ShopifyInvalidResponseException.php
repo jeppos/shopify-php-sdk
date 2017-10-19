@@ -2,7 +2,7 @@
 
 namespace Jeppos\ShopifySDK\Client;
 
-class ShopifyInvalidResponseException extends \Exception
+class ShopifyInvalidResponseException extends ShopifyException
 {
 
 }

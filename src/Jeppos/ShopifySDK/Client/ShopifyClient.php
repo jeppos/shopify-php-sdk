@@ -33,30 +33,25 @@ class ShopifyClient
      */
     public function get(string $uri, array $query = [])
     {
-        try {
-            $response = $this->client->request('GET', '/admin/' . $uri . '?' . http_build_query($query));
-
-            $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
-        } catch (BadResponseException $e) {
-            throw new ShopifyBadResponseException(Psr7\str($e->getResponse()));
-        } catch (TransferException $e) {
-            throw new ShopifyException();
-        } catch (\InvalidArgumentException $e) {
-            throw new ShopifyInvalidResponseException();
-        }
-
-        return array_pop($object);
+        return $this->request('GET', $uri, $query);
     }
 
     /**
      * @param string $uri
      * @param array $query
      * @return bool
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
      */
     public function delete(string $uri, array $query = []): bool
     {
-        // TODO Error handling
-        $this->client->request('DELETE', '/admin/' . $uri . '?' . http_build_query($query));
+        try {
+            $this->client->request('DELETE', '/admin/' . $uri . '?' . http_build_query($query));
+        } catch (BadResponseException $e) {
+            throw new ShopifyBadResponseException(Psr7\str($e->getResponse()));
+        } catch (TransferException $e) {
+            throw new ShopifyException();
+        }
 
         return true;
     }
@@ -68,7 +63,7 @@ class ShopifyClient
      */
     public function post(string $uri, string $body)
     {
-        return $this->putOrPost('POST', $uri, $body);
+        return $this->request('POST', $uri, [], $body);
     }
 
     /**
@@ -78,23 +73,37 @@ class ShopifyClient
      */
     public function put(string $uri, string $body)
     {
-        return $this->putOrPost('PUT', $uri, $body);
+        return $this->request('PUT', $uri, [], $body);
     }
 
     /**
      * @param string $method
      * @param string $uri
+     * @param array $query
      * @param string $body
      * @return mixed
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
      */
-    public function putOrPost(string $method, string $uri, string $body)
+    public function request(string $method, string $uri, array $query = [], string $body = null)
     {
-        $response = $this->client->request($method, '/admin/' . $uri, [
-            'body' => $body
-        ]);
+        try {
+            $options = [];
+            if ($body !== null) {
+                $options['body'] = $body;
+            }
 
-        // TODO Error handling
-        $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+            $response = $this->client->request($method, '/admin/' . $uri . '?' . http_build_query($query), $options);
+
+            $object = \GuzzleHttp\json_decode($response->getBody()->getContents(), true);
+        } catch (BadResponseException $e) {
+            throw new ShopifyBadResponseException(Psr7\str($e->getResponse()));
+        } catch (TransferException $e) {
+            throw new ShopifyException();
+        } catch (\InvalidArgumentException $e) {
+            throw new ShopifyInvalidResponseException();
+        }
 
         return array_pop($object);
     }
