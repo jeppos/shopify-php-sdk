@@ -6,7 +6,7 @@
          bootstrap="vendor/autoload.php"
 >
     <testsuites>
-        <testsuite name="jeppos/shopify-php-api-client">
+        <testsuite name="jeppos/shopify-php-sdk">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

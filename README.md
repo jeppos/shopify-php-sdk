@@ -15,7 +15,7 @@ composer require jeppos/shopify-php-sdk
 
 # Usage
 
-Following example shows how to get a single product.
+Following example shows how to get the title of a single product.
 
 ```php
 <?php
@@ -23,23 +23,9 @@ Following example shows how to get a single product.
 include __DIR__ . '/vendor/autoload.php';
 \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 
-use Jeppos\ShopifySDK\Client\ShopifyClient;
-use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
-use Jeppos\ShopifySDK\Service\ProductService;
+$shopifySDK = new \Jeppos\ShopifySDK\ShopifySDK('your-store-name.myshopify.com', 'api-key', 'api-secret');
 
-$guzzleClient = new \GuzzleHttp\Client([
-    'base_uri' => 'https://your-store-name.myshopify.com/',
-    'auth' => ['username', 'password'],
-    'headers' => [
-        'Content-Type' => 'application/json'
-    ]
-]);
-
-$shopifyClient = new ShopifyClient($guzzleClient);
-$serializer = new ConfiguredSerializer();
-$productService = new ProductService($shopifyClient, $serializer);
-
-$product = $productService->getOneById(123456789);
+$product = $shopifySDK->products->getOneById(123456789);
 
 echo $product->getTitle();
 ```
