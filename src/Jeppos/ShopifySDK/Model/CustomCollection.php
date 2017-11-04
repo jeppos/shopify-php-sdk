@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 class CustomCollection
 {
     use ArrayCollectionValidatorTrait;
+    use MetafieldTrait;
 
     /**
      * @var int

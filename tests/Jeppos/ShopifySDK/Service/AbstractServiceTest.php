@@ -38,13 +38,14 @@ abstract class AbstractServiceTest extends TestCase
     /**
      * @param string $uri
      * @param $response
+     * @param array $options
      */
-    protected function expectGetReturnsResponse(string $uri, $response): void
+    protected function expectGetReturnsResponse(string $uri, $response, array $options = []): void
     {
         $this->clientMock
             ->expects($this->once())
             ->method('get')
-            ->with($uri)
+            ->with($uri, $options)
             ->willReturn($response);
     }
 

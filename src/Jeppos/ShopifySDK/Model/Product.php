@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation as Serializer;
 class Product
 {
     use ArrayCollectionValidatorTrait;
+    use MetafieldTrait;
 
     /**
      * @var int

@@ -9,6 +9,9 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class ProductImage
 {
+    use ArrayCollectionValidatorTrait;
+    use MetafieldTrait;
+
     /**
      * @var int
      * @Serializer\Type("integer")
