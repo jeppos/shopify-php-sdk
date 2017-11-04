@@ -6,7 +6,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
 use Jeppos\ShopifySDK\Service\{
-    AbstractService, CollectService, CustomCollectionService, CustomCollectionMetafieldService, MetafieldService, ProductImageMetafieldService, ProductImageService, ProductMetafieldService, ProductService, ProductVariantService
+    AbstractService, CollectService, CustomCollectionService, CustomCollectionMetafieldService, MetafieldService, ProductImageMetafieldService, ProductImageService, ProductMetafieldService, ProductService, ProductVariantService, RedirectService
 };
 
 /**
@@ -16,6 +16,7 @@ use Jeppos\ShopifySDK\Service\{
  * @property ProductVariantService $productVariants
  * @property CustomCollectionService $customCollections
  * @property MetafieldService $metafields
+ * @property RedirectService $redirects
  */
 class ShopifySDK
 {
