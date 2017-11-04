@@ -37,6 +37,8 @@ The **ShopifySDK** class has the following properties,
 * **customCollections** - Returns an instance of [CustomCollectionService](../master/src/Jeppos/ShopifySDK/Service/CustomCollectionService.php)
 * **productImages** - Returns an instance of [ProductImageService](../master/src/Jeppos/ShopifySDK/Service/ProductImageService.php)
 * **productVariants** - Returns an instance of [ProductVariantService](../master/src/Jeppos/ShopifySDK/Service/ProductVariantService.php)
+* **metafields** - Returns an instance of [MetafieldService](../master/src/Jeppos/ShopifySDK/Service/MetafieldService.php)
+* **redirects** - Returns an instance of [RedirectService](../master/src/Jeppos/ShopifySDK/Service/RedirectService.php)
 
 ## Examples
 
