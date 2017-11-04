@@ -32,11 +32,11 @@ $shopifySDK = new \Jeppos\ShopifySDK\ShopifySDK('your-store-name.myshopify.com',
 
 The **ShopifySDK** class has the following properties,
 
-* **products** - Returns an instance of [ProductService](../blob/master/src/Jeppos/ShopifySDK/Service/ProductService)
-* **collects** -  Returns an instance of [CollectService](../blob/master/src/Jeppos/ShopifySDK/Service/CollectService)
-* **customCollections** - Returns an instance of [CustomCollectionService](../blob/master/src/Jeppos/ShopifySDK/Service/CustomCollectionService)
-* **productImages** - Returns an instance of [ProductImageService](../blob/master/src/Jeppos/ShopifySDK/Service/ProductImageService)
-* **productVariants** - Returns an instance of [ProductVariantService](../blob/master/src/Jeppos/ShopifySDK/Service/ProductVariantService)
+* **products** - Returns an instance of [ProductService](../master/src/Jeppos/ShopifySDK/Service/ProductService.php)
+* **collects** -  Returns an instance of [CollectService](../master/src/Jeppos/ShopifySDK/Service/CollectService.php)
+* **customCollections** - Returns an instance of [CustomCollectionService](../master/src/Jeppos/ShopifySDK/Service/CustomCollectionService.php)
+* **productImages** - Returns an instance of [ProductImageService](../master/src/Jeppos/ShopifySDK/Service/ProductImageService.php)
+* **productVariants** - Returns an instance of [ProductVariantService](../master/src/Jeppos/ShopifySDK/Service/ProductVariantService.php)
 
 ## Examples
 
