@@ -86,7 +86,7 @@ class ProductImageServiceTest extends AbstractServiceTest
         $response = ['id' => 123, 'src' => 'http://via.placeholder.com/350x350'];
 
         $this->expectModelBeingSerializedForPut('image', $productImage, $serializedProductImage);
-        $this->expectPutReturnsResponse('products/123/images/456.json', $serializedProductImage, $response);
+        $this->expectPutReturnsResponse('products/456/images/123.json', $serializedProductImage, $response);
         $this->expectResponseBeingDeserialized($response, ProductImage::class);
 
         $actual = $this->sut->updateOne($productImage);

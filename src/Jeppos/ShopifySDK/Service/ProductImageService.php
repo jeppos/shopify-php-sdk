@@ -83,7 +83,7 @@ class ProductImageService extends AbstractService
     public function updateOne(ProductImage $productImage): ProductImage
     {
         $response = $this->client->put(
-            sprintf('products/%d/images/%s.json', $productImage->getId(), $productImage->getProductId()),
+            sprintf('products/%d/images/%s.json', $productImage->getProductId(), $productImage->getId()),
             $this->serializer->serialize($productImage, 'image', ['put'])
         );
 
