@@ -39,6 +39,7 @@ The **ShopifySDK** class has the following properties,
 * **productVariants** - Returns an instance of [ProductVariantService](../master/src/Jeppos/ShopifySDK/Service/ProductVariantService.php)
 * **metafields** - Returns an instance of [MetafieldService](../master/src/Jeppos/ShopifySDK/Service/MetafieldService.php)
 * **redirects** - Returns an instance of [RedirectService](../master/src/Jeppos/ShopifySDK/Service/RedirectService.php)
+* **pages** - Returns an instance of [PageService](../master/src/Jeppos/ShopifySDK/Service/PageService.php)
 
 ## Examples
 

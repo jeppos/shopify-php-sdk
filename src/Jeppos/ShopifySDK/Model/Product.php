@@ -321,6 +321,8 @@ class Product
     }
 
     /**
+     * TODO Due to current serialization configuration it's not possible to set this to null.
+     *
      * @param null|string $templateSuffix
      * @return Product
      */
