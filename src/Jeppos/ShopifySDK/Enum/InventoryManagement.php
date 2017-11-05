@@ -10,10 +10,6 @@ use Consistence\Enum\Enum;
 class InventoryManagement extends Enum
 {
     /**
-     * Shopify does not track the number of items in stock for this product variant.
-     */
-    const BLANK = 'blank';
-    /**
      * Shopify does track the number of items in stock for this product variant.
      */
     const SHOPIFY = 'shopify';
