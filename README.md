@@ -40,6 +40,8 @@ The **ShopifySDK** class has the following properties,
 * **metafields** - Returns an instance of [MetafieldService](../master/src/Jeppos/ShopifySDK/Service/MetafieldService.php)
 * **redirects** - Returns an instance of [RedirectService](../master/src/Jeppos/ShopifySDK/Service/RedirectService.php)
 * **pages** - Returns an instance of [PageService](../master/src/Jeppos/ShopifySDK/Service/PageService.php)
+* **customers** - Returns an instance of [CustomerService](../master/src/Jeppos/ShopifySDK/Service/CustomerService.php)
+* **customerAddresses** - Returns an instance of [CustomerAddressService](../master/src/Jeppos/ShopifySDK/Service/CustomerAddressService.php)
 
 ## Examples
 
