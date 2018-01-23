@@ -25,7 +25,11 @@ Create a private app using the instructions found on [Shopify's own documentatio
 include __DIR__ . '/vendor/autoload.php';
 \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
 
-$shopifySDK = new \Jeppos\ShopifySDK\ShopifySDK('your-store-name.myshopify.com', 'api-key', 'api-secret');
+$shopifySDK = new \Jeppos\ShopifySDK\ShopifySDK();
+$shopifySDK
+    ->setStoreUrl('your-store-name.myshopify.com')
+    ->setUsername('api-key')
+    ->setPassword('api-secret');
 ```
 
 ## Properties

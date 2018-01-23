@@ -6,7 +6,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
 use Jeppos\ShopifySDK\Service\{
-    AbstractService, CollectService, CustomCollectionService, CustomCollectionMetafieldService, CustomerAddressService, CustomerService, MetafieldService, PageService, ProductImageMetafieldService, ProductImageService, ProductMetafieldService, ProductService, ProductVariantService, RedirectService
+    AbstractService, CollectService, CustomCollectionService, CustomerAddressService, CustomerService, MetafieldService,
+    PageService, ProductImageService, ProductService, ProductVariantService, RedirectService
 };
 
 /**
@@ -35,18 +36,49 @@ class ShopifySDK
      * @var string
      */
     private $password;
+    /**
+     * @var string
+     */
+    private $accessToken;
 
     /**
-     * ShopifySDK constructor.
      * @param string $storeUrl
-     * @param string $username
-     * @param string $password
+     * @return ShopifySDK
      */
-    public function __construct(string $storeUrl, string $username, string $password)
+    public function setStoreUrl(string $storeUrl): ShopifySDK
     {
         $this->storeUrl = $storeUrl;
+        return $this;
+    }
+
+    /**
+     * @param string $username
+     * @return ShopifySDK
+     */
+    public function setUsername(string $username): ShopifySDK
+    {
         $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return ShopifySDK
+     */
+    public function setPassword(string $password): ShopifySDK
+    {
         $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @param string $accessToken
+     * @return ShopifySDK
+     */
+    public function setAccessToken(string $accessToken): ShopifySDK
+    {
+        $this->accessToken = $accessToken;
+        return $this;
     }
 
     /**
@@ -69,14 +101,43 @@ class ShopifySDK
      */
     public function createClient()
     {
-        $guzzleClient = new GuzzleClient([
+        if (!$this->isPrivateApplication() && !$this->isOAuthApplication()) {
+            throw new \InvalidArgumentException('Username and password needs to be set or an access token.');
+        }
+
+        $config = [
             'base_uri' => 'https://' . $this->storeUrl . '/',
-            'auth' => [$this->username, $this->password],
             'headers' => [
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+                'Content-Type' => 'application/json',
+            ],
+        ];
+
+        if ($this->isPrivateApplication()) {
+            $config['auth'] = [$this->username, $this->password];
+        }
+
+        if ($this->isOAuthApplication()) {
+            $config['headers']['X-Shopify-Access-Token'] = $this->accessToken;
+        }
+
+        $guzzleClient = new GuzzleClient($config);
 
         return new ShopifyClient($guzzleClient);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isPrivateApplication(): bool
+    {
+        return $this->username !== null && $this->password !== null;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isOAuthApplication(): bool
+    {
+        return $this->accessToken !== null;
     }
 }
