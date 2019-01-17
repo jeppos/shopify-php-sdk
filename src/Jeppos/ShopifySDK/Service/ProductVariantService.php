@@ -2,26 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\ProductVariant;
 
 /**
- * A ProductVariant is a different version of a product, such as differing sizes or differing colors.
- *
- * Without product variants, you would have to treat the small, medium and large versions of a t-shirt as
- * three separate products; product variants let you treat the small, medium and large versions of a
- * t-shirt as variations of the same product.
- *
- * Each product can have a maximum of 100 variants.
- *
  * @see https://help.shopify.com/api/reference/product_variant
  */
 class ProductVariantService extends AbstractService
 {
     /**
-     * Receive a single Product Variant
-     *
      * @see https://help.shopify.com/api/reference/product_variant#show
+     *
      * @param int $variantId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductVariant
      */
     public function getOne(int $variantId): ProductVariant
@@ -32,11 +33,16 @@ class ProductVariantService extends AbstractService
     }
 
     /**
-     * Receive a list of all Product Variants
-     *
      * @see https://help.shopify.com/api/reference/product_variant#index
+     *
      * @param int $productId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return array
      */
     public function getList(int $productId, array $options = []): array
@@ -47,11 +53,16 @@ class ProductVariantService extends AbstractService
     }
 
     /**
-     * Receive a count of all Product Variants
-     *
      * @see https://help.shopify.com/api/reference/product_variant#count
+     *
      * @param int $productId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(int $productId, array $options = []): int
@@ -60,10 +71,15 @@ class ProductVariantService extends AbstractService
     }
 
     /**
-     * Create a new Product Variant
-     *
      * @see https://help.shopify.com/api/reference/product_variant#create
+     *
      * @param ProductVariant $productVariant
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductVariant
      */
     public function createOne(ProductVariant $productVariant): ProductVariant
@@ -77,10 +93,15 @@ class ProductVariantService extends AbstractService
     }
 
     /**
-     * Modify an existing Product Variant
-     *
      * @see https://help.shopify.com/api/reference/product_variant#update
+     *
      * @param ProductVariant $productVariant
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductVariant
      */
     public function updateOne(ProductVariant $productVariant): ProductVariant
@@ -94,11 +115,15 @@ class ProductVariantService extends AbstractService
     }
 
     /**
-     * Remove a Product Variant from the database
-     *
      * @see https://help.shopify.com/api/reference/product_variant#destroy
+     *
      * @param int $productId
      * @param int $variantId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $productId, int $variantId): bool

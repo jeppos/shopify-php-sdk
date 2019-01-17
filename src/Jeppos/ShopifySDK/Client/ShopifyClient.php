@@ -4,6 +4,7 @@ namespace Jeppos\ShopifySDK\Client;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Psr7;
 
@@ -15,7 +16,6 @@ class ShopifyClient
     protected $client;
 
     /**
-     * ShopifyClient constructor.
      * @param ClientInterface $client
      */
     public function __construct(ClientInterface $client)
@@ -26,10 +26,13 @@ class ShopifyClient
     /**
      * @param string $uri
      * @param array $query
-     * @return mixed
+     *
+     * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
+     *
+     * @return mixed
      */
     public function get(string $uri, array $query = [])
     {
@@ -39,9 +42,12 @@ class ShopifyClient
     /**
      * @param string $uri
      * @param array $query
-     * @return bool
+     *
+     * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
+     *
+     * @return bool
      */
     public function delete(string $uri, array $query = []): bool
     {
@@ -59,6 +65,12 @@ class ShopifyClient
     /**
      * @param string $uri
      * @param string $body
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return mixed
      */
     public function post(string $uri, string $body)
@@ -69,6 +81,12 @@ class ShopifyClient
     /**
      * @param string $uri
      * @param string $body
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return mixed
      */
     public function put(string $uri, string $body)
@@ -81,10 +99,13 @@ class ShopifyClient
      * @param string $uri
      * @param array $query
      * @param string $body
-     * @return mixed
+     *
+     * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
+     *
+     * @return mixed
      */
     public function request(string $method, string $uri, array $query = [], string $body = null)
     {

@@ -5,22 +5,29 @@ namespace Jeppos\ShopifySDK;
 use GuzzleHttp\Client as GuzzleClient;
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
-use Jeppos\ShopifySDK\Service\{
-    AbstractService, CollectService, CustomCollectionService, CustomerAddressService, CustomerService, MetafieldService,
-    PageService, ProductImageService, ProductService, ProductVariantService, RedirectService
-};
+use Jeppos\ShopifySDK\Service\AbstractService;
+use Jeppos\ShopifySDK\Service\CollectService;
+use Jeppos\ShopifySDK\Service\CustomCollectionService;
+use Jeppos\ShopifySDK\Service\CustomerAddressService;
+use Jeppos\ShopifySDK\Service\CustomerService;
+use Jeppos\ShopifySDK\Service\MetafieldService;
+use Jeppos\ShopifySDK\Service\PageService;
+use Jeppos\ShopifySDK\Service\ProductImageService;
+use Jeppos\ShopifySDK\Service\ProductService;
+use Jeppos\ShopifySDK\Service\ProductVariantService;
+use Jeppos\ShopifySDK\Service\RedirectService;
 
 /**
- * @property ProductService $products
- * @property ProductImageService $productImages
- * @property CollectService $collects
- * @property ProductVariantService $productVariants
- * @property CustomCollectionService $customCollections
- * @property MetafieldService $metafields
- * @property RedirectService $redirects
- * @property PageService $pages
- * @property CustomerService $customers
- * @property CustomerAddressService $customerAddresses
+ * @property-read ProductService $products
+ * @property-read ProductImageService $productImages
+ * @property-read CollectService $collects
+ * @property-read ProductVariantService $productVariants
+ * @property-read CustomCollectionService $customCollections
+ * @property-read MetafieldService $metafields
+ * @property-read RedirectService $redirects
+ * @property-read PageService $pages
+ * @property-read CustomerService $customers
+ * @property-read CustomerAddressService $customerAddresses
  */
 class ShopifySDK
 {
@@ -42,7 +49,10 @@ class ShopifySDK
     private $accessToken;
 
     /**
+     * @api
+     *
      * @param string $storeUrl
+     *
      * @return ShopifySDK
      */
     public function setStoreUrl(string $storeUrl): ShopifySDK
@@ -52,7 +62,10 @@ class ShopifySDK
     }
 
     /**
+     * @api
+     *
      * @param string $username
+     *
      * @return ShopifySDK
      */
     public function setUsername(string $username): ShopifySDK
@@ -62,7 +75,10 @@ class ShopifySDK
     }
 
     /**
+     * @api
+     *
      * @param string $password
+     *
      * @return ShopifySDK
      */
     public function setPassword(string $password): ShopifySDK
@@ -73,6 +89,7 @@ class ShopifySDK
 
     /**
      * @param string $accessToken
+     *
      * @return ShopifySDK
      */
     public function setAccessToken(string $accessToken): ShopifySDK
@@ -83,6 +100,7 @@ class ShopifySDK
 
     /**
      * @param string $name
+     *
      * @return AbstractService
      */
     public function __get($name)
@@ -99,7 +117,7 @@ class ShopifySDK
     /**
      * @return ShopifyClient
      */
-    public function createClient()
+    public function createClient(): ShopifyClient
     {
         if (!$this->isPrivateApplication() && !$this->isOAuthApplication()) {
             throw new \InvalidArgumentException('Username and password needs to be set or an access token.');

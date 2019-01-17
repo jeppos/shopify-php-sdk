@@ -1,77 +1,65 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Enum\OwnerResource;
 use Jeppos\ShopifySDK\Model\Metafield;
 use Jeppos\ShopifySDK\Service\MetafieldService;
 
+/**
+ * @property MetafieldService $sut
+ */
 class MetafieldServiceTest extends AbstractServiceTest
 {
     /**
-     * @var MetafieldService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new MetafieldService($this->clientMock, $this->serializerMock);
+        return MetafieldService::class;
     }
 
-    public function testGetOneMetafieldById()
+    public function testGetOneMetafieldById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('metafields/123.json', $response);
         $this->expectResponseBeingDeserialized($response, Metafield::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(Metafield::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfMetafieldsByOwner()
+    public function testGetListOfMetafieldsByOwner(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
-        $this->expectGetReturnsResponse('metafields.json', $response, [
-            'metafield' => [
-                'owner_resource' => 'custom_collection',
-                'owner_id' => 111,
-            ],
-        ]);
+        $this->expectGetReturnsResponse('metafields.json', $response);
         $this->expectResponseBeingDeserializedAsList($response, Metafield::class);
 
-        $actual = $this->sut->getList(OwnerResource::get(OwnerResource::CUSTOM_COLLECTION), 111);
+        $actual = $this->sut->getList();
 
         $this->assertContainsOnlyInstancesOf(Metafield::class, $actual);
     }
 
-    public function testGetMetafieldsCountByOwner()
+    public function testGetMetafieldsCountByOwner(): void
     {
-        $this->expectGetReturnsResponse('metafields/count.json', 56, [
-            'metafield' => [
-                'owner_resource' => 'custom_collection',
-                'owner_id' => 111,
-            ],
-        ]);
+        $this->expectGetReturnsResponse('metafields/count.json', 56);
 
-        $actual = $this->sut->getCount(OwnerResource::get(OwnerResource::CUSTOM_COLLECTION), 111);
+        $actual = $this->sut->getCount();
 
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneMetafield()
+    public function testCreateOneMetafield(): void
     {
         $metafield = (new Metafield())
             ->setOwnerId(456)
             ->setOwnerResource(OwnerResource::get(OwnerResource::CUSTOM_COLLECTION))
-            ->setKey('my_key');
+            ->setKey('my_key')
+        ;
 
         $serializedMetafield = '{"metafield":{"key":"my_key"}}';
 
@@ -81,16 +69,15 @@ class MetafieldServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('metafields.json', $serializedMetafield, $response);
         $this->expectResponseBeingDeserialized($response, Metafield::class);
 
-        $actual = $this->sut->createOne($metafield);
-
-        $this->assertInstanceOf(Metafield::class, $actual);
+        $this->sut->createOne($metafield);
     }
 
-    public function testUpdateOneMetafield()
+    public function testUpdateOneMetafield(): void
     {
         $metafield = (new Metafield())
             ->setId(123)
-            ->setKey('modified_key');
+            ->setKey('modified_key')
+        ;
 
         $serializedMetafield = '{"metafield":{"id":123,"title":"modified_key"}}';
 
@@ -100,12 +87,10 @@ class MetafieldServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('metafields/123.json', $serializedMetafield, $response);
         $this->expectResponseBeingDeserialized($response, Metafield::class);
 
-        $actual = $this->sut->updateOne($metafield);
-
-        $this->assertInstanceOf(Metafield::class, $actual);
+        $this->sut->updateOne($metafield);
     }
 
-    public function testDeleteOneMetafield()
+    public function testDeleteOneMetafield(): void
     {
         $this->expectSuccessfulDeletion('metafields/123.json');
 

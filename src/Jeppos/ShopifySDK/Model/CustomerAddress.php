@@ -4,6 +4,9 @@ namespace Jeppos\ShopifySDK\Model;
 
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/customers/customer_address
+ */
 class CustomerAddress
 {
     /**
@@ -11,116 +14,114 @@ class CustomerAddress
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $firstName;
+    private $firstName;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $lastName;
+    private $lastName;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $company;
+    private $company;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $address1;
+    private $address1;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $address2;
+    private $address2;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $city;
+    private $city;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $province;
+    private $province;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $country;
+    private $country;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $zip;
+    private $zip;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $phone;
+    private $phone;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $provinceCode;
+    private $provinceCode;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $countryCode;
+    private $countryCode;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $countryName;
+    private $countryName;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $default;
+    private $default;
 
     /**
-     * A unique numeric identifier for the address.
-     *
      * @return int
      */
     public function getId(): int
@@ -140,8 +141,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's first name.
-     *
      * @return null|string
      */
     public function getFirstName(): ?string
@@ -163,8 +162,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's last name.
-     *
      * @return null|string
      */
     public function getLastName(): ?string
@@ -186,8 +183,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's company.
-     *
      * @return null|string
      */
     public function getCompany(): ?string
@@ -209,8 +204,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's mailing address.
-     *
      * @return string
      */
     public function getAddress1(): string
@@ -230,8 +223,6 @@ class CustomerAddress
     }
 
     /**
-     * An additional field for the customer's mailing address.
-     *
      * @return string
      */
     public function getAddress2(): string
@@ -251,8 +242,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's city.
-     *
      * @return string
      */
     public function getCity(): string
@@ -272,8 +261,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's province or state name.
-     *
      * @return string
      */
     public function getProvince(): string
@@ -293,8 +280,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's country.
-     *
      * @return string
      */
     public function getCountry(): string
@@ -314,8 +299,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's zip or postal code.
-     *
      * @return string
      */
     public function getZip(): string
@@ -335,8 +318,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's phone number for this mailing address.
-     *
      * @return string
      */
     public function getPhone(): string
@@ -356,8 +337,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's name.
-     *
      * @return string
      */
     public function getName(): string
@@ -377,8 +356,6 @@ class CustomerAddress
     }
 
     /**
-     * The two-letter pcode for the customer's province or state.
-     *
      * @return string
      */
     public function getProvinceCode(): string
@@ -398,8 +375,6 @@ class CustomerAddress
     }
 
     /**
-     * The two-letter country code corresponding to the customer's country.
-     *
      * @return string
      */
     public function getCountryCode(): string
@@ -419,8 +394,6 @@ class CustomerAddress
     }
 
     /**
-     * The customer's normalized country name.
-     *
      * @return string
      */
     public function getCountryName(): string
@@ -440,8 +413,6 @@ class CustomerAddress
     }
 
     /**
-     * Indicates whether this address is the default address for the customer.
-     *
      * @return bool
      */
     public function isDefault(): bool

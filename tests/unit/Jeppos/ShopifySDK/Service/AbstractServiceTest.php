@@ -1,26 +1,34 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Client\ShopifyClient;
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
+use Jeppos\ShopifySDK\Service\AbstractService;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractServiceTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|ShopifyClient
+     * @var MockObject|ShopifyClient
      */
     protected $clientMock;
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|ConfiguredSerializer
+     * @var MockObject|ConfiguredSerializer
      */
     protected $serializerMock;
+    /**
+     * @var AbstractService
+     */
+    protected $sut;
 
     protected function setUp()
     {
         $this->clientMock = $this->createMock(ShopifyClient::class);
         $this->serializerMock = $this->createMock(ConfiguredSerializer::class);
+        $serviceClass = $this->getServiceClass();
+        $this->sut = new $serviceClass($this->clientMock, $this->serializerMock);
     }
 
     /**
@@ -32,7 +40,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('delete')
             ->with($uri)
-            ->willReturn(true);
+            ->willReturn(true)
+        ;
     }
 
     /**
@@ -46,7 +55,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('get')
             ->with($uri, $options)
-            ->willReturn($response);
+            ->willReturn($response)
+        ;
     }
 
     /**
@@ -59,7 +69,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('deserialize')
             ->with($response, $className)
-            ->willReturn(new $className());
+            ->willReturn(new $className())
+        ;
     }
 
     /**
@@ -72,7 +83,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('deserializeList')
             ->with($response, $className)
-            ->willReturn([new $className(), new $className()]);
+            ->willReturn([new $className(), new $className()])
+        ;
     }
 
     /**
@@ -86,7 +98,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($object, $key, ['post'])
-            ->willReturn($serializedObject);
+            ->willReturn($serializedObject)
+        ;
     }
 
     /**
@@ -100,7 +113,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($object, $key, ['put'])
-            ->willReturn($serializedObject);
+            ->willReturn($serializedObject)
+        ;
     }
 
     /**
@@ -114,7 +128,8 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('post')
             ->with($uri, $body)
-            ->willReturn($response);
+            ->willReturn($response)
+        ;
     }
 
     /**
@@ -128,6 +143,12 @@ abstract class AbstractServiceTest extends TestCase
             ->expects($this->once())
             ->method('put')
             ->with($uri, $body)
-            ->willReturn($response);
+            ->willReturn($response)
+        ;
     }
+
+    /**
+     * @return string
+     */
+    abstract protected function getServiceClass(): string;
 }

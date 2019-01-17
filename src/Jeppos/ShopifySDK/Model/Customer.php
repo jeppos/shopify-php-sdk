@@ -6,6 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Jeppos\ShopifySDK\Enum\CustomerState;
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/customers/customer
+ */
 class Customer
 {
     use MetafieldTrait;
@@ -16,154 +19,154 @@ class Customer
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $email;
+    private $email;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $acceptsMarketing;
+    private $acceptsMarketing;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $firstName;
+    private $firstName;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $lastName;
+    private $lastName;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $ordersCount;
+    private $ordersCount;
 
     /**
      * @var CustomerState|null
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\CustomerState, string>")
      * @Serializer\Groups({"get"})
      */
-    protected $state;
+    private $state;
 
     /**
-     * @var int
+     * @var string
+     * @Serializer\Type("string")
+     * @Serializer\Groups({"get"})
+     */
+    private $totalSpent;
+
+    /**
+     * @var int|null
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $totalSpent;
-
-    /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"get"})
-     */
-    protected $lastOrderId;
+    private $lastOrderId;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $note;
+    private $note;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $verifiedEmail;
+    private $verifiedEmail;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $multipassIdentifier;
+    private $multipassIdentifier;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $taxExempt;
+    private $taxExempt;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $phone;
+    private $phone;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $tags;
+    private $tags;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
      * @Serializer\Groups({"get"})
      */
-    protected $lastOrderName;
+    private $lastOrderName;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\CustomerAddress>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $addresses;
+    private $addresses;
 
     /**
-     * @var CustomerAddress
+     * @var CustomerAddress|null
      * @Serializer\Type("Jeppos\ShopifySDK\Model\CustomerAddress")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
-    protected $defaultAddress;
+    private $defaultAddress;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"post"})
      */
-    protected $sendEmailInvite;
+    private $sendEmailInvite;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"post"})
      */
-    protected $sendEmailWelcome;
+    private $sendEmailWelcome;
 
     /**
      * A unique numeric identifier for the customer.
@@ -187,9 +190,6 @@ class Customer
     }
 
     /**
-     * The unique email address of the customer.
-     * Attempting to assign the same email address to multiple customers will return an error.
-     *
      * @return string
      */
     public function getEmail(): string
@@ -209,8 +209,6 @@ class Customer
     }
 
     /**
-     * Indicates whether the customer has consented to be sent marketing material via email.
-     *
      * @return bool
      */
     public function isAcceptsMarketing(): bool
@@ -230,8 +228,6 @@ class Customer
     }
 
     /**
-     * The date and time when the customer was created.
-     *
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -240,8 +236,6 @@ class Customer
     }
 
     /**
-     * The date and time when the customer information was updated.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
@@ -290,8 +284,6 @@ class Customer
     }
 
     /**
-     * The number of orders associated with this customer.
-     *
      * @return int
      */
     public function getOrdersCount(): int
@@ -308,29 +300,23 @@ class Customer
     }
 
     /**
-     * The total amount of money that the customer has spent at the shop.
-     *
-     * @return int
+     * @return string
      */
-    public function getTotalSpent(): int
+    public function getTotalSpent(): string
     {
         return $this->totalSpent;
     }
 
     /**
-     * The id of the customer's last order.
-     *
-     * @return int
+     * @return int|null
      */
-    public function getLastOrderId(): int
+    public function getLastOrderId(): ?int
     {
         return $this->lastOrderId;
     }
 
     /**
-     * A note about the customer.
-     *
-     * @return null|string
+     * @return string|null
      */
     public function getNote(): ?string
     {
@@ -338,9 +324,7 @@ class Customer
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
-     * @param null|string $note
+     * @param string|null $note
      * @return Customer
      */
     public function setNote(?string $note): Customer
@@ -351,8 +335,6 @@ class Customer
     }
 
     /**
-     * States whether or not the email address has been verified.
-     *
      * @return bool
      */
     public function isVerifiedEmail(): bool
@@ -372,9 +354,7 @@ class Customer
     }
 
     /**
-     * The customer's identifier used with Multipass login
-     *
-     * @return null|string
+     * @return string|null
      */
     public function getMultipassIdentifier(): ?string
     {
@@ -382,9 +362,7 @@ class Customer
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
-     * @param null|string $multipassIdentifier
+     * @param string|null $multipassIdentifier
      * @return Customer
      */
     public function setMultipassIdentifier(?string $multipassIdentifier): Customer
@@ -395,8 +373,6 @@ class Customer
     }
 
     /**
-     * Indicates whether the customer should be charged taxes when placing orders.
-     *
      * @return bool
      */
     public function isTaxExempt(): bool
@@ -416,11 +392,6 @@ class Customer
     }
 
     /**
-     * The unique phone number for this customer.
-     * Attempting to assign the same phone number to multiple customers will return an error.
-     * Valid formats can be of different types,
-     * but must represent a number that can be dialed from anywhere in the world.
-     *
      * @return string
      */
     public function getPhone(): string
@@ -440,9 +411,6 @@ class Customer
     }
 
     /**
-     * Tags are additional short descriptors formatted as a string of comma-separated values.
-     * For example, if an article has three tags: tag1, tag2, tag3.
-     *
      * @return string
      */
     public function getTags(): string
@@ -470,19 +438,6 @@ class Customer
     }
 
     /**
-     * @param null|string $lastOrderName
-     * @return Customer
-     */
-    public function setLastOrderName(?string $lastOrderName): Customer
-    {
-        $this->lastOrderName = $lastOrderName;
-
-        return $this;
-    }
-
-    /**
-     * A list of the ten most recently updated addresses for the customer.
-     *
      * @return ArrayCollection
      */
     public function getAddresses(): ArrayCollection
@@ -502,17 +457,8 @@ class Customer
     }
 
     /**
-     * The default address for the customer.
-     *
-     * @return CustomerAddress
-     */
-    public function getDefaultAddress(): CustomerAddress
-    {
-        return $this->defaultAddress;
-    }
-
-    /**
      * @param CustomerAddress $variant
+     * @throws ArrayCollectionException
      * @return Customer
      */
     public function addAddress(CustomerAddress $variant): Customer
@@ -526,6 +472,7 @@ class Customer
 
     /**
      * @param CustomerAddress $variant
+     * @throws ArrayCollectionException
      * @return Customer
      */
     public function removeAddress(CustomerAddress $variant): Customer
@@ -538,10 +485,18 @@ class Customer
     }
 
     /**
-     * @param CustomerAddress $defaultAddress
+     * @return CustomerAddress|null
+     */
+    public function getDefaultAddress(): ?CustomerAddress
+    {
+        return $this->defaultAddress;
+    }
+
+    /**
+     * @param CustomerAddress|null $defaultAddress
      * @return Customer
      */
-    public function setDefaultAddress(CustomerAddress $defaultAddress): Customer
+    public function setDefaultAddress(?CustomerAddress $defaultAddress): Customer
     {
         $this->defaultAddress = $defaultAddress;
 

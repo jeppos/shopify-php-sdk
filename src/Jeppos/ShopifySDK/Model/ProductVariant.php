@@ -8,7 +8,7 @@ use Jeppos\ShopifySDK\Enum\WeightUnit;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @see https://help.shopify.com/api/reference/product_variant
+ * @see https://help.shopify.com/en/api/reference/products/product_variant
  */
 class ProductVariant
 {
@@ -20,175 +20,175 @@ class ProductVariant
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $productId;
+    private $productId;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $title;
+    private $title;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $price;
+    private $price;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $sku;
+    private $sku;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $position;
+    private $position;
 
     /**
      * @var int
      * @Serializer\Type("int")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $grams;
+    private $grams;
 
     /**
      * @var InventoryPolicy
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\InventoryPolicy, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $inventoryPolicy;
+    private $inventoryPolicy;
 
     /**
      * @var null|float
      * @Serializer\Type("float")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $compareAtPrice;
+    private $compareAtPrice;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $fulfillmentService;
+    private $fulfillmentService;
 
     /**
      * @var null|InventoryManagement
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\InventoryManagement, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $inventoryManagement;
+    private $inventoryManagement;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $option1;
+    private $option1;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $option2;
+    private $option2;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $option3;
+    private $option3;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $taxable;
+    private $taxable;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $barcode;
+    private $barcode;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $imageId;
+    private $imageId;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $inventoryQuantity;
+    private $inventoryQuantity;
 
     /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $weight;
+    private $weight;
 
     /**
      * @var WeightUnit
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\WeightUnit, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $weightUnit;
+    private $weightUnit;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $oldInventoryQuantity;
+    private $oldInventoryQuantity;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $requiresShipping;
+    private $requiresShipping;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"put"})
      */
-    protected $inventoryQuantityAdjustment;
+    private $inventoryQuantityAdjustment;
 
     /**
      * The unique numeric identifier for the product variant.
@@ -212,8 +212,6 @@ class ProductVariant
     }
 
     /**
-     * The unique numeric identifier for the product.
-     *
      * @return int
      */
     public function getProductId(): int
@@ -233,8 +231,6 @@ class ProductVariant
     }
 
     /**
-     * The title of the product variant.
-     *
      * @return string
      */
     public function getTitle(): string
@@ -254,8 +250,6 @@ class ProductVariant
     }
 
     /**
-     * The price of the product variant.
-     *
      * @return float
      */
     public function getPrice(): float
@@ -275,8 +269,6 @@ class ProductVariant
     }
 
     /**
-     * A unique identifier for the product in the shop.
-     *
      * @return string
      */
     public function getSku(): string
@@ -296,10 +288,6 @@ class ProductVariant
     }
 
     /**
-     * The order of the product variant in the list of product variants. 1 is the first position.
-     * To reorder variants, update the product with the variants in the desired order.
-     * The position attribute on the variant will be ignored.
-     *
      * @return int
      */
     public function getPosition(): int
@@ -319,8 +307,6 @@ class ProductVariant
     }
 
     /**
-     * The weight of the product variant in grams.
-     *
      * @return int
      */
     public function getGrams(): int
@@ -340,8 +326,6 @@ class ProductVariant
     }
 
     /**
-     * Specifies whether or not customers are allowed to place an order for a product variant when it's out of stock.
-     *
      * @return InventoryPolicy
      */
     public function getInventoryPolicy(): InventoryPolicy
@@ -361,8 +345,6 @@ class ProductVariant
     }
 
     /**
-     * The competitors price for the same item.
-     *
      * @return null|float
      */
     public function getCompareAtPrice(): ?float
@@ -384,8 +366,6 @@ class ProductVariant
     }
 
     /**
-     * The service which is handling fulfillment. Valid values are: manual, gift_card, or the handle of a FulfillmentService.
-     *
      * @return string
      */
     public function getFulfillmentService(): string
@@ -405,8 +385,6 @@ class ProductVariant
     }
 
     /**
-     * Specifies whether or not Shopify tracks the number of items in stock for this product variant.
-     *
      * @return null|InventoryManagement
      */
     public function getInventoryManagement(): ?InventoryManagement
@@ -428,8 +406,6 @@ class ProductVariant
     }
 
     /**
-     * Custom property that a shop owner can use to define product variants.
-     *
      * @return null|string
      */
     public function getOption1(): ?string
@@ -451,8 +427,6 @@ class ProductVariant
     }
 
     /**
-     * Custom property that a shop owner can use to define product variants.
-     *
      * @return null|string
      */
     public function getOption2(): ?string
@@ -474,8 +448,6 @@ class ProductVariant
     }
 
     /**
-     * Custom property that a shop owner can use to define product variants.
-     *
      * @return null|string
      */
     public function getOption3(): ?string
@@ -497,8 +469,6 @@ class ProductVariant
     }
 
     /**
-     * The date and time when the product variant was created.
-     *
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -507,8 +477,6 @@ class ProductVariant
     }
 
     /**
-     * The date and time when the product variant was last modified.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
@@ -517,8 +485,6 @@ class ProductVariant
     }
 
     /**
-     * Specifies whether or not a tax is charged when the product variant is sold.
-     *
      * @return bool
      */
     public function isTaxable(): bool
@@ -538,8 +504,6 @@ class ProductVariant
     }
 
     /**
-     * The barcode, UPC or ISBN number for the product.
-     *
      * @return string
      */
     public function getBarcode(): string
@@ -559,8 +523,6 @@ class ProductVariant
     }
 
     /**
-     * The unique numeric identifier for a product's image. Image must be associated to the same product as the variant.
-     *
      * @return int
      */
     public function getImageId(): int
@@ -580,8 +542,6 @@ class ProductVariant
     }
 
     /**
-     * The number of items in stock for this product variant.
-     *
      * @return int
      */
     public function getInventoryQuantity(): int
@@ -601,8 +561,6 @@ class ProductVariant
     }
 
     /**
-     * The weight of the product variant in the unit system specified with weight_unit.
-     *
      * @return float
      */
     public function getWeight(): float
@@ -622,9 +580,6 @@ class ProductVariant
     }
 
     /**
-     * The unit system that the product variant's weight is measure in.
-     * The weight_unit can be either "g", "kg, "oz", or "lb".
-     *
      * @return WeightUnit
      */
     public function getWeightUnit(): WeightUnit
@@ -644,9 +599,6 @@ class ProductVariant
     }
 
     /**
-     * The original stock level the client believes the product variant has.
-     * This should be sent to avoid a race condition when the item being adjusted is simultaneously sold online.
-     *
      * @return int
      */
     public function getOldInventoryQuantity(): int
@@ -666,9 +618,6 @@ class ProductVariant
     }
 
     /**
-     * Specifies whether or not a customer needs to provide a
-     * shipping address when placing an order for this product variant.
-     *
      * @return bool
      */
     public function isRequiresShipping(): bool
@@ -688,9 +637,6 @@ class ProductVariant
     }
 
     /**
-     * Instead of sending a new and old value for inventory an adjustment value can be sent.
-     * If an adjustment value is sent it will take priority.
-     *
      * @param int $inventoryQuantityAdjustment
      * @return ProductVariant
      */

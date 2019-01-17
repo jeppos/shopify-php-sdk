@@ -2,26 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\CustomCollection;
 
 /**
- * A custom collection is a grouping of products that a shop owner can create to make their shops easier to browse.
- * A shop owner creates a custom collection and then selects the products that will go into it.
- *
- * Custom collections are typically displayed to customers so that customers can select them to view only the products
- * in the collection they've selected. They're typically used to break down a catalog of products into categories to
- * make the shop easier to browse. Shopify shops start with a single custom collection called frontpage —
- * the collection of products shown on the shop's front page.
- *
- * @see https://help.shopify.com/api/reference/customcollection
+ * @see https://help.shopify.com/en/api/reference/products/customcollection
  */
 class CustomCollectionService extends AbstractService
 {
     /**
-     * Receive a single CustomCollection
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#show
      *
-     * @see https://help.shopify.com/api/reference/customcollection#show
      * @param int $collectionId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomCollection
      */
     public function getOne(int $collectionId): CustomCollection
@@ -32,10 +33,15 @@ class CustomCollectionService extends AbstractService
     }
 
     /**
-     * Receive a list of all CustomCollections
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#index
      *
-     * @see https://help.shopify.com/api/reference/customcollection#index
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomCollection[]
      */
     public function getList(array $options = []): array
@@ -46,10 +52,15 @@ class CustomCollectionService extends AbstractService
     }
 
     /**
-     * Receive a count of all CustomCollections
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#count
      *
-     * @see https://help.shopify.com/api/reference/customcollection#count
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(array $options = []): int
@@ -58,10 +69,15 @@ class CustomCollectionService extends AbstractService
     }
 
     /**
-     * Create a new CustomCollection
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#create
      *
-     * @see https://help.shopify.com/api/reference/customcollection#create
      * @param CustomCollection $customCollection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomCollection
      */
     public function createOne(CustomCollection $customCollection): CustomCollection
@@ -75,10 +91,15 @@ class CustomCollectionService extends AbstractService
     }
 
     /**
-     * Modify an existing CustomCollection
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#update
      *
-     * @see https://help.shopify.com/api/reference/customcollection#update
      * @param CustomCollection $customCollection
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomCollection
      */
     public function updateOne(CustomCollection $customCollection): CustomCollection
@@ -92,10 +113,14 @@ class CustomCollectionService extends AbstractService
     }
 
     /**
-     * Remove a CustomCollection from the database
+     * @see https://help.shopify.com/en/api/reference/products/customcollection#destroy
      *
-     * @see https://help.shopify.com/api/reference/customcollection#destroy
      * @param int $customCollectionId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $customCollectionId): bool

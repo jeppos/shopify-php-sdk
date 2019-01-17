@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\Collect;
 use Jeppos\ShopifySDK\Service\CollectService;
 
+/**
+ * @property CollectService $sut
+ */
 class CollectServiceTest extends AbstractServiceTest
 {
     /**
-     * @var CollectService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new CollectService($this->clientMock, $this->serializerMock);
+        return CollectService::class;
     }
 
-    public function testGetOneCollectById()
+    public function testGetOneCollectById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('collects/123.json', $response);
         $this->expectResponseBeingDeserialized($response, Collect::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(Collect::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfCollects()
+    public function testGetListOfCollects(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('collects.json', $response);
@@ -46,7 +43,7 @@ class CollectServiceTest extends AbstractServiceTest
         $this->assertContainsOnlyInstancesOf(Collect::class, $actual);
     }
 
-    public function testGetCollectCount()
+    public function testGetCollectCount(): void
     {
         $this->expectGetReturnsResponse('collects/count.json', 56);
 
@@ -55,11 +52,12 @@ class CollectServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneCollect()
+    public function testCreateOneCollect(): void
     {
         $collect = (new Collect())
             ->setProductId(123)
-            ->setCollectionId(456);
+            ->setCollectionId(456)
+        ;
 
         $serializedCollect = '{"collect":{"product_id":123,"collection_id":456}}';
 
@@ -69,12 +67,10 @@ class CollectServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('collects.json', $serializedCollect, $response);
         $this->expectResponseBeingDeserialized($response, Collect::class);
 
-        $actual = $this->sut->createOne($collect);
-
-        $this->assertInstanceOf(Collect::class, $actual);
+        $this->sut->createOne($collect);
     }
 
-    public function testDeleteOneCollect()
+    public function testDeleteOneCollect(): void
     {
         $this->expectSuccessfulDeletion('collects/123.json');
 

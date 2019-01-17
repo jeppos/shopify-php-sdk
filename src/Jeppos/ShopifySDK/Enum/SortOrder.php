@@ -6,12 +6,12 @@ use Consistence\Enum\Enum;
 
 class SortOrder extends Enum
 {
-    const ALPHA_ASC = 'alpha-asc';
-    const ALPHA_DESC = 'alpha-desc';
-    const BEST_SELLING = 'best-selling';
-    const CREATED_ASC = 'created';
-    const CREATED_DESC = 'created-desc';
-    const MANUAL = 'manual';
-    const PRICE_ASC = 'price-asc';
-    const PRICE_DESC = 'price-desc';
+    public const ALPHA_ASC = 'alpha-asc';
+    public const ALPHA_DESC = 'alpha-desc';
+    public const BEST_SELLING = 'best-selling';
+    public const CREATED_ASC = 'created';
+    public const CREATED_DESC = 'created-desc';
+    public const MANUAL = 'manual';
+    public const PRICE_ASC = 'price-asc';
+    public const PRICE_DESC = 'price-desc';
 }

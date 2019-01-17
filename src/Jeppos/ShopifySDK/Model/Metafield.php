@@ -6,6 +6,9 @@ use Jeppos\ShopifySDK\Enum\OwnerResource;
 use Jeppos\ShopifySDK\Enum\ValueType;
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/metafield
+ */
 class Metafield
 {
     /**
@@ -13,70 +16,70 @@ class Metafield
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $description;
+    private $description;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $key;
+    private $key;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $namespace;
+    private $namespace;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $ownerId;
+    private $ownerId;
 
     /**
      * @var OwnerResource
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\OwnerResource, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $ownerResource;
+    private $ownerResource;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $value;
+    private $value;
 
     /**
      * @var ValueType
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\ValueType, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $valueType;
+    private $valueType;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @return int
@@ -185,7 +188,7 @@ class Metafield
      * @param mixed $ownerResource
      * @return Metafield
      */
-    public function setOwnerResource($ownerResource)
+    public function setOwnerResource($ownerResource): Metafield
     {
         $this->ownerResource = $ownerResource;
 

@@ -2,21 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
-use Jeppos\ShopifySDK\Enum\OwnerResource;
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\Metafield;
 
-/**
- * Metafields allow you to attach metadata, which is additional information, to a store's resources.
- *
- * @see https://help.shopify.com/api/reference/metafield
+/***
+ * @see https://help.shopify.com/en/api/reference/metafield
  */
 class MetafieldService extends AbstractService
 {
     /**
-     * Get a single resource metafield by its ID
+     * @see https://help.shopify.com/en/api/reference/metafield#show
      *
-     * @see https://help.shopify.com/api/reference/metafield#show
      * @param int $metafieldId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Metafield
      */
     public function getOne(int $metafieldId): Metafield
@@ -30,55 +36,57 @@ class MetafieldService extends AbstractService
     }
 
     /**
-     * Get metafields that belong to a resource
+     * @see https://help.shopify.com/en/api/reference/metafield#index
      *
-     * @see https://help.shopify.com/api/reference/metafield#index
-     * @param OwnerResource $ownerResource
-     * @param int $ownerId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Metafield[]
      */
-    public function getList(OwnerResource $ownerResource, int $ownerId, array $options = []): array
+    public function getList(array $options = []): array
     {
-        $options['metafield'] = [
-            'owner_resource' => $ownerResource->getValue(),
-            'owner_id' => $ownerId,
-        ];
-        $response = $this->client->get(sprintf('metafields.json', $ownerId), $options);
+        $response = $this->client->get('metafields.json', $options);
 
         return $this->serializer->deserializeList($response, Metafield::class);
     }
 
     /**
-     * Get a count of metafields that belong to a CustomCollection
+     * @see https://help.shopify.com/en/api/reference/metafield#count
      *
-     * @see https://help.shopify.com/api/reference/metafield#count
-     * @param OwnerResource $ownerResource
-     * @param int $ownerId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
-    public function getCount(OwnerResource $ownerResource, int $ownerId, array $options = []): int
+    public function getCount(array $options = []): int
     {
-        $options['metafield'] = [
-            'owner_resource' => $ownerResource->getValue(),
-            'owner_id' => $ownerId,
-        ];
-
-        return $this->client->get(sprintf('metafields/count.json', $ownerId), $options);
+        return $this->client->get('metafields/count.json', $options);
     }
 
     /**
-     * Create a new metafield for a CustomCollection
+     * @see https://help.shopify.com/en/api/reference/metafield#create
      *
-     * @see https://help.shopify.com/api/reference/metafield#create
      * @param Metafield $metaField
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Metafield
      */
     public function createOne(Metafield $metaField): Metafield
     {
         $response = $this->client->post(
-            sprintf('metafields.json', $metaField->getOwnerId()),
+            'metafields.json',
             $this->serializer->serialize($metaField, 'metafield', ['post'])
         );
 
@@ -86,10 +94,15 @@ class MetafieldService extends AbstractService
     }
 
     /**
-     * Update a CustomCollection metafield
+     * @see https://help.shopify.com/en/api/reference/metafield#update
      *
-     * @see https://help.shopify.com/api/reference/metafield#update
      * @param Metafield $metaField
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Metafield
      */
     public function updateOne(Metafield $metaField): Metafield
@@ -103,10 +116,14 @@ class MetafieldService extends AbstractService
     }
 
     /**
-     * Delete a CustomCollection metafield
+     * @see https://help.shopify.com/en/api/reference/metafield#destroy
      *
-     * @see https://help.shopify.com/api/reference/metafield#destroy
      * @param int $metafieldId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $metafieldId): bool

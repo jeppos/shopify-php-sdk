@@ -2,23 +2,28 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\ProductImage;
 
 /**
- * Products are easier to sell if customers can see pictures of them, which is why there are product images.
- *
- * Any product may have up to 250 images, and images can be in .png, .gif or .jpg format.
- *
- * @see https://help.shopify.com/api/reference/product_image
+ * @see https://help.shopify.com/en/api/reference/products/product_image
  */
 class ProductImageService extends AbstractService
 {
     /**
-     * Receive a single Product Image
+     * @see https://help.shopify.com/en/api/reference/products/product_image#show
      *
-     * @see https://help.shopify.com/api/reference/product_image#show
      * @param int $productId
      * @param int $imageId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductImage
      */
     public function getOne(int $productId, int $imageId): ProductImage
@@ -29,11 +34,16 @@ class ProductImageService extends AbstractService
     }
 
     /**
-     * Receive a list of all Product Images
+     * @see https://help.shopify.com/en/api/reference/products/product_image#index
      *
-     * @see https://help.shopify.com/api/reference/product_image#index
      * @param int $productId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductImage[]
      */
     public function getList(int $productId, array $options = []): array
@@ -44,11 +54,16 @@ class ProductImageService extends AbstractService
     }
 
     /**
-     * Receive a count of all Product Images
+     * @see https://help.shopify.com/en/api/reference/products/product_image#count
      *
-     * @see https://help.shopify.com/api/reference/product_image#count
      * @param int $productId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(int $productId, array $options = []): int
@@ -57,10 +72,15 @@ class ProductImageService extends AbstractService
     }
 
     /**
-     * Create a new Product Image
+     * @see https://help.shopify.com/en/api/reference/products/product_image#create
      *
-     * @see https://help.shopify.com/api/reference/product_image#create
      * @param ProductImage $productImage
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductImage
      */
     public function createOne(ProductImage $productImage): ProductImage
@@ -74,10 +94,15 @@ class ProductImageService extends AbstractService
     }
 
     /**
-     * Modify an existing Product Image
+     * @see https://help.shopify.com/en/api/reference/products/product_image#update
      *
-     * @see https://help.shopify.com/api/reference/product_image#update
      * @param ProductImage $productImage
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return ProductImage
      */
     public function updateOne(ProductImage $productImage): ProductImage
@@ -91,11 +116,15 @@ class ProductImageService extends AbstractService
     }
 
     /**
-     * Remove a Product Image from the database
+     * @see https://help.shopify.com/en/api/reference/products/product_image#destroy
      *
-     * @see https://help.shopify.com/api/reference/product_image#destroy
      * @param int $productId
      * @param int $imageId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $productId, int $imageId): bool

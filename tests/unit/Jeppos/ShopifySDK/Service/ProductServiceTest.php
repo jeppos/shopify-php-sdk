@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\Product;
 use Jeppos\ShopifySDK\Service\ProductService;
 
+/**
+ * @property ProductService $sut
+ */
 class ProductServiceTest extends AbstractServiceTest
 {
     /**
-     * @var ProductService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new ProductService($this->clientMock, $this->serializerMock);
+        return ProductService::class;
     }
 
-    public function testGetOneProductById()
+    public function testGetOneProductById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('products/123.json', $response);
         $this->expectResponseBeingDeserialized($response, Product::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(Product::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfProducts()
+    public function testGetListOfProducts(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('products.json', $response);
@@ -46,7 +43,7 @@ class ProductServiceTest extends AbstractServiceTest
         $this->assertContainsOnlyInstancesOf(Product::class, $actual);
     }
 
-    public function testGetProductCount()
+    public function testGetProductCount(): void
     {
         $this->expectGetReturnsResponse('products/count.json', 56);
 
@@ -55,7 +52,7 @@ class ProductServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneProduct()
+    public function testCreateOneProduct(): void
     {
         $product = (new Product())
             ->setTitle('test product');
@@ -68,16 +65,15 @@ class ProductServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('products.json', $serializedProduct, $response);
         $this->expectResponseBeingDeserialized($response, Product::class);
 
-        $actual = $this->sut->createOne($product);
-
-        $this->assertInstanceOf(Product::class, $actual);
+        $this->sut->createOne($product);
     }
 
-    public function testUpdateOneProduct()
+    public function testUpdateOneProduct(): void
     {
         $product = (new Product())
             ->setId(123)
-            ->setTitle('modified product');
+            ->setTitle('modified product')
+        ;
 
         $serializedProduct = '{"product":{"id":123,"title":"modified product"}}';
 
@@ -87,12 +83,10 @@ class ProductServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('products/123.json', $serializedProduct, $response);
         $this->expectResponseBeingDeserialized($response, Product::class);
 
-        $actual = $this->sut->updateOne($product);
-
-        $this->assertInstanceOf(Product::class, $actual);
+        $this->sut->updateOne($product);
     }
 
-    public function testDeleteOneProduct()
+    public function testDeleteOneProduct(): void
     {
         $this->expectSuccessfulDeletion('products/123.json');
 

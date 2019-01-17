@@ -8,14 +8,24 @@ trait ArrayCollectionValidatorTrait
 {
     /**
      * @param string $field
+     *
      * @throws ArrayCollectionException
      */
-    protected function validateThatFieldIsArrayCollection(string $field)
+    private function validateThatFieldIsArrayCollection(string $field): void
     {
-        if (!$this->{$field} instanceof ArrayCollection) {
+        if ($this->isInstanceOfArrayCollection($field) === false) {
             throw new ArrayCollectionException(
                 sprintf('The field %s is not an instance of %s', $field, ArrayCollection::class)
             );
         }
+    }
+
+    /**
+     * @param string $field
+     * @return bool
+     */
+    private function isInstanceOfArrayCollection(string $field): bool
+    {
+        return $this->{$field} instanceof ArrayCollection;
     }
 }

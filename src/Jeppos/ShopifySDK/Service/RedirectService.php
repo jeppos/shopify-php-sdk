@@ -2,15 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\Redirect;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/online_store/redirect
+ */
 class RedirectService extends AbstractService
 {
     /**
-     * Receive a single Redirect
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#show
      *
-     * @see https://help.shopify.com/api/reference/redirect#show
      * @param int $redirectId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Redirect
      */
     public function getOne(int $redirectId): Redirect
@@ -21,10 +33,15 @@ class RedirectService extends AbstractService
     }
 
     /**
-     * Receive a list of all Redirects
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#index
      *
-     * @see https://help.shopify.com/api/reference/redirect#index
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Redirect[]
      */
     public function getList(array $options = []): array
@@ -35,10 +52,15 @@ class RedirectService extends AbstractService
     }
 
     /**
-     * Receive a count of all Redirects
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#count
      *
-     * @see https://help.shopify.com/api/reference/redirect#count
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(array $options = []): int
@@ -47,10 +69,15 @@ class RedirectService extends AbstractService
     }
 
     /**
-     * Create a new Redirect
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#create
      *
-     * @see https://help.shopify.com/api/reference/redirect#create
      * @param Redirect $redirect
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Redirect
      */
     public function createOne(Redirect $redirect): Redirect
@@ -61,10 +88,15 @@ class RedirectService extends AbstractService
     }
 
     /**
-     * Modify an existing Redirect
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#update
      *
-     * @see https://help.shopify.com/api/reference/redirect#update
      * @param Redirect $redirect
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Redirect
      */
     public function updateOne(Redirect $redirect): Redirect
@@ -78,10 +110,14 @@ class RedirectService extends AbstractService
     }
 
     /**
-     * Remove a Redirect from the database
+     * @see https://help.shopify.com/en/api/reference/online_store/redirect#destroy
      *
-     * @see https://help.shopify.com/api/reference/redirect#destroy
      * @param int $redirectId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $redirectId): bool

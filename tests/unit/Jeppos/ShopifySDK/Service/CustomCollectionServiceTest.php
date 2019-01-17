@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\CustomCollection;
 use Jeppos\ShopifySDK\Service\CustomCollectionService;
 
+/**
+ * @property CustomCollectionService $sut
+ */
 class CustomCollectionServiceTest extends AbstractServiceTest
 {
     /**
-     * @var CustomCollectionService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new CustomCollectionService($this->clientMock, $this->serializerMock);
+        return CustomCollectionService::class;
     }
 
-    public function testGetOneCustomCollectionById()
+    public function testGetOneCustomCollectionById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('custom_collections/123.json', $response);
         $this->expectResponseBeingDeserialized($response, CustomCollection::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(CustomCollection::class, $actual);
+        $this->sut->getOne(123);
     }
 
     public function testGetListOfCustomCollections()
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('custom_collections.json', $response);
@@ -55,7 +52,7 @@ class CustomCollectionServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneCustomCollection()
+    public function testCreateOneCustomCollection(): void
     {
         $customCollection = (new CustomCollection())
             ->setTitle('test custom collection');
@@ -68,16 +65,15 @@ class CustomCollectionServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('custom_collections.json', $serializedCustomCollection, $response);
         $this->expectResponseBeingDeserialized($response, CustomCollection::class);
 
-        $actual = $this->sut->createOne($customCollection);
-
-        $this->assertInstanceOf(CustomCollection::class, $actual);
+        $this->sut->createOne($customCollection);
     }
 
-    public function testUpdateOneCustomCollection()
+    public function testUpdateOneCustomCollection(): void
     {
         $customCollection = (new CustomCollection())
             ->setId(123)
-            ->setTitle('modified custom collection');
+            ->setTitle('modified custom collection')
+        ;
 
         $serializedCustomCollection = '{"product":{"id":123,"title":"modified custom collection"}}';
 
@@ -87,12 +83,10 @@ class CustomCollectionServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('custom_collections/123.json', $serializedCustomCollection, $response);
         $this->expectResponseBeingDeserialized($response, CustomCollection::class);
 
-        $actual = $this->sut->updateOne($customCollection);
-
-        $this->assertInstanceOf(CustomCollection::class, $actual);
+        $this->sut->updateOne($customCollection);
     }
 
-    public function testDeleteOneCustomCollection()
+    public function testDeleteOneCustomCollection(): void
     {
         $this->expectSuccessfulDeletion('custom_collections/123.json');
 

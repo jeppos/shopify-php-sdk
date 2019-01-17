@@ -2,21 +2,30 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\CustomerAddress;
 
 /**
- * A customer address resource instance represents one of the many addresses a customer may have
- *
- * @see https://help.shopify.com/api/reference/customeraddress
+ * @see https://help.shopify.com/en/api/reference/customers/customer_address
  */
 class CustomerAddressService extends AbstractService
 {
     /**
-     * Receive a single CustomerAddress
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/customeraddress#show
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#show
+     *
      * @param int $customerId
      * @param int $addressId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomerAddress
      */
     public function getOne(int $customerId, int $addressId): CustomerAddress
@@ -27,11 +36,18 @@ class CustomerAddressService extends AbstractService
     }
 
     /**
-     * Receive a list of all CustomerAddress
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/customeraddress#index
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#index
+     *
      * @param int $customerId
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomerAddress[]
      */
     public function getList(int $customerId, array $options = []): array
@@ -42,11 +58,18 @@ class CustomerAddressService extends AbstractService
     }
 
     /**
-     * Create a new CustomerAddress
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/customeraddress#create
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#create
+     *
      * @param int $customerId
      * @param CustomerAddress $customerAddress
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomerAddress
      */
     public function createOne(int $customerId, CustomerAddress $customerAddress): CustomerAddress
@@ -60,17 +83,24 @@ class CustomerAddressService extends AbstractService
     }
 
     /**
-     * Modify an existing CustomerAddress
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/customeraddress#update
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#update
+     *
      * @param int $customerId
      * @param CustomerAddress $customerAddress
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return CustomerAddress
      */
     public function updateOne(int $customerId, CustomerAddress $customerAddress): CustomerAddress
     {
         $response = $this->client->put(
-            sprintf('customers/%d/addresses/%s.json', $customerId, $customerAddress->getId()),
+            sprintf('customers/%d/addresses/%d.json', $customerId, $customerAddress->getId()),
             $this->serializer->serialize($customerAddress, 'customer_address', ['put'])
         );
 
@@ -78,15 +108,69 @@ class CustomerAddressService extends AbstractService
     }
 
     /**
-     * Remove a CustomerAddress from the database
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/customeraddress#destroy
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#destroy
+     *
      * @param int $customerId
      * @param int $addressId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $customerId, int $addressId): bool
     {
-        return $this->client->delete(sprintf('customers/%d/addresses/%s.json', $customerId, $addressId));
+        return $this->client->delete(sprintf('customers/%d/addresses/%d.json', $customerId, $addressId));
+    }
+
+    /**
+     * @api
+     *
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#set
+     *
+     * @param int $customerId
+     * @param int[] $addressIds
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
+     * @return bool
+     */
+    public function deleteBulk(int $customerId, array $addressIds): bool
+    {
+        return $this->client->request(
+            'PUT',
+            sprintf('customers/%d/addresses/set.json', $customerId),
+            [
+                'operation' => 'destroy',
+                'address_ids' => $addressIds,
+            ]
+        );
+    }
+
+    /**
+     * @api
+     *
+     * @see https://help.shopify.com/en/api/reference/customers/customer_address#default
+     *
+     * @param int $customerId
+     * @param int $addressId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
+     * @return bool
+     */
+    public function updateDefault(int $customerId, int $addressId): bool
+    {
+        return $this->client->put(
+            'PUT',
+            sprintf('customers/%d/addresses/%d/default.json', $customerId, $addressId)
+        );
     }
 }

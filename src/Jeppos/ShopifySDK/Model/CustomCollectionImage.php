@@ -11,35 +11,35 @@ class CustomCollectionImage
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $width;
+    private $width;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $height;
+    private $height;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $src;
+    private $src;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $attachment;
+    private $attachment;
 
     /**
      * @return \DateTime

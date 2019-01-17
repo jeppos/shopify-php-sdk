@@ -1,15 +1,16 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Serializer;
+namespace Tests\Unit\Jeppos\ShopifySDK\Serializer;
 
 use Jeppos\ShopifySDK\Serializer\ConfiguredSerializer;
 use JMS\Serializer\Serializer;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class ConfiguredSerializerTest extends TestCase
 {
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject|Serializer
+     * @var MockObject|Serializer
      */
     private $serializerMock;
 
@@ -27,7 +28,7 @@ class ConfiguredSerializerTest extends TestCase
     public function testDeserialization()
     {
         $array = [
-            'foo' => 'bar'
+            'foo' => 'bar',
         ];
 
         $object = new class
@@ -39,7 +40,8 @@ class ConfiguredSerializerTest extends TestCase
             ->expects($this->once())
             ->method('fromArray')
             ->with($array, 'Namespace\Class')
-            ->willReturn($object);
+            ->willReturn($object)
+        ;
 
         $actual = $this->sut->deserialize($array, 'Namespace\Class');
 
@@ -50,7 +52,7 @@ class ConfiguredSerializerTest extends TestCase
     {
         $listArray = [
             ['foo' => 'lorem'],
-            ['foo' => 'ipsum']
+            ['foo' => 'ipsum'],
         ];
 
         $objects = [
@@ -61,14 +63,15 @@ class ConfiguredSerializerTest extends TestCase
             new class
             {
                 protected $foo = 'ipsum';
-            }
+            },
         ];
 
         $this->serializerMock
             ->expects($this->exactly(2))
             ->method('fromArray')
             ->withConsecutive([$listArray[0], 'Namespace\Class'], [$listArray[1], 'Namespace\Class'])
-            ->willReturnOnConsecutiveCalls($objects[0], $objects[1]);
+            ->willReturnOnConsecutiveCalls($objects[0], $objects[1])
+        ;
 
         $actual = $this->sut->deserializeList($listArray, 'Namespace\Class');
 
@@ -89,7 +92,8 @@ class ConfiguredSerializerTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($object, 'json')
-            ->willReturn($json);
+            ->willReturn($json)
+        ;
 
         $actual = $this->sut->serialize($object, 'foo', ['bar']);
 

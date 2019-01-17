@@ -5,7 +5,7 @@ namespace Jeppos\ShopifySDK\Model;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @see https://help.shopify.com/api/reference/collect
+ * @see https://help.shopify.com/en/api/reference/products/collect
  */
 class Collect
 {
@@ -14,56 +14,49 @@ class Collect
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $collectionId;
+    private $collectionId;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $productId;
-
-    /**
-     * @var bool
-     * @Serializer\Type("boolean")
-     * @Serializer\Groups({"get", "post", "put"})
-     */
-    protected $featured;
+    private $productId;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $position;
+    private $position;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $sortValue;
+    private $sortValue;
 
     /**
      * A unique numeric identifier for the collect.
@@ -87,8 +80,6 @@ class Collect
     }
 
     /**
-     * The id of the custom collection containing the product.
-     *
      * @return int
      */
     public function getCollectionId(): int
@@ -108,8 +99,6 @@ class Collect
     }
 
     /**
-     * The unique numeric identifier for the product in the custom collection.
-     *
      * @return int
      */
     public function getProductId(): int
@@ -129,29 +118,6 @@ class Collect
     }
 
     /**
-     * States whether or not the collect is featured.
-     *
-     * @return bool
-     */
-    public function isFeatured(): bool
-    {
-        return $this->featured;
-    }
-
-    /**
-     * @param bool $featured
-     * @return Collect
-     */
-    public function setFeatured(bool $featured): Collect
-    {
-        $this->featured = $featured;
-
-        return $this;
-    }
-
-    /**
-     * The date and time when the collect was created.
-     *
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -160,8 +126,6 @@ class Collect
     }
 
     /**
-     * The date and time when the collect was last updated.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): ?\DateTime
@@ -170,10 +134,6 @@ class Collect
     }
 
     /**
-     * A number specifying the manually sorted position of this product in a custom collection.
-     * The first position is 1.
-     * This value only applies when the custom collection is viewed using the Manual sort order.
-     *
      * @return int
      */
     public function getPosition(): int
@@ -193,8 +153,6 @@ class Collect
     }
 
     /**
-     * This is the same value as position but padded with leading zeroes to make it alphanumeric-sortable.
-     *
      * @return string
      */
     public function getSortValue(): string

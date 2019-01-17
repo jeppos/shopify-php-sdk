@@ -6,6 +6,6 @@ use Consistence\Enum\Enum;
 
 class ValueType extends Enum
 {
-    const STRING = 'string';
-    const INTEGER = 'integer';
+    public const STRING = 'string';
+    public const INTEGER = 'integer';
 }

@@ -3,7 +3,9 @@
 namespace Jeppos\ShopifySDK\Serializer;
 
 use Consistence\JmsSerializer\Enum\EnumSerializerHandler;
+use Jeppos\ShopifySDK\EventSubscriber\CustomerSubscriber;
 use JMS\Serializer\DeserializationContext;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Serializer;
@@ -17,7 +19,6 @@ class ConfiguredSerializer
     private $serializer;
 
     /**
-     * Serializer constructor.
      * @param Serializer $serializer
      */
     public function __construct(Serializer $serializer = null)
@@ -28,7 +29,11 @@ class ConfiguredSerializer
                 ->configureHandlers(function (HandlerRegistry $registry) {
                     $registry->registerSubscribingHandler(new EnumSerializerHandler());
                 })
-                ->build();
+                ->configureListeners(function (EventDispatcher $dispatcher) {
+                    $dispatcher->addSubscriber(new CustomerSubscriber());
+                })
+                ->build()
+            ;
         }
 
         $this->serializer = $serializer;
@@ -37,6 +42,7 @@ class ConfiguredSerializer
     /**
      * @param array $array
      * @param string $className
+     *
      * @return mixed
      */
     public function deserialize(array $array, string $className)
@@ -50,6 +56,7 @@ class ConfiguredSerializer
     /**
      * @param array $array
      * @param string $className
+     *
      * @return array
      */
     public function deserializeList(array $array, string $className): array
@@ -69,13 +76,13 @@ class ConfiguredSerializer
      * @param $object
      * @param string $key
      * @param array $groups
+     *
      * @return string
      */
     public function serialize($object, string $key, array $groups): string
     {
         $serializationContent = SerializationContext::create();
         $serializationContent->setGroups($groups);
-        $serializationContent->setSerializeNull(false);
 
         $serializedObject = $this->serializer->serialize($object, 'json', $serializationContent);
 

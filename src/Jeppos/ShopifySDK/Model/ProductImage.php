@@ -17,74 +17,72 @@ class ProductImage
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $productId;
+    private $productId;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $position;
+    private $position;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $width;
+    private $width;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $height;
+    private $height;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $src;
+    private $src;
 
     /**
      * @var int[]
      * @Serializer\Type("array<integer>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $variantIds;
+    private $variantIds;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $attachment;
+    private $attachment;
 
     /**
-     * A unique numeric identifier for the product image.
-     *
      * @return int
      */
     public function getId(): int
@@ -104,8 +102,6 @@ class ProductImage
     }
 
     /**
-     * The id of the product associated with the image.
-     *
      * @return int
      */
     public function getProductId(): int
@@ -125,9 +121,6 @@ class ProductImage
     }
 
     /**
-     * The order of the product image in the list.
-     * The first product image is at position 1 and is the "main" image for the product.
-     *
      * @return int
      */
     public function getPosition(): int
@@ -147,8 +140,6 @@ class ProductImage
     }
 
     /**
-     * The date and time when the product image was created.
-     *
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -157,8 +148,6 @@ class ProductImage
     }
 
     /**
-     * The date and time when the product image was last modified.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
@@ -167,8 +156,6 @@ class ProductImage
     }
 
     /**
-     * Width dimension of the image which is determined on upload.
-     *
      * @return int
      */
     public function getWidth(): int
@@ -177,8 +164,6 @@ class ProductImage
     }
 
     /**
-     * Height dimension of the image which is determined on upload.
-     *
      * @return int
      */
     public function getHeight(): int
@@ -187,8 +172,6 @@ class ProductImage
     }
 
     /**
-     * Specifies the location of the product image.
-     *
      * @return string
      */
     public function getSrc(): string
@@ -208,8 +191,6 @@ class ProductImage
     }
 
     /**
-     * An array of variant ids associated with the image.
-     *
      * @return int[]
      */
     public function getVariantIds(): array

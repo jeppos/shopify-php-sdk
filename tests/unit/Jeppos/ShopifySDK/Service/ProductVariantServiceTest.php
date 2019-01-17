@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\ProductVariant;
 use Jeppos\ShopifySDK\Service\ProductVariantService;
 
+/**
+ * @property ProductVariantService $sut
+ */
 class ProductVariantServiceTest extends AbstractServiceTest
 {
     /**
-     * @var ProductVariantService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new ProductVariantService($this->clientMock, $this->serializerMock);
+        return ProductVariantService::class;
     }
 
-    public function testGetOneProductVariantById()
+    public function testGetOneProductVariantById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('variants/123.json', $response);
         $this->expectResponseBeingDeserialized($response, ProductVariant::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(ProductVariant::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfProductVariants()
+    public function testGetListOfProductVariants(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('products/123/variants.json', $response);
@@ -46,7 +43,7 @@ class ProductVariantServiceTest extends AbstractServiceTest
         $this->assertContainsOnlyInstancesOf(ProductVariant::class, $actual);
     }
 
-    public function testGetProductVariantCount()
+    public function testGetProductVariantCount(): void
     {
         $this->expectGetReturnsResponse('products/123/variants/count.json', 56);
 
@@ -55,11 +52,12 @@ class ProductVariantServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneProductVariant()
+    public function testCreateOneProductVariant(): void
     {
         $productVariant = (new ProductVariant())
             ->setProductId(456)
-            ->setTitle('test variant');
+            ->setTitle('test variant')
+        ;
 
         $serializedProductVariant = '{"variant":{"src":"http://via.placeholder.com/350x150"}}';
 
@@ -69,16 +67,15 @@ class ProductVariantServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('products/456/variants.json', $serializedProductVariant, $response);
         $this->expectResponseBeingDeserialized($response, ProductVariant::class);
 
-        $actual = $this->sut->createOne($productVariant);
-
-        $this->assertInstanceOf(ProductVariant::class, $actual);
+        $this->sut->createOne($productVariant);
     }
 
-    public function testUpdateOneProductVariant()
+    public function testUpdateOneProductVariant(): void
     {
         $productVariant = (new ProductVariant())
             ->setId(123)
-            ->setTitle('modified variant');
+            ->setTitle('modified variant')
+        ;
 
         $serializedProductVariant = '{"variant":{"id":123,"title":"modified variant"}}';
 
@@ -88,12 +85,10 @@ class ProductVariantServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('variants/123.json', $serializedProductVariant, $response);
         $this->expectResponseBeingDeserialized($response, ProductVariant::class);
 
-        $actual = $this->sut->updateOne($productVariant);
-
-        $this->assertInstanceOf(ProductVariant::class, $actual);
+        $this->sut->updateOne($productVariant);
     }
 
-    public function testDeleteOneProductVariant()
+    public function testDeleteOneProductVariant(): void
     {
         $this->expectSuccessfulDeletion('products/456/variants/123.json');
 

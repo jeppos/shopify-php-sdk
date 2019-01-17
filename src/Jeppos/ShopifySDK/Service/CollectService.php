@@ -2,25 +2,29 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\Collect;
 
 /**
- * A collect is an object that connects a product to a custom collection.
- *
- * For every product in a custom collection there exists a collect that tracks the ids of both the product and
- * the custom collection it's a member of. A product can be a member of more than one collection, and will have more
- * than one collect connecting the product to each collection. Unlike many Shopify resources, collects aren't apparent
- * to shop owners; they're objects for managing the relationship between products and custom collections.
- *
- * @see https://help.shopify.com/api/reference/collect
+ * @see https://help.shopify.com/en/api/reference/products/collect
  */
 class CollectService extends AbstractService
 {
     /**
-     * Receive a single Collect
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/collect#show
+     * @see https://help.shopify.com/en/api/reference/products/collect#show
+     *
      * @param int $collectId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Collect
      */
     public function getOne(int $collectId): Collect
@@ -31,10 +35,17 @@ class CollectService extends AbstractService
     }
 
     /**
-     * Receive a list of all Collects
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/collect#index
+     * @see https://help.shopify.com/en/api/reference/products/collect#index
+     *
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Collect[]
      */
     public function getList(array $options = []): array
@@ -45,10 +56,17 @@ class CollectService extends AbstractService
     }
 
     /**
-     * Receive a count of all Collects
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/collect#count
+     * @see https://help.shopify.com/en/api/reference/products/collect#count
+     *
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(array $options = []): int
@@ -57,10 +75,17 @@ class CollectService extends AbstractService
     }
 
     /**
-     * Create a new Collect
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/collect#create
+     * @see https://help.shopify.com/en/api/reference/products/collect#create
+     *
      * @param Collect $collect
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Collect
      */
     public function createOne(Collect $collect): Collect
@@ -74,10 +99,16 @@ class CollectService extends AbstractService
     }
 
     /**
-     * Remove a Collect from the database
+     * @api
      *
-     * @see https://help.shopify.com/api/reference/collect#destroy
+     * @see https://help.shopify.com/en/api/reference/products/collect#destroy
+     *
      * @param int $collectId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $collectId): bool

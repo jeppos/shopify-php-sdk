@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\Page;
 use Jeppos\ShopifySDK\Service\PageService;
 
+/**
+ * @property PageService $sut
+ */
 class PageServiceTest extends AbstractServiceTest
 {
     /**
-     * @var PageService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new PageService($this->clientMock, $this->serializerMock);
+        return PageService::class;
     }
 
-    public function testGetOnePageById()
+    public function testGetOnePageById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('pages/123.json', $response);
         $this->expectResponseBeingDeserialized($response, Page::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(Page::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfPages()
+    public function testGetListOfPages(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('pages.json', $response);
@@ -46,7 +43,7 @@ class PageServiceTest extends AbstractServiceTest
         $this->assertContainsOnlyInstancesOf(Page::class, $actual);
     }
 
-    public function testGetPageCount()
+    public function testGetPageCount(): void
     {
         $this->expectGetReturnsResponse('pages/count.json', 56);
 
@@ -55,7 +52,7 @@ class PageServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOnePage()
+    public function testCreateOnePage(): void
     {
         $page = (new Page())
             ->setTitle('test page');
@@ -68,16 +65,15 @@ class PageServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('pages.json', $serializedPage, $response);
         $this->expectResponseBeingDeserialized($response, Page::class);
 
-        $actual = $this->sut->createOne($page);
-
-        $this->assertInstanceOf(Page::class, $actual);
+        $this->sut->createOne($page);
     }
 
-    public function testUpdateOnePage()
+    public function testUpdateOnePage(): void
     {
         $page = (new Page())
             ->setId(123)
-            ->setTitle('modified page');
+            ->setTitle('modified page')
+        ;
 
         $serializedPage = '{"page":{"id":123,"title":"modified page"}}';
 
@@ -87,12 +83,10 @@ class PageServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('pages/123.json', $serializedPage, $response);
         $this->expectResponseBeingDeserialized($response, Page::class);
 
-        $actual = $this->sut->updateOne($page);
-
-        $this->assertInstanceOf(Page::class, $actual);
+        $this->sut->updateOne($page);
     }
 
-    public function testDeleteOnePage()
+    public function testDeleteOnePage(): void
     {
         $this->expectSuccessfulDeletion('pages/123.json');
 

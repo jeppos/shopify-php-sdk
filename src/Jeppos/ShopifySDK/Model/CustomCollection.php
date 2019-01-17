@@ -7,7 +7,7 @@ use Jeppos\ShopifySDK\Enum\SortOrder;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @see https://help.shopify.com/api/reference/customcollection
+ * @see https://help.shopify.com/en/api/reference/products/customcollection
  */
 class CustomCollection
 {
@@ -19,63 +19,63 @@ class CustomCollection
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $handle;
+    private $handle;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $title;
+    private $title;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $bodyHtml;
+    private $bodyHtml;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $published;
+    private $published;
 
     /**
      * @var null|\DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $publishedAt;
+    private $publishedAt;
 
     /**
      * @var SortOrder
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\SortOrder, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $sortOrder;
+    private $sortOrder;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $templateSuffix;
+    private $templateSuffix;
 
     /**
      * TODO Only when retrieving single collection
@@ -84,32 +84,30 @@ class CustomCollection
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get"})
      */
-    protected $productsCount;
+    private $productsCount;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $publishedScope;
+    private $publishedScope;
 
     /**
      * @var null|CustomCollectionImage
      * @Serializer\Type("Jeppos\ShopifySDK\Model\CustomCollectionImage")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $image;
+    private $image;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\Collect>")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $collects;
+    private $collects;
 
     /**
-     * The unique numeric identifier for the custom collection.
-     *
      * @return int
      */
     public function getId(): int
@@ -129,10 +127,6 @@ class CustomCollection
     }
 
     /**
-     * A human-friendly unique string for the custom collection automatically generated from its title.
-     * This is used in shop themes by the Liquid templating language to refer to the custom collection.
-     * Limit of 255 characters.
-     *
      * @return string
      */
     public function getHandle(): string
@@ -152,8 +146,6 @@ class CustomCollection
     }
 
     /**
-     * The name of the custom collection. Limit of 255 characters.
-     *
      * @return string
      */
     public function getTitle(): string
@@ -173,8 +165,6 @@ class CustomCollection
     }
 
     /**
-     * The date and time when the custom collection was last modified.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
@@ -183,9 +173,6 @@ class CustomCollection
     }
 
     /**
-     * The description of the custom collection, complete with HTML markup.
-     * Many templates display this on their custom collection pages.
-     *
      * @return string
      */
     public function getBodyHtml(): string
@@ -251,10 +238,6 @@ class CustomCollection
     }
 
     /**
-     * The suffix of the liquid template being used.
-     * By default, the original template is called product.liquid, without any suffix.
-     * Any additional templates will be: product.suffix.liquid.
-     *
      * @return null|string
      */
     public function getTemplateSuffix(): ?string
@@ -284,8 +267,6 @@ class CustomCollection
     }
 
     /**
-     * The sales channels in which the custom collection is available.
-     *
      * @return string
      */
     public function getPublishedScope(): string
@@ -305,8 +286,6 @@ class CustomCollection
     }
 
     /**
-     * Image associated with the custom collection.
-     *
      * @return null|CustomCollectionImage
      */
     public function getImage(): ?CustomCollectionImage
@@ -340,6 +319,7 @@ class CustomCollection
 
     /**
      * @param Collect $collect
+     * @throws ArrayCollectionException
      * @return CustomCollection
      */
     public function addCollect(Collect $collect): CustomCollection
@@ -353,6 +333,7 @@ class CustomCollection
 
     /**
      * @param Collect $collect
+     * @throws ArrayCollectionException
      * @return CustomCollection
      */
     public function removeCollect(Collect $collect): CustomCollection

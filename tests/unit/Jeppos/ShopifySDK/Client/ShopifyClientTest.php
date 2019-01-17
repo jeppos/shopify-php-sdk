@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Client;
+namespace Tests\Unit\Jeppos\ShopifySDK\Client;
 
 use GuzzleHttp\{
     Client, Exception\RequestException, Handler\MockHandler, HandlerStack, Psr7\Request, Psr7\Response
@@ -12,6 +12,7 @@ class ShopifyClientTest extends TestCase
 {
     /**
      * @param MockHandler $mock
+     *
      * @return ShopifyClient
      */
     protected function createClient(MockHandler $mock): ShopifyClient
@@ -24,9 +25,10 @@ class ShopifyClientTest extends TestCase
 
     /**
      * @dataProvider methodProvider
+     *
      * @param $callback
      */
-    public function testSuccessfulResponse($callback)
+    public function testSuccessfulResponse($callback): void
     {
         $mock = new MockHandler([
             new Response(200, [], '{"mock":{"field":"value"}}'),
@@ -38,11 +40,12 @@ class ShopifyClientTest extends TestCase
     }
 
     /**
-     * @expectedException Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException
+     * @expectedException \Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException
      * @dataProvider methodProvider
+     *
      * @param $callback
      */
-    public function testInvalidJsonResponse($callback)
+    public function testInvalidJsonResponse($callback): void
     {
         $mock = new MockHandler([
             new Response(200, [], ''),
@@ -54,11 +57,12 @@ class ShopifyClientTest extends TestCase
     }
 
     /**
-     * @expectedException Jeppos\ShopifySDK\Client\ShopifyBadResponseException
+     * @expectedException \Jeppos\ShopifySDK\Client\ShopifyBadResponseException
      * @dataProvider methodProvider
+     *
      * @param $callback
      */
-    public function testUnsuccessfulResponse($callback)
+    public function testUnsuccessfulResponse($callback): void
     {
         $mock = new MockHandler([
             new Response(401, [], 'Unauthorized'),
@@ -70,14 +74,15 @@ class ShopifyClientTest extends TestCase
     }
 
     /**
-     * @expectedException Jeppos\ShopifySDK\Client\ShopifyException
+     * @expectedException \Jeppos\ShopifySDK\Client\ShopifyException
      * @dataProvider methodProvider
+     *
      * @param $callback
      */
-    public function testNonResponse($callback)
+    public function testNonResponse($callback): void
     {
         $mock = new MockHandler([
-            new RequestException("Error Communicating with Server", new Request('GET', 'mock/resource'))
+            new RequestException('Error Communicating with Server', new Request('GET', 'mock/resource')),
         ]);
 
         $sut = $this->createClient($mock);
@@ -85,7 +90,7 @@ class ShopifyClientTest extends TestCase
         $callback($sut);
     }
 
-    public function methodProvider()
+    public function methodProvider(): array
     {
         return [
             [
@@ -106,7 +111,7 @@ class ShopifyClientTest extends TestCase
         ];
     }
 
-    public function testSuccessfulDeleteResponse()
+    public function testSuccessfulDeleteResponse(): void
     {
         $mock = new MockHandler([
             new Response(200),
@@ -120,9 +125,9 @@ class ShopifyClientTest extends TestCase
     }
 
     /**
-     * @expectedException Jeppos\ShopifySDK\Client\ShopifyBadResponseException
+     * @expectedException \Jeppos\ShopifySDK\Client\ShopifyBadResponseException
      */
-    public function testUnsuccessfulDeleteResponse()
+    public function testUnsuccessfulDeleteResponse(): void
     {
         $mock = new MockHandler([
             new Response(401, [], 'Unauthorized'),
@@ -134,12 +139,12 @@ class ShopifyClientTest extends TestCase
     }
 
     /**
-     * @expectedException Jeppos\ShopifySDK\Client\ShopifyException
+     * @expectedException \Jeppos\ShopifySDK\Client\ShopifyException
      */
-    public function testNonDeleteResponse()
+    public function testNonDeleteResponse(): void
     {
         $mock = new MockHandler([
-            new RequestException("Error Communicating with Server", new Request('GET', 'mock/resource'))
+            new RequestException('Error Communicating with Server', new Request('GET', 'mock/resource')),
         ]);
 
         $sut = $this->createClient($mock);

@@ -17,7 +17,6 @@ abstract class AbstractService
     protected $serializer;
 
     /**
-     * AbstractService constructor.
      * @param ShopifyClient $client
      * @param ConfiguredSerializer $serializer
      */

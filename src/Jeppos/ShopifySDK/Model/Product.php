@@ -7,7 +7,7 @@ use Jeppos\ShopifySDK\Enum\PublishedScope;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @see https://help.shopify.com/api/reference/product
+ * @see https://help.shopify.com/en/api/reference/products/product
  */
 class Product
 {
@@ -19,133 +19,133 @@ class Product
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $title;
+    private $title;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $bodyHtml;
+    private $bodyHtml;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $vendor;
+    private $vendor;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $productType;
+    private $productType;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $handle;
+    private $handle;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var null|\DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $publishedAt;
+    private $publishedAt;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $templateSuffix;
+    private $templateSuffix;
 
     /**
      * @var PublishedScope
      * @Serializer\Type("enum<Jeppos\ShopifySDK\Enum\PublishedScope, string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $publishedScope;
+    private $publishedScope;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $tags;
+    private $tags;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductVariant>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $variants;
+    private $variants;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductOption>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $options;
+    private $options;
 
     /**
      * @var ArrayCollection
      * @Serializer\Type("ArrayCollection<Jeppos\ShopifySDK\Model\ProductImage>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $images;
+    private $images;
 
     /**
      * @var ProductImage
      * @Serializer\Type("Jeppos\ShopifySDK\Model\ProductImage")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $image;
+    private $image;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $published;
+    private $published;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $metafieldsGlobalTitleTag;
+    private $metafieldsGlobalTitleTag;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $metafieldsGlobalDescriptionTag;
+    private $metafieldsGlobalDescriptionTag;
 
     /**
      * The unique numeric identifier for the product.
@@ -194,8 +194,6 @@ class Product
     }
 
     /**
-     * The description of the product, complete with HTML formatting.
-     *
      * @return null|string
      */
     public function getBodyHtml(): ?string
@@ -236,8 +234,6 @@ class Product
     }
 
     /**
-     * A categorization that a product can be tagged with, commonly used for filtering and searching.
-     *
      * @return string
      */
     public function getProductType(): string
@@ -267,9 +263,6 @@ class Product
     }
 
     /**
-     * A human-friendly unique string for the Product automatically generated from its title.
-     * They are used by the Liquid templating language to refer to objects.
-     *
      * @return string
      */
     public function getHandle(): string
@@ -299,9 +292,6 @@ class Product
     }
 
     /**
-     * The date and time when the product was published to the Online Store channel.
-     * A value of null indicates that the product is not published to Online Store.
-     *
      * @return null|\DateTime
      */
     public function getPublishedAt(): ?\DateTime
@@ -310,9 +300,6 @@ class Product
     }
 
     /**
-     * The suffix of the liquid template being used. By default, the original template is called product.liquid,
-     * without any suffix. Any additional templates will be: product.suffix.liquid.
-     *
      * @return null|string
      */
     public function getTemplateSuffix(): ?string
@@ -334,8 +321,6 @@ class Product
     }
 
     /**
-     * Indicates whether the product is published to the Point of Sale channel.
-     *
      * @return PublishedScope
      */
     public function getPublishedScope(): PublishedScope
@@ -355,9 +340,6 @@ class Product
     }
 
     /**
-     * A categorization that a product can be tagged with, commonly used for filtering and searching.
-     * Each comma-separated tag has a character limit of 255.
-     *
      * @return string
      */
     public function getTags(): string
@@ -377,13 +359,6 @@ class Product
     }
 
     /**
-     * A list of variant objects, each one representing a slightly different version of the product.
-     * For example, if a product comes in different sizes and colors, each size and color permutation
-     * (such as "small black", "medium black", "large blue"), would be a variant.
-     *
-     * To reorder variants, update the product with the variants in the desired order.
-     * The position attribute on the variant will be ignored.
-     *
      * @return ArrayCollection|ProductVariant[]
      */
     public function getVariants(): ArrayCollection
@@ -404,6 +379,7 @@ class Product
 
     /**
      * @param ProductVariant $variant
+     * @throws ArrayCollectionException
      * @return Product
      */
     public function addVariant(ProductVariant $variant): Product
@@ -417,6 +393,7 @@ class Product
 
     /**
      * @param ProductVariant $variant
+     * @throws ArrayCollectionException
      * @return Product
      */
     public function removeVariant(ProductVariant $variant): Product
@@ -429,10 +406,6 @@ class Product
     }
 
     /**
-     * Custom product property names like "Size", "Color", and "Material".
-     * Products are based on permutations of these options.
-     * A product may have a maximum of 3 options. 255 characters limit each.
-     *
      * @return ArrayCollection|ProductOption[]
      */
     public function getOptions(): ArrayCollection
@@ -453,6 +426,7 @@ class Product
 
     /**
      * @param ProductOption $option
+     * @throws ArrayCollectionException
      * @return Product
      */
     public function addOption(ProductOption $option): Product
@@ -466,6 +440,7 @@ class Product
 
     /**
      * @param ProductOption $option
+     * @throws ArrayCollectionException
      * @return Product
      */
     public function removeOption(ProductOption $option): Product
@@ -478,8 +453,6 @@ class Product
     }
 
     /**
-     * A list of image objects, each one representing an image associated with the product.
-     *
      * @return ArrayCollection|ProductImage[]
      */
     public function getImages(): ArrayCollection
@@ -500,8 +473,8 @@ class Product
 
     /**
      * @param ProductImage $image
-     * @return Product
      * @throws ArrayCollectionException
+     * @return Product
      */
     public function addImage(ProductImage $image): Product
     {
@@ -514,8 +487,8 @@ class Product
 
     /**
      * @param ProductImage $image
-     * @return Product
      * @throws ArrayCollectionException
+     * @return Product
      */
     public function removeImage(ProductImage $image): Product
     {
@@ -554,8 +527,6 @@ class Product
     }
 
     /**
-     * Name of the product used for SEO purposes. Generally added to the <meta name='title'> tag.
-     *
      * @param string $metafieldsGlobalTitleTag
      * @return Product
      */
@@ -567,8 +538,6 @@ class Product
     }
 
     /**
-     * Description of the product used for SEO purposes. Generally added to the <meta name='description'> tag.
-     *
      * @param string $metafieldsGlobalDescriptionTag
      * @return Product
      */

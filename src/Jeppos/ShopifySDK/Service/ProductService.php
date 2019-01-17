@@ -2,26 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\Product;
 
 /**
- * A Product is an individual item for sale in a Shopify store. Products are often physical, but they don't have to be.
- * For example, a digital download (such as a movie, music or ebook file) also qualifies as a product,
- * as do services (such as equipment rental, work for hire, customization of another product or an extended warranty).
- * Simply put: if it's something for sale in a store, then it's a product.
- *
- * A product may have up to 100 product variants and from 0 to 250 product images.
- * A product may also be a part of a custom collection and/or a smart collection.
- *
- * @see https://help.shopify.com/api/reference/product
+ * @see https://help.shopify.com/en/api/reference/products/product
  */
 class ProductService extends AbstractService
 {
     /**
-     * Receive a single Product
+     * @see https://help.shopify.com/en/api/reference/products/product#show
      *
-     * @see https://help.shopify.com/api/reference/product#show
      * @param int $productId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Product
      */
     public function getOne(int $productId): Product
@@ -32,10 +33,15 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Receive a list of all Products
+     * @see https://help.shopify.com/en/api/reference/products/product#index
      *
-     * @see https://help.shopify.com/api/reference/product#index
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Product[]
      */
     public function getList(array $options = []): array
@@ -46,10 +52,15 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Receive a count of all Products
+     * @see https://help.shopify.com/en/api/reference/products/product#count
      *
-     * @see https://help.shopify.com/api/reference/product#count
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(array $options = []): int
@@ -58,10 +69,15 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Create a new Product
+     * @see https://help.shopify.com/en/api/reference/products/product#create
      *
-     * @see https://help.shopify.com/api/reference/product#create
      * @param Product $product
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Product
      */
     public function createOne(Product $product): Product
@@ -72,10 +88,15 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Modify an existing Product
+     * @see https://help.shopify.com/en/api/reference/products/product#update
      *
-     * @see https://help.shopify.com/api/reference/product#update
      * @param Product $product
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Product
      */
     public function updateOne(Product $product): Product
@@ -89,10 +110,14 @@ class ProductService extends AbstractService
     }
 
     /**
-     * Remove a Product from the database
+     * @see https://help.shopify.com/en/api/reference/products/product#destroy
      *
-     * @see https://help.shopify.com/api/reference/product#destroy
      * @param int $productId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $productId): bool

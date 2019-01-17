@@ -1,41 +1,38 @@
 <?php
 
-namespace Tests\Jeppos\ShopifySDK\Service;
+namespace Tests\Unit\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Model\Redirect;
 use Jeppos\ShopifySDK\Service\RedirectService;
 
+/**
+ * @property RedirectService $sut
+ */
 class RedirectServiceTest extends AbstractServiceTest
 {
     /**
-     * @var RedirectService
+     * {@inheritdoc}
      */
-    private $sut;
-
-    protected function setUp()
+    protected function getServiceClass(): string
     {
-        parent::setUp();
-
-        $this->sut = new RedirectService($this->clientMock, $this->serializerMock);
+        return RedirectService::class;
     }
 
-    public function testGetOneRedirectById()
+    public function testGetOneRedirectById(): void
     {
         $response = ['id' => 123];
 
         $this->expectGetReturnsResponse('redirects/123.json', $response);
         $this->expectResponseBeingDeserialized($response, Redirect::class);
 
-        $actual = $this->sut->getOne(123);
-
-        $this->assertInstanceOf(Redirect::class, $actual);
+        $this->sut->getOne(123);
     }
 
-    public function testGetListOfRedirects()
+    public function testGetListOfRedirects(): void
     {
         $response = [
             ['id' => 123],
-            ['id' => 456]
+            ['id' => 456],
         ];
 
         $this->expectGetReturnsResponse('redirects.json', $response);
@@ -46,7 +43,7 @@ class RedirectServiceTest extends AbstractServiceTest
         $this->assertContainsOnlyInstancesOf(Redirect::class, $actual);
     }
 
-    public function testGetRedirectCount()
+    public function testGetRedirectCount(): void
     {
         $this->expectGetReturnsResponse('redirects/count.json', 56);
 
@@ -55,11 +52,12 @@ class RedirectServiceTest extends AbstractServiceTest
         $this->assertSame(56, $actual);
     }
 
-    public function testCreateOneRedirect()
+    public function testCreateOneRedirect(): void
     {
         $redirect = (new Redirect())
             ->setPath('/old')
-            ->setTarget('/new');
+            ->setTarget('/new')
+        ;
 
         $serializedRedirect = '{"redirect":{"path":"/old","target":"/new"}}';
 
@@ -69,17 +67,16 @@ class RedirectServiceTest extends AbstractServiceTest
         $this->expectPostReturnsResponse('redirects.json', $serializedRedirect, $response);
         $this->expectResponseBeingDeserialized($response, Redirect::class);
 
-        $actual = $this->sut->createOne($redirect);
-
-        $this->assertInstanceOf(Redirect::class, $actual);
+        $this->sut->createOne($redirect);
     }
 
-    public function testUpdateOneRedirect()
+    public function testUpdateOneRedirect(): void
     {
         $redirect = (new Redirect())
             ->setId(123)
             ->setPath('/old')
-            ->setTarget('/new-new');
+            ->setTarget('/new-new')
+        ;
 
         $serializedRedirect = '{"redirect":{"id":123,"path":"/old","target":"/new-new"}}';
 
@@ -89,12 +86,10 @@ class RedirectServiceTest extends AbstractServiceTest
         $this->expectPutReturnsResponse('redirects/123.json', $serializedRedirect, $response);
         $this->expectResponseBeingDeserialized($response, Redirect::class);
 
-        $actual = $this->sut->updateOne($redirect);
-
-        $this->assertInstanceOf(Redirect::class, $actual);
+        $this->sut->updateOne($redirect);
     }
 
-    public function testDeleteOneRedirect()
+    public function testDeleteOneRedirect(): void
     {
         $this->expectSuccessfulDeletion('redirects/123.json');
 

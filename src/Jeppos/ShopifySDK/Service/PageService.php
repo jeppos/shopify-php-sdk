@@ -2,15 +2,27 @@
 
 namespace Jeppos\ShopifySDK\Service;
 
+use GuzzleHttp\Exception\GuzzleException;
+use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
+use Jeppos\ShopifySDK\Client\ShopifyException;
+use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
 use Jeppos\ShopifySDK\Model\Page;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/online_store/page
+ */
 class PageService extends AbstractService
 {
     /**
-     * Receive a single Page
+     * @see https://help.shopify.com/en/api/reference/online_store/page#show
      *
-     * @see https://help.shopify.com/api/reference/page#show
      * @param int $pageId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Page
      */
     public function getOne(int $pageId): Page
@@ -21,10 +33,15 @@ class PageService extends AbstractService
     }
 
     /**
-     * Receive a list of all Pages
+     * @see https://help.shopify.com/en/api/reference/online_store/page#index
      *
-     * @see https://help.shopify.com/api/reference/page#index
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Page[]
      */
     public function getList(array $options = []): array
@@ -35,10 +52,15 @@ class PageService extends AbstractService
     }
 
     /**
-     * Receive a count of all Pages
+     * @see https://help.shopify.com/en/api/reference/online_store/page#count
      *
-     * @see https://help.shopify.com/api/reference/page#count
      * @param array $options
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return int
      */
     public function getCount(array $options = []): int
@@ -47,10 +69,15 @@ class PageService extends AbstractService
     }
 
     /**
-     * Create a new Page
+     * @see https://help.shopify.com/en/api/reference/online_store/page#create
      *
-     * @see https://help.shopify.com/api/reference/page#create
      * @param Page $page
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Page
      */
     public function createOne(Page $page): Page
@@ -64,10 +91,15 @@ class PageService extends AbstractService
     }
 
     /**
-     * Modify an existing Page
+     * @see https://help.shopify.com/en/api/reference/online_store/page#update
      *
-     * @see https://help.shopify.com/api/reference/page#update
      * @param Page $page
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     *
      * @return Page
      */
     public function updateOne(Page $page): Page
@@ -81,10 +113,14 @@ class PageService extends AbstractService
     }
 
     /**
-     * Remove a Page from the database
+     * @see https://help.shopify.com/en/api/reference/online_store/page#destroy
      *
-     * @see https://help.shopify.com/api/reference/page#destroy
      * @param int $pageId
+     *
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     *
      * @return bool
      */
     public function deleteOne(int $pageId): bool

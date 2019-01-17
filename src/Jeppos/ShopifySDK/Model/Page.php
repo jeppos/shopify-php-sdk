@@ -4,6 +4,9 @@ namespace Jeppos\ShopifySDK\Model;
 
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/online_store/page
+ */
 class Page
 {
     use ArrayCollectionValidatorTrait;
@@ -14,77 +17,77 @@ class Page
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $title;
+    private $title;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $handle;
+    private $handle;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $createdAt;
+    private $createdAt;
 
     /**
      * @var \DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $updatedAt;
+    private $updatedAt;
 
     /**
      * @var null|\DateTime
      * @Serializer\Type("DateTime")
      * @Serializer\Groups({"get"})
      */
-    protected $publishedAt;
+    private $publishedAt;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $bodyHtml;
+    private $bodyHtml;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $author;
+    private $author;
 
     /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $templateSuffix;
+    private $templateSuffix;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $shopId;
+    private $shopId;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"post", "put"})
      */
-    protected $published;
+    private $published;
 
     /**
      * @return int
@@ -162,7 +165,7 @@ class Page
     /**
      * @return \DateTime|null
      */
-    public function getPublishedAt()
+    public function getPublishedAt(): ?\DateTime
     {
         return $this->publishedAt;
     }

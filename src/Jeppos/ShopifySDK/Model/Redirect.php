@@ -4,6 +4,9 @@ namespace Jeppos\ShopifySDK\Model;
 
 use JMS\Serializer\Annotation as Serializer;
 
+/**
+ * @see https://help.shopify.com/en/api/reference/online_store/redirect
+ */
 class Redirect
 {
     /**
@@ -11,19 +14,19 @@ class Redirect
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $path;
+    private $path;
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $target;
+    private $target;
 
     /**
      * @return int

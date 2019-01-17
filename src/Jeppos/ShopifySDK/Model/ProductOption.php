@@ -11,35 +11,35 @@ class ProductOption
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "put"})
      */
-    protected $id;
+    private $id;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $productId;
+    private $productId;
 
     /**
      * @var string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $name;
+    private $name;
 
     /**
      * @var int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $position;
+    private $position;
 
     /**
      * @var string[]
      * @Serializer\Type("array<string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
-    protected $values;
+    private $values;
 
     /**
      * @return int
