@@ -93,6 +93,13 @@ class ProductVariant
     private $inventoryManagement;
 
     /**
+     * @var int
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"get", "post", "put"})
+     */
+    private $inventoryItemId;
+
+    /**
      * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
@@ -149,13 +156,6 @@ class ProductVariant
     private $imageId;
 
     /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"get", "post", "put"})
-     */
-    private $inventoryQuantity;
-
-    /**
      * @var float
      * @Serializer\Type("float")
      * @Serializer\Groups({"get", "post", "put"})
@@ -170,25 +170,11 @@ class ProductVariant
     private $weightUnit;
 
     /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"get", "post", "put"})
-     */
-    private $oldInventoryQuantity;
-
-    /**
      * @var bool
      * @Serializer\Type("boolean")
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $requiresShipping;
-
-    /**
-     * @var int
-     * @Serializer\Type("integer")
-     * @Serializer\Groups({"put"})
-     */
-    private $inventoryQuantityAdjustment;
 
     /**
      * The unique numeric identifier for the product variant.
@@ -406,6 +392,24 @@ class ProductVariant
     }
 
     /**
+     * @return int
+     */
+    public function getInventoryItemId(): int
+    {
+        return $this->inventoryItemId;
+    }
+
+    /**
+     * @param int $inventoryItemId
+     * @return ProductVariant
+     */
+    public function setInventoryItemId(int $inventoryItemId): ProductVariant
+    {
+        $this->inventoryItemId = $inventoryItemId;
+        return $this;
+    }
+
+    /**
      * @return null|string
      */
     public function getOption1(): ?string
@@ -542,25 +546,6 @@ class ProductVariant
     }
 
     /**
-     * @return int
-     */
-    public function getInventoryQuantity(): int
-    {
-        return $this->inventoryQuantity;
-    }
-
-    /**
-     * @param int $inventoryQuantity
-     * @return ProductVariant
-     */
-    public function setInventoryQuantity(int $inventoryQuantity): ProductVariant
-    {
-        $this->inventoryQuantity = $inventoryQuantity;
-
-        return $this;
-    }
-
-    /**
      * @return float
      */
     public function getWeight(): float
@@ -594,25 +579,6 @@ class ProductVariant
     public function setWeightUnit(WeightUnit $weightUnit): ProductVariant
     {
         $this->weightUnit = $weightUnit;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getOldInventoryQuantity(): int
-    {
-        return $this->oldInventoryQuantity;
-    }
-
-    /**
-     * @param int $oldInventoryQuantity
-     * @return ProductVariant
-     */
-    public function setOldInventoryQuantity(int $oldInventoryQuantity): ProductVariant
-    {
-        $this->oldInventoryQuantity = $oldInventoryQuantity;
 
         return $this;
     }
