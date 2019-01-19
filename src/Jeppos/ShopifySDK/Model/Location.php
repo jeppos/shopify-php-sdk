@@ -12,63 +12,63 @@ class Location
     /**
      * @var int
      * @Serializer\Type("integer")
-     * @Serializer\Groups({"get", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $id;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $name;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $address1;
 
     /**
-     * @var string|null
+     * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $address2;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $zip;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $city;
 
     /**
-     * @var string|null
+     * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $province;
 
     /**
      * @var string|null
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $provinceCode;
 
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $country;
 
@@ -82,28 +82,28 @@ class Location
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $countryCode;
 
     /**
-     * @var string|null
+     * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $phone;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $active;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get"})
      */
     private $legacy;
 
@@ -130,31 +130,11 @@ class Location
     }
 
     /**
-     * @param int $id
-     * @return Location
-     */
-    public function setId(int $id): Location
-    {
-        $this->id = $id;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getName(): string
     {
         return $this->name;
-    }
-
-    /**
-     * @param string $name
-     * @return Location
-     */
-    public function setName(string $name): Location
-    {
-        $this->name = $name;
-        return $this;
     }
 
     /**
@@ -166,31 +146,11 @@ class Location
     }
 
     /**
-     * @param null|string $address1
-     * @return Location
+     * @return string
      */
-    public function setAddress1(?string $address1): Location
-    {
-        $this->address1 = $address1;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getAddress2(): ?string
+    public function getAddress2(): string
     {
         return $this->address2;
-    }
-
-    /**
-     * @param null|string $address2
-     * @return Location
-     */
-    public function setAddress2(?string $address2): Location
-    {
-        $this->address2 = $address2;
-        return $this;
     }
 
     /**
@@ -202,16 +162,6 @@ class Location
     }
 
     /**
-     * @param null|string $zip
-     * @return Location
-     */
-    public function setZip(?string $zip): Location
-    {
-        $this->zip = $zip;
-        return $this;
-    }
-
-    /**
      * @return null|string
      */
     public function getCity(): ?string
@@ -220,31 +170,11 @@ class Location
     }
 
     /**
-     * @param null|string $city
-     * @return Location
+     * @return string
      */
-    public function setCity(?string $city): Location
-    {
-        $this->city = $city;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getProvince(): ?string
+    public function getProvince(): string
     {
         return $this->province;
-    }
-
-    /**
-     * @param null|string $province
-     * @return Location
-     */
-    public function setProvince(?string $province): Location
-    {
-        $this->province = $province;
-        return $this;
     }
 
     /**
@@ -256,31 +186,11 @@ class Location
     }
 
     /**
-     * @param null|string $provinceCode
-     * @return Location
-     */
-    public function setProvinceCode(?string $provinceCode): Location
-    {
-        $this->provinceCode = $provinceCode;
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getCountry(): string
     {
         return $this->country;
-    }
-
-    /**
-     * @param string $country
-     * @return Location
-     */
-    public function setCountry(string $country): Location
-    {
-        $this->country = $country;
-        return $this;
     }
 
     /**
@@ -300,31 +210,11 @@ class Location
     }
 
     /**
-     * @param string $countryCode
-     * @return Location
+     * @return string
      */
-    public function setCountryCode(string $countryCode): Location
-    {
-        $this->countryCode = $countryCode;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getPhone(): ?string
+    public function getPhone(): string
     {
         return $this->phone;
-    }
-
-    /**
-     * @param null|string $phone
-     * @return Location
-     */
-    public function setPhone(?string $phone): Location
-    {
-        $this->phone = $phone;
-        return $this;
     }
 
     /**
@@ -336,31 +226,11 @@ class Location
     }
 
     /**
-     * @param bool $active
-     * @return Location
-     */
-    public function setActive(bool $active): Location
-    {
-        $this->active = $active;
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function isLegacy(): bool
     {
         return $this->legacy;
-    }
-
-    /**
-     * @param bool $legacy
-     * @return Location
-     */
-    public function setLegacy(bool $legacy): Location
-    {
-        $this->legacy = $legacy;
-        return $this;
     }
 
     /**

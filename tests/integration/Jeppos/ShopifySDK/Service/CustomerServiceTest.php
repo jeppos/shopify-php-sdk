@@ -2,36 +2,17 @@
 
 namespace Tests\Integration\Jeppos\ShopifySDK\Service;
 
-use Faker\Factory as FakerFactory;
-use Faker\Generator;
 use Jeppos\ShopifySDK\Enum\CustomerState;
 use Jeppos\ShopifySDK\Model\Customer;
-use Jeppos\ShopifySDK\ShopifySDK;
-use PHPUnit\Framework\TestCase;
 
-\Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
-
-class CustomerServiceTest extends TestCase
+final class CustomerServiceTest extends AbstractServiceTest
 {
-    /** @var ShopifySDK */
-    private $shopifySDK;
-
     /** @var int */
     private $customerId;
 
-    /** @var Generator */
-    private $faker;
-
     protected function setUp()
     {
-        $this->shopifySDK = new ShopifySDK();
-        $this->shopifySDK
-            ->setStoreUrl('php-sdk-test.myshopify.com')
-            ->setUsername(getenv('SHOPIFY_API_KEY'))
-            ->setPassword(getenv('SHOPIFY_PASS'))
-        ;
-
-        $this->faker = FakerFactory::create('sv_SE');
+        parent::setUp();
 
         $customer = (new Customer())
             ->setFirstName($this->faker->firstName)

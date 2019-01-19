@@ -10,6 +10,9 @@ use Jeppos\ShopifySDK\Service\CollectService;
 use Jeppos\ShopifySDK\Service\CustomCollectionService;
 use Jeppos\ShopifySDK\Service\CustomerAddressService;
 use Jeppos\ShopifySDK\Service\CustomerService;
+use Jeppos\ShopifySDK\Service\InventoryItemService;
+use Jeppos\ShopifySDK\Service\InventoryLevelService;
+use Jeppos\ShopifySDK\Service\LocationService;
 use Jeppos\ShopifySDK\Service\MetafieldService;
 use Jeppos\ShopifySDK\Service\PageService;
 use Jeppos\ShopifySDK\Service\ProductImageService;
@@ -28,6 +31,9 @@ use Jeppos\ShopifySDK\Service\RedirectService;
  * @property-read PageService $pages
  * @property-read CustomerService $customers
  * @property-read CustomerAddressService $customerAddresses
+ * @property-read LocationService $locations
+ * @property-read InventoryItemService $inventoryItems
+ * @property-read InventoryLevelService $inventoryLevels
  */
 class ShopifySDK
 {
