@@ -19,21 +19,21 @@ class InventoryItem
     /**
      * @var string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get", "put"})
      */
     private $sku;
 
     /**
-     * @var string
+     * @var null|string
      * @Serializer\Type("string")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get", "put"})
      */
     private $cost;
 
     /**
      * @var bool
      * @Serializer\Type("boolean")
-     * @Serializer\Groups({"get", "post", "put"})
+     * @Serializer\Groups({"get", "put"})
      */
     private $tracked;
 
@@ -88,18 +88,18 @@ class InventoryItem
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCost(): string
+    public function getCost(): ?string
     {
         return $this->cost;
     }
 
     /**
-     * @param string $cost
+     * @param null|string $cost
      * @return InventoryItem
      */
-    public function setCost(string $cost): InventoryItem
+    public function setCost(?string $cost): InventoryItem
     {
         $this->cost = $cost;
         return $this;
