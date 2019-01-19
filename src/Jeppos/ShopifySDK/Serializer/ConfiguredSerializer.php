@@ -1,9 +1,10 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Jeppos\ShopifySDK\Serializer;
 
 use Consistence\JmsSerializer\Enum\EnumSerializerHandler;
 use Jeppos\ShopifySDK\EventSubscriber\CustomerSubscriber;
+use Jeppos\ShopifySDK\EventSubscriber\InventoryItemSubscriber;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Handler\HandlerRegistry;
@@ -31,6 +32,7 @@ class ConfiguredSerializer
                 })
                 ->configureListeners(function (EventDispatcher $dispatcher) {
                     $dispatcher->addSubscriber(new CustomerSubscriber());
+                    $dispatcher->addSubscriber(new InventoryItemSubscriber());
                 })
                 ->build()
             ;
