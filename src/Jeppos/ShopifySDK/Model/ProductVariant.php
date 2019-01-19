@@ -142,14 +142,14 @@ class ProductVariant
     private $taxable;
 
     /**
-     * @var string
+     * @var null|string
      * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $barcode;
 
     /**
-     * @var int
+     * @var null|int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "post", "put"})
      */
@@ -177,8 +177,6 @@ class ProductVariant
     private $requiresShipping;
 
     /**
-     * The unique numeric identifier for the product variant.
-     *
      * @return int
      */
     public function getId(): int
@@ -339,8 +337,6 @@ class ProductVariant
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param null|float $compareAtPrice
      * @return ProductVariant
      */
@@ -379,8 +375,6 @@ class ProductVariant
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param InventoryManagement $inventoryManagement
      * @return ProductVariant
      */
@@ -418,8 +412,6 @@ class ProductVariant
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param null|string $option1
      * @return ProductVariant
      */
@@ -439,8 +431,6 @@ class ProductVariant
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param null|string $option2
      * @return ProductVariant
      */
@@ -460,8 +450,6 @@ class ProductVariant
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param null|string $option3
      * @return ProductVariant
      */
@@ -508,18 +496,18 @@ class ProductVariant
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getBarcode(): string
+    public function getBarcode(): ?string
     {
         return $this->barcode;
     }
 
     /**
-     * @param string $barcode
+     * @param null|string $barcode
      * @return ProductVariant
      */
-    public function setBarcode(string $barcode): ProductVariant
+    public function setBarcode(?string $barcode): ProductVariant
     {
         $this->barcode = $barcode;
 
@@ -527,9 +515,9 @@ class ProductVariant
     }
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getImageId(): int
+    public function getImageId(): ?int
     {
         return $this->imageId;
     }
@@ -598,17 +586,6 @@ class ProductVariant
     public function setRequiresShipping(bool $requiresShipping): ProductVariant
     {
         $this->requiresShipping = $requiresShipping;
-
-        return $this;
-    }
-
-    /**
-     * @param int $inventoryQuantityAdjustment
-     * @return ProductVariant
-     */
-    public function setInventoryQuantityAdjustment(int $inventoryQuantityAdjustment): ProductVariant
-    {
-        $this->inventoryQuantityAdjustment = $inventoryQuantityAdjustment;
 
         return $this;
     }

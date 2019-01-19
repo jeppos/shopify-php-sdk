@@ -120,7 +120,7 @@ class Product
     private $images;
 
     /**
-     * @var ProductImage
+     * @var null|ProductImage
      * @Serializer\Type("Jeppos\ShopifySDK\Model\ProductImage")
      * @Serializer\Groups({"get", "post", "put"})
      */
@@ -148,10 +148,6 @@ class Product
     private $metafieldsGlobalDescriptionTag;
 
     /**
-     * The unique numeric identifier for the product.
-     * Product ids are unique across the entire Shopify system;
-     * no two products will have the same id, even if they're from different shops.
-     *
      * @return int
      */
     public function getId(): int
@@ -171,10 +167,6 @@ class Product
     }
 
     /**
-     * The name of the product.
-     * In a shop's catalog, clicking on a product's title takes you to that product's page.
-     * On a product's page, the product's title typically appears in a large font.
-     *
      * @return string
      */
     public function getTitle(): string
@@ -213,8 +205,6 @@ class Product
     }
 
     /**
-     * The name of the vendor of the product.
-     *
      * @return string
      */
     public function getVendor(): string
@@ -253,8 +243,6 @@ class Product
     }
 
     /**
-     * The date and time when the product was created.
-     *
      * @return \DateTime
      */
     public function getCreatedAt(): \DateTime
@@ -282,8 +270,6 @@ class Product
     }
 
     /**
-     * The date and time when the product was last modified.
-     *
      * @return \DateTime
      */
     public function getUpdatedAt(): \DateTime
@@ -308,8 +294,6 @@ class Product
     }
 
     /**
-     * TODO Due to current serialization configuration it's not possible to set this to null.
-     *
      * @param null|string $templateSuffix
      * @return Product
      */
@@ -500,9 +484,9 @@ class Product
     }
 
     /**
-     * @return ProductImage
+     * @return null|ProductImage
      */
-    public function getImage(): ProductImage
+    public function getImage(): ?ProductImage
     {
         return $this->image;
     }

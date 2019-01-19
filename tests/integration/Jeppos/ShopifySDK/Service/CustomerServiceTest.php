@@ -1,10 +1,11 @@
 <?php declare(strict_types=1);
+
 namespace Tests\Integration\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Enum\CustomerState;
 use Jeppos\ShopifySDK\Model\Customer;
 
-final class CustomerServiceTest extends AbstractServiceTest
+class CustomerServiceTest extends AbstractServiceTest
 {
     /** @var int */
     private $customerId;

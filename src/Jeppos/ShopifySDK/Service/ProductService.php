@@ -17,13 +17,11 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#show
      *
      * @param int $productId
-     *
+     * @return Product
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
-     *
-     * @return Product
      */
     public function getOne(int $productId): Product
     {
@@ -36,13 +34,11 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#index
      *
      * @param array $options
-     *
+     * @return Product[]
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
-     *
-     * @return Product[]
      */
     public function getList(array $options = []): array
     {
@@ -55,13 +51,11 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#count
      *
      * @param array $options
-     *
+     * @return int
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
-     *
-     * @return int
      */
     public function getCount(array $options = []): int
     {
@@ -72,13 +66,11 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#create
      *
      * @param Product $product
-     *
+     * @return Product
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
-     *
-     * @return Product
      */
     public function createOne(Product $product): Product
     {
@@ -91,13 +83,11 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#update
      *
      * @param Product $product
-     *
+     * @return Product
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
      * @throws ShopifyInvalidResponseException
-     *
-     * @return Product
      */
     public function updateOne(Product $product): Product
     {
@@ -113,12 +103,10 @@ class ProductService extends AbstractService
      * @see https://help.shopify.com/en/api/reference/products/product#destroy
      *
      * @param int $productId
-     *
+     * @return bool
      * @throws GuzzleException
      * @throws ShopifyBadResponseException
      * @throws ShopifyException
-     *
-     * @return bool
      */
     public function deleteOne(int $productId): bool
     {

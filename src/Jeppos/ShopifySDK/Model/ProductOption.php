@@ -2,6 +2,7 @@
 
 namespace Jeppos\ShopifySDK\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as Serializer;
 
 class ProductOption
@@ -35,8 +36,8 @@ class ProductOption
     private $position;
 
     /**
-     * @var string[]
-     * @Serializer\Type("array<string>")
+     * @var ArrayCollection
+     * @Serializer\Type("ArrayCollection<string>")
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $values;
@@ -118,18 +119,18 @@ class ProductOption
     }
 
     /**
-     * @return string[]
+     * @return ArrayCollection|string[]
      */
-    public function getValues(): array
+    public function getValues(): ArrayCollection
     {
         return $this->values;
     }
 
     /**
-     * @param string[] $values
+     * @param ArrayCollection $values
      * @return ProductOption
      */
-    public function setValues(array $values): ProductOption
+    public function setValues(ArrayCollection $values): ProductOption
     {
         $this->values = $values;
 
