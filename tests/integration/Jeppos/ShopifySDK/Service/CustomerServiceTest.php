@@ -1,5 +1,4 @@
-<?php
-
+<?php declare(strict_types=1);
 namespace Tests\Integration\Jeppos\ShopifySDK\Service;
 
 use Jeppos\ShopifySDK\Enum\CustomerState;
