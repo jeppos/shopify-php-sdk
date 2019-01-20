@@ -25,7 +25,7 @@ class ConfiguredSerializerTest extends TestCase
         $this->sut = new ConfiguredSerializer($this->serializerMock);
     }
 
-    public function testDeserialization()
+    public function testDeserialization(): void
     {
         $array = [
             'foo' => 'bar',
@@ -48,7 +48,7 @@ class ConfiguredSerializerTest extends TestCase
         $this->assertEquals($object, $actual);
     }
 
-    public function testListDeserialization()
+    public function testListDeserialization(): void
     {
         $listArray = [
             ['foo' => 'lorem'],
@@ -79,7 +79,7 @@ class ConfiguredSerializerTest extends TestCase
 
     }
 
-    public function testSerialization()
+    public function testSerialization(): void
     {
         $object = new class
         {
@@ -98,5 +98,26 @@ class ConfiguredSerializerTest extends TestCase
         $actual = $this->sut->serialize($object, 'foo', ['bar']);
 
         $this->assertEquals('{"foo":' . $json . '}', $actual);
+    }
+
+    public function testSerializationWithoutKey(): void
+    {
+        $object = new class
+        {
+            protected $field = 'value';
+        };
+
+        $json = '{"field":"value"}';
+
+        $this->serializerMock
+            ->expects($this->once())
+            ->method('serialize')
+            ->with($object, 'json')
+            ->willReturn($json)
+        ;
+
+        $actual = $this->sut->serialize($object, null, ['bar']);
+
+        $this->assertEquals($json, $actual);
     }
 }

@@ -24,7 +24,7 @@ class InventoryLevel
     private $locationId;
 
     /**
-     * @var int
+     * @var null|int
      * @Serializer\Type("integer")
      * @Serializer\Groups({"get", "set"})
      */
@@ -95,18 +95,18 @@ class InventoryLevel
     }
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getAvailable(): int
+    public function getAvailable(): ?int
     {
         return $this->available;
     }
 
     /**
-     * @param int $available
+     * @param null|int $available
      * @return InventoryLevel
      */
-    public function setAvailable(int $available): InventoryLevel
+    public function setAvailable(?int $available): InventoryLevel
     {
         $this->available = $available;
         return $this;

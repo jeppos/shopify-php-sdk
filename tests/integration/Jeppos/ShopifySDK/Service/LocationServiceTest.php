@@ -4,9 +4,12 @@ namespace Tests\Integration\Jeppos\ShopifySDK\Service;
 
 class LocationServiceTest extends AbstractServiceTest
 {
+    public const DEFAULT_LOCATION_ID = 16406315075;
+    public const SECONDARY_LOCATION_ID = 20862566467;
+
     public function testDefaultValues(): void
     {
-        $location = $this->shopifySDK->locations->getOne(16406315075);
+        $location = $this->shopifySDK->locations->getOne(self::DEFAULT_LOCATION_ID);
 
         $this->assertSame('Jeppos AB', $location->getName());
         $this->assertSame('Box 259', $location->getAddress1());

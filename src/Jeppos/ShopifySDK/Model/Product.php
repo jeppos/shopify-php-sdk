@@ -363,8 +363,8 @@ class Product
 
     /**
      * @param ProductVariant $variant
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function addVariant(ProductVariant $variant): Product
     {
@@ -377,8 +377,8 @@ class Product
 
     /**
      * @param ProductVariant $variant
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function removeVariant(ProductVariant $variant): Product
     {
@@ -410,8 +410,8 @@ class Product
 
     /**
      * @param ProductOption $option
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function addOption(ProductOption $option): Product
     {
@@ -424,8 +424,8 @@ class Product
 
     /**
      * @param ProductOption $option
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function removeOption(ProductOption $option): Product
     {
@@ -457,8 +457,8 @@ class Product
 
     /**
      * @param ProductImage $image
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function addImage(ProductImage $image): Product
     {
@@ -471,8 +471,8 @@ class Product
 
     /**
      * @param ProductImage $image
-     * @throws ArrayCollectionException
      * @return Product
+     * @throws ArrayCollectionException
      */
     public function removeImage(ProductImage $image): Product
     {

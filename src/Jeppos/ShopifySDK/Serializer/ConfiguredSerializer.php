@@ -76,17 +76,21 @@ class ConfiguredSerializer
 
     /**
      * @param $object
-     * @param string $key
+     * @param null|string $key
      * @param array $groups
      *
      * @return string
      */
-    public function serialize($object, string $key, array $groups): string
+    public function serialize($object, ?string $key, array $groups): string
     {
         $serializationContent = SerializationContext::create();
         $serializationContent->setGroups($groups);
 
         $serializedObject = $this->serializer->serialize($object, 'json', $serializationContent);
+
+        if ($key === null) {
+            return $serializedObject;
+        }
 
         return '{"' . $key . '":' . $serializedObject . '}';
     }
