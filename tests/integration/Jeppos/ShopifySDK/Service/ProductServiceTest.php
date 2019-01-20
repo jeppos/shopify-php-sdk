@@ -34,13 +34,13 @@ class ProductServiceTest extends AbstractServiceTest
     {
         $product = $this->shopifySDK->products->getOne($this->productId);
 
-        $this->assertNull($product->getBodyHtml());
         $this->assertSame('php-sdk-test', $product->getVendor());
         $this->assertSame('', $product->getProductType());
-        $this->assertNull($product->getTemplateSuffix());
         $this->assertSame('', $product->getTags());
         $this->assertSame(PublishedScope::get(PublishedScope::WEB), $product->getPublishedScope());
         $this->assertCount(0, $product->getImages());
+        $this->assertNull($product->getBodyHtml());
+        $this->assertNull($product->getTemplateSuffix());
         $this->assertNull($product->getImage());
 
         /** @var ProductOption $option */
@@ -55,22 +55,22 @@ class ProductServiceTest extends AbstractServiceTest
         /** @var ProductVariant $variant */
         $variant = $product->getVariants()->first();
         $this->assertSame('Default Title', $variant->getTitle());
-        $this->assertSame(0.0, $variant->getPrice());
+        $this->assertSame('0.00', $variant->getPrice());
         $this->assertSame('', $variant->getSku());
         $this->assertSame(1, $variant->getPosition());
         $this->assertSame(0, $variant->getGrams());
         $this->assertSame(InventoryPolicy::get(InventoryPolicy::DENY), $variant->getInventoryPolicy());
-        $this->assertNull($variant->getCompareAtPrice());
         $this->assertSame('manual', $variant->getFulfillmentService());
-        $this->assertNull($variant->getInventoryManagement());
         $this->assertSame('Default Title', $variant->getOption1());
-        $this->assertNull($variant->getOption2());
-        $this->assertNull($variant->getOption3());
-        $this->assertTrue($variant->isTaxable());
-        $this->assertNull($variant->getBarcode());
-        $this->assertNull($variant->getImageId());
         $this->assertSame(0.0, $variant->getWeight());
         $this->assertSame(WeightUnit::get(WeightUnit::KG), $variant->getWeightUnit());
+        $this->assertTrue($variant->isTaxable());
         $this->assertTrue($variant->isRequiresShipping());
+        $this->assertNull($variant->getCompareAtPrice());
+        $this->assertNull($variant->getInventoryManagement());
+        $this->assertNull($variant->getOption2());
+        $this->assertNull($variant->getOption3());
+        $this->assertNull($variant->getBarcode());
+        $this->assertNull($variant->getImageId());
     }
 }

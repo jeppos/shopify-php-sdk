@@ -37,8 +37,8 @@ class ProductVariant
     private $title;
 
     /**
-     * @var float
-     * @Serializer\Type("float")
+     * @var string
+     * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $price;
@@ -72,8 +72,8 @@ class ProductVariant
     private $inventoryPolicy;
 
     /**
-     * @var null|float
-     * @Serializer\Type("float")
+     * @var null|string
+     * @Serializer\Type("string")
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $compareAtPrice;
@@ -98,6 +98,13 @@ class ProductVariant
      * @Serializer\Groups({"get", "post", "put"})
      */
     private $inventoryItemId;
+
+    /**
+     * @var int
+     * @Serializer\Type("integer")
+     * @Serializer\Groups({"get"})
+     */
+    private $inventoryQuantity;
 
     /**
      * @var null|string
@@ -234,18 +241,18 @@ class ProductVariant
     }
 
     /**
-     * @return float
+     * @return string
      */
-    public function getPrice(): float
+    public function getPrice(): string
     {
         return $this->price;
     }
 
     /**
-     * @param float $price
+     * @param string $price
      * @return ProductVariant
      */
-    public function setPrice(float $price): ProductVariant
+    public function setPrice(string $price): ProductVariant
     {
         $this->price = $price;
 
@@ -329,18 +336,18 @@ class ProductVariant
     }
 
     /**
-     * @return null|float
+     * @return null|string
      */
-    public function getCompareAtPrice(): ?float
+    public function getCompareAtPrice(): ?string
     {
         return $this->compareAtPrice;
     }
 
     /**
-     * @param null|float $compareAtPrice
+     * @param null|string $compareAtPrice
      * @return ProductVariant
      */
-    public function setCompareAtPrice(?float $compareAtPrice): ProductVariant
+    public function setCompareAtPrice(?string $compareAtPrice): ProductVariant
     {
         $this->compareAtPrice = $compareAtPrice;
 
@@ -401,6 +408,14 @@ class ProductVariant
     {
         $this->inventoryItemId = $inventoryItemId;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getInventoryQuantity(): int
+    {
+        return $this->inventoryQuantity;
     }
 
     /**
