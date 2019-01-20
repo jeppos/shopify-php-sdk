@@ -30,6 +30,6 @@ class LocationServiceTest extends AbstractServiceTest
     {
         $locationCount = $this->shopifySDK->locations->getCount();
 
-        $this->assertSame(1, $locationCount);
+        $this->assertSame(2, $locationCount);
     }
 }
