@@ -6,6 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Jeppos\ShopifySDK\Client\ShopifyBadResponseException;
 use Jeppos\ShopifySDK\Client\ShopifyException;
 use Jeppos\ShopifySDK\Client\ShopifyInvalidResponseException;
+use Jeppos\ShopifySDK\Model\Metafield;
 use Jeppos\ShopifySDK\Model\ProductVariant;
 
 /**
@@ -129,5 +130,21 @@ class ProductVariantService extends AbstractService
     public function deleteOne(int $productId, int $variantId): bool
     {
         return $this->client->delete(sprintf('products/%d/variants/%s.json', $productId, $variantId));
+    }
+
+    /**
+     * @param int $productId
+     * @param int $variantId
+     * @return Metafield[]
+     * @throws GuzzleException
+     * @throws ShopifyBadResponseException
+     * @throws ShopifyException
+     * @throws ShopifyInvalidResponseException
+     */
+    public function getMetafields(int $productId, int $variantId): array
+    {
+        $response = $this->client->get(sprintf('products/%d/variants/%d/metafields.json', $productId, $variantId));
+
+        return $this->serializer->deserializeList($response, Metafield::class);
     }
 }

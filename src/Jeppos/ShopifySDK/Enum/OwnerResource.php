@@ -15,6 +15,7 @@ class OwnerResource extends Enum
     public const PAGE = 'page';
     public const PRODUCT = 'product';
     public const PRODUCT_VARIANT = 'product_variant';
+    public const VARIANT = 'variant';
     public const SHOP = 'shop';
     public const SMART_COLLECTION = 'smart_collection';
 }
